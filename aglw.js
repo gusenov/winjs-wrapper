@@ -1,3 +1,4 @@
+/*jslint nomen: true */
 /*global WinJS */
 
 var AGLibWinJS = (function () {
@@ -144,6 +145,50 @@ var AGLibWinJS = (function () {
      */
     AGLibWinJS.raiseEvent = function (control, type, eventProperties) {
         return control.dispatchEvent(type, eventProperties);
+    };
+    
+    
+    
+    
+    /**
+     * This function is used to add binding management functionality, 
+     * in which developers can bind a user-defined object to a control that is capable of notifying listeners when the value of a property changes.
+     * This is helpful for wiring up two-way data binding, 
+     * something that WinJS doesn’t do itself, but isn’t too hard to pull together. 
+     * @class
+     * @memberof AGLibWinJS
+     * @param {} data - Just a plain object (and not a Date, Array, or nonobject).
+     * @param {} constructor
+     */
+    AGLibWinJS.ObservableProxy = WinJS.Class.mix(function (data, constructor) {
+        var self = this;
+
+        self._initObservable(data);
+
+        // The Object.defineProperties() method defines new or modifies existing properties directly on an object, 
+        // returning the object.
+        // WinJS.Binding.expandProperties function wraps the specified object so that all its properties are instrumented for binding. 
+        // This is meant to be used in conjunction with the binding mixin.
+        Object.defineProperties(this, WinJS.Binding.expandProperties(data));
+
+        constructor(self);
+        
+    }, WinJS.Binding.dynamicObservableMixin);
+
+
+
+
+    /**
+     * Wait until all the controls are created and parsed in the document.
+     * @memberof AGLibWinJS
+     * @method
+     * @param {function} onComplete - The function to be called if the promise is fulfilled successfully with a value.
+     * @param {function} onError - The function to be called if the promise is fulfilled with an error.
+     * @param {function} onProgress - The function to be called if the promise reports progress.
+     * @returns {Boolean} true if preventDefault was called on the event.
+     */
+    AGLibWinJS.waitUntilAllControlsAreCreated = function (onComplete, onError, onProgress) {
+        WinJS.UI.processAll().done(onComplete, onError, onProgress);
     };
     
     return AGLibWinJS;
