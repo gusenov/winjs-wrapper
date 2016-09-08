@@ -191,5 +191,33 @@ var AGLibWinJS = (function () {
         WinJS.UI.processAll().done(onComplete, onError, onProgress);
     };
     
+    /**
+     *
+     * @param {Function} callback - A function that executes after the DOMContentLoaded event has occurred.
+     * @param {} async - If true, the callback should be executed asynchronously.
+     * @returns {Promise} A promise that completes after the DOMContentLoaded event has occurred.
+     */
+    AGLibWinJS.onAppActivated = function (callback, async) {
+        WinJS.Utilities.ready(function () {
+            callback();
+        }, async);
+    };
+    
+    
+    
+    
+    /**
+     * This function wraps the calls made to the XMLHttpRequest in a promise.
+     */
+    AGLibWinJS.connectToUrl = function (url, completed, error) {
+        return WinJS.xhr({
+            url: url
+        }).then(function (result) {
+            completed(result, result.status);
+        }, function (e) {
+            error(e);
+        });
+    };
+    
     return AGLibWinJS;
 }());
