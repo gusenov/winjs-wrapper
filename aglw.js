@@ -219,5 +219,37 @@ var AGLibWinJS = (function () {
         });
     };
     
+    
+    
+    
+    /**
+     * Get the control from the HTML page’s DOM element.
+     */
+    AGLibWinJS.getControl = function (id, onComplete, onError, onProgress) {
+        WinJS.UI.processAll().done(function () {
+            var control = document.getElementById(id).winControl;
+            onComplete(control);
+        }, onError, onProgress);
+    };
+
+    /**
+     * Create a new instance of the WinJS.UI.Rating JavaScript class.
+     * @param {} [ratingDivId=rating] - The rating div element's id attribute value.
+     * @param {} [maxRating=4] - The Rating control’s maximum ratings.
+     * @param {} [enableClear=false] - If the enableClear property is set to true, then the user can slide to the left of the control to clear the rating value.
+     * @param {} [userRating=2] - 
+     * @returns A reference to the Rating Control on a page.
+     */
+    AGLibWinJS.newRatingControl = function (ratingDivId, maxRating, enableClear, userRating) {
+        var ratingDiv = document.getElementById(typeof ratingDivId !== 'undefined' ? ratingDivId : "rating"),
+            ratingCtrl = new WinJS.UI.Rating(ratingDiv);
+        
+        ratingCtrl.maxRating = typeof maxRating !== 'undefined' ? maxRating : 4;
+        ratingCtrl.enableClear = typeof enableClear !== 'undefined' ? enableClear : false;
+        ratingCtrl.userRating = typeof userRating !== 'undefined' ? userRating : 2;
+        
+        return ratingCtrl;
+    };
+    
     return AGLibWinJS;
 }());
