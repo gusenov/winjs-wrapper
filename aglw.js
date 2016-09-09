@@ -315,5 +315,33 @@ var AGLibWinJS = (function () {
         return datepick;
     };
     
+    /**
+     * Create the TimePicker control on the page using the WinJS.UI.TimePicker.
+     * @memberof AGLibWinJS
+     * @method
+     * @param {} id - 
+     * @param {} [changeEventHandler] - This event is triggered when you change the state of the control.
+     * @param {} [clock=24HourClock] - Clock format.
+     * @param {} [minuteIncrement=15] - The increment values of the minute list.
+     * @param {} [hourPattern={hour.integer(2)}] - This displays the specified number of digits for hours.
+     * @param {} [minutePattern={minute.integer(2)}] - This displays the specified number of digits for minutes.
+     * @param {} [periodPattern={period.abbreviated(2)}] - Display pattern for the period based on the value passed as parameter.
+     * @returns A reference to the TimePicker Control on a page.
+     */
+    AGLibWinJS.newTimePickerControl = function (id, changeEventHandler, clock, minuteIncrement, hourPattern, minutePattern, periodPattern) {
+        var timepick = new WinJS.UI.TimePicker(document.getElementById(id));
+        timepick.clock = typeof clock !== 'undefined' ? clock : '24HourClock';
+        timepick.minuteIncrement = typeof minuteIncrement !== 'undefined' ? minuteIncrement : 15;
+        
+        timepick.hourPattern = typeof hourPattern !== 'undefined' ? hourPattern : '{hour.integer(2)}';
+        timepick.minutePattern = typeof minutePattern !== 'undefined' ? minutePattern : '{minute.integer(2)}';
+        timepick.periodPattern = typeof periodPattern !== 'undefined' ? periodPattern : '{period.abbreviated(2)}';
+        
+        if (changeEventHandler) {
+            timepick.addEventListener('change', changeEventHandler);
+        }
+        return timepick;
+    };
+    
     return AGLibWinJS;
 }());

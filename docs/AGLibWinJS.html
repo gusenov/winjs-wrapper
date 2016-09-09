@@ -2333,6 +2333,360 @@
 
     
 
+    <h4 class="name" id=".newTimePickerControl"><span class="type-signature">(static) </span>newTimePickerControl<span class="signature">(id, changeEventHandler<span class="signature-attributes">opt</span>, clock<span class="signature-attributes">opt</span>, minuteIncrement<span class="signature-attributes">opt</span>, hourPattern<span class="signature-attributes">opt</span>, minutePattern<span class="signature-attributes">opt</span>, periodPattern<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Create the TimePicker control on the page using the WinJS.UI.TimePicker.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">-</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>changeEventHandler</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">This event is triggered when you change the state of the control.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clock</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    24HourClock
+                
+                </td>
+            
+
+            <td class="description last">Clock format.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>minuteIncrement</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    15
+                
+                </td>
+            
+
+            <td class="description last">The increment values of the minute list.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>hourPattern</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    {hour.integer(2)}
+                
+                </td>
+            
+
+            <td class="description last">This displays the specified number of digits for hours.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>minutePattern</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    {minute.integer(2)}
+                
+                </td>
+            
+
+            <td class="description last">This displays the specified number of digits for minutes.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>periodPattern</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    {period.abbreviated(2)}
+                
+                </td>
+            
+
+            <td class="description last">Display pattern for the period based on the value passed as parameter.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line331">line 331</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A reference to the TimePicker Control on a page.
+</div>
+
+
+
+    
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id=".newToggleSwitchControl"><span class="type-signature">(static) </span>newToggleSwitchControl<span class="signature">(id, title, labelOff<span class="signature-attributes">opt</span>, labelOn<span class="signature-attributes">opt</span>, checked<span class="signature-attributes">opt</span>, changeEventHandler<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
@@ -3545,7 +3899,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Sep 09 2016 19:04:20 GMT+0600 (Центральная Азия (зима))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Sep 09 2016 20:51:34 GMT+0600 (Центральная Азия (зима))
 </footer>
 
 <script> prettyPrint(); </script>
