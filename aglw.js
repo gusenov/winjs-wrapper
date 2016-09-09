@@ -292,5 +292,28 @@ var AGLibWinJS = (function () {
         return toggleButton;
     };
     
+    /**
+     * Create the DatePicker control on the page using the WinJS.UI.DatePicker.
+     * Also, check out {@link https://github.com/winjs/winjs/issues/1530|DatePicker - Patterns  · Issue #1530 · winjs/winjs}.
+     * @memberof AGLibWinJS
+     * @method
+     * @param {} id - 
+     * @param {} [changeEventHandler] - This event is triggered when you change the state of the control.
+     * @param {} [monthPattern={month.abbreviated}] - Display pattern for the month.
+     * @param {} [datePattern={day.integer(2)}] - Display pattern for the date in the DatePicker control. 
+     * @param {} [yearPattern='{year.abbreviated}'] - Display pattern for the year. 
+     * @returns A reference to the DatePicker Control on a page.
+     */
+    AGLibWinJS.newDatePickerControl = function (id, changeEventHandler, monthPattern, datePattern, yearPattern) {
+        var datepick = new WinJS.UI.DatePicker(document.getElementById(id));
+        datepick.monthPattern = typeof monthPattern !== 'undefined' ? monthPattern : '{month.abbreviated}';
+        datepick.datePattern = typeof datePattern !== 'undefined' ? datePattern : '{day.integer(2)}';
+        datepick.yearPattern = typeof yearPattern !== 'undefined' ? yearPattern : '{year.abbreviated}';
+        if (changeEventHandler) {
+            datepick.addEventListener('change', changeEventHandler);
+        }
+        return datepick;
+    };
+    
     return AGLibWinJS;
 }());
