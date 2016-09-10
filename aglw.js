@@ -343,5 +343,19 @@ var AGLibWinJS = (function () {
         return timepick;
     };
     
+    /**
+     * Create the Tooltip control on the page using the WinJS.UI.Tooltip.
+     * @memberof AGLibWinJS
+     * @method
+     * @param {} id - 
+     * @param {} innerHTML - The text for the tooltip control. This text can contain HTML tags too.
+     * @returns A reference to the Tooltip Control on a page.
+     */
+    AGLibWinJS.newTooltipControl = function (id, innerHTML) {
+        var tooltip = new WinJS.UI.Tooltip(document.getElementById(id));
+        tooltip.innerHTML = innerHTML;
+        return tooltip;
+    };
+    
     return AGLibWinJS;
 }());
