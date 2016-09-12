@@ -1,5 +1,5 @@
-/*jslint nomen: true */
-/*global WinJS */
+/*jslint browser: true, devel: true, nomen: true */
+/*global WinJS, Windows */
 
 var AGLibWinJS = (function () {
     'use strict';
@@ -174,6 +174,17 @@ var AGLibWinJS = (function () {
         constructor(self);
         
     }, WinJS.Binding.dynamicObservableMixin);
+    
+    /**
+     * Creates a WinJS.Binding.List object.
+     * @memberof AGLibWinJS
+     * @method
+     * @param {Array} list - The array containing the elements to initalize the list.
+     * @returns 
+     */
+    AGLibWinJS.createListOfObjects = function (list) {
+        return new WinJS.Binding.List(list);
+    };
 
 
 
@@ -357,5 +368,33 @@ var AGLibWinJS = (function () {
         return tooltip;
     };
     
+    AGLibWinJS.newRepeaterControl = function (id) {
+        var repeater = new WinJS.UI.Repeater(document.getElementById(id));
+        return repeater;
+    };
+    
+    
+    
+    
+    /**
+     * 
+     * @memberof AGLibWinJS
+     * @method
+     * @param {String} content - The message displayed to the user.
+     * @returns 
+     */
+    AGLibWinJS.showMessage = function (content) {
+        if (typeof Windows !== 'undefined') {
+            var message = new Windows.UI.Popups.MessageDialog(content);
+            message.showAsync();
+            return message;
+        } else {
+            alert(content);
+        }
+    };
+    
+    
+    
+        
     return AGLibWinJS;
 }());

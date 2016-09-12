@@ -7,7 +7,7 @@
     var isFirstActivation = true;
     
     AGLibWinJS.onAppActivated(function () {
-        if (isFirstActivation) {                        
+        if (isFirstActivation) {
             AGLibWinJS.renderControls();
             
             var tooltip = AGLibWinJS.newTooltipControl("btnSave", 'Saves the <b>Employee</b> record');
