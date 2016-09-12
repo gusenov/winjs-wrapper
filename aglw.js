@@ -182,8 +182,20 @@ var AGLibWinJS = (function () {
      * @param {Array} list - The array containing the elements to initalize the list.
      * @returns 
      */
-    AGLibWinJS.createListOfObjects = function (list) {
+    AGLibWinJS.createBindingList = function (list) {
         return new WinJS.Binding.List(list);
+    };
+    
+    /**
+     * Provides a reusable declarative binding element.
+     * @memberof AGLibWinJS
+     * @method
+     * @param {} id - 
+     * @returns 
+     */
+    AGLibWinJS.newTemplateObject = function (id) {
+        var object = new WinJS.Binding.Template(document.getElementById(id));
+        return object;
     };
 
 
@@ -368,9 +380,44 @@ var AGLibWinJS = (function () {
         return tooltip;
     };
     
+    /**
+     * Create the Repeater control on the page using the WinJS.UI.Repeater.
+     * @memberof AGLibWinJS
+     * @method
+     * @param {} id - 
+     * @returns A reference to the Repeater Control on a page.
+     */
     AGLibWinJS.newRepeaterControl = function (id) {
         var repeater = new WinJS.UI.Repeater(document.getElementById(id));
         return repeater;
+    };
+    
+    /**
+     * Create the FlipView control on the page using the WinJS.UI.FlipView.
+     * @memberof AGLibWinJS
+     * @method
+     * @param {} id - 
+     * @param {} itemTemplate - A Template or function that defines the HTML for each item's page.
+     * @param {} itemDataSource - Data source that provides the FlipView with items to display. The FlipView displays one item at a time, on its own page.
+     * @returns A reference to the FlipView Control on a page.
+     */
+    AGLibWinJS.newFlipViewControl = function (id, itemTemplate, itemDataSource) {
+        var flipView;
+        try {
+            
+            function rendererTemplatingFunction(itemPromise) {
+                return itemPromise.then(function (item) {
+                    return itemTemplate.render(item.data);
+                });
+            }
+            
+            flipView = new WinJS.UI.FlipView(document.getElementById(id),
+                { itemDataSource: itemDataSource.dataSource, itemTemplate: rendererTemplatingFunction });
+        } catch (e) {
+            console.log(e);
+        }
+
+        return flipView;
     };
     
     

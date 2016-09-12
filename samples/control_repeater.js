@@ -5,7 +5,7 @@
     'use strict';
 
     var isFirstActivation = true,
-        Employees = AGLibWinJS.createListOfObjects([{
+        Employees = AGLibWinJS.createBindingList([{
             id: 1,
             name: "Abbas Gussenov",
             designation: "Software Developer"

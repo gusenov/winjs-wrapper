@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        
+        <title></title>
+        <meta name="description" content="">
+        <meta name="author" content="Abbas Gussenov">
+        
+        <link href="../lib/winjs-4.4.0/css/ui-light.css" rel="stylesheet" />
+        <script src="../lib/winjs-4.4.0/js/base.js"></script>
+        <script src="../lib/winjs-4.4.0/js/ui.js"></script>
+        
+        <script src="../aglw.js"></script>
+        
+        <script src="control_flipview.js"></script>
+    </head>
+    <body class="win-type-body">
+        
+        <h1>Example 1</h1>
+        <div id="template">
+            <div>
+                <h4 data-win-bind="innerText: name"></h4>
+                <h6 data-win-bind="innerText: vendor"></h6>
+            </div>
+        </div>
+        <div id="flipView1" style="height: 128px;">
+        </div>
+        
+        <h1>Example 2</h1>
+        <div id="template2" data-win-control="WinJS.Binding.Template">
+            <div>
+                <h4 data-win-bind="innerText: name"></h4>
+                <h6 data-win-bind="innerText: vendor"></h6>
+            </div>
+        </div>
+        <div id="flipView2" style="height: 128px;" data-win-control="WinJS.UI.FlipView"
+            data-win-options="{ itemTemplate: select('#template2'), itemDataSource: SampleData.Products.dataSource }">
+        </div>
+        
+    </body>
+</html>
