@@ -22,7 +22,6 @@
     function example1() {
         var template = AGLibWinJS.newTemplateObject("template"),
             flipView1;
-        template.extractChild = true;
         flipView1 = AGLibWinJS.newFlipViewControl("flipView1",
               template,
               SampleData.Products);

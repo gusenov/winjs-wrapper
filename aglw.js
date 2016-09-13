@@ -420,6 +420,53 @@ var AGLibWinJS = (function () {
         return flipView;
     };
     
+    /**
+     * Create an interactive list of items on the page.
+     * @memberof AGLibWinJS
+     * @method
+     * @param {} id - 
+     * @param {} [layoutType=grid] - The overall appearance of the control.
+     * @param {} itemTemplate - 
+     * @param {} itemDataSource - The data source that implements the IListDataSource interface.
+     * @param {} [layoutMaxRowsOrColumns=1] -
+     * @returns 
+     */
+    AGLibWinJS.newListViewControl = function (id, layoutType, itemTemplate, itemDataSource, layoutMaxRowsOrColumns) {
+        var listView;
+        
+        try {
+            listView = new WinJS.UI.ListView(document.getElementById(id));
+
+            switch (typeof layoutType !== 'undefined' ? layoutType : 'grid') {
+            case "grid":
+                listView.layout.type = WinJS.UI.GridLayout;
+                break;
+            case "cellSpanning":
+                listView.layout.type = WinJS.UI.cellSpanningLayout;
+                break;
+            case "list":
+                listView.layout.type = WinJS.UI.ListLayout;
+                break;
+            }
+
+            function rendererTemplatingFunction(itemPromise) {
+                return itemPromise.then(function (item) {
+                    return itemTemplate.render(item.data);
+                });
+            }
+            listView.itemTemplate = rendererTemplatingFunction;
+
+            listView.itemDataSource = itemDataSource.dataSource;
+
+            listView.layout.maximumRowsOrColumns =
+                typeof layoutMaxRowsOrColumns !== 'undefined' ? layoutMaxRowsOrColumns : 1;
+        } catch (e) {
+            console.log(e);
+        }
+        
+        return listView;
+    };
+    
     
     
     
