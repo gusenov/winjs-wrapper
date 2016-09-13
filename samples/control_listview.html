@@ -19,7 +19,7 @@
         
         <h3>Example 1</h3>
         <div id="template">
-            <div style="height: 64px; width: 128px;">
+            <div style="height: 60px; width: 100px;">
                 <h4 data-win-bind="innerText: name"></h4>
                 <h6 data-win-bind="innerText: vendor"></h6>
             </div>
@@ -28,16 +28,21 @@
         
         <h3>Example 2</h3>
         <div id="template2" data-win-control="WinJS.Binding.Template">
-            <div style="height: 64px; width: 128px;">
+            <div style="height: 60px; width: 100px;">
                 <h4 data-win-bind="innerText: name"></h4>
                 <h6 data-win-bind="innerText: vendor"></h6>
             </div>
         </div>
-        <div data-win-control="WinJS.UI.ListView" style="height: 256px;"
+        <div data-win-control="WinJS.UI.ListView" style="height: 180px;"
             data-win-options="{ itemTemplate: select('#template2'), 
                                 layout: { type: WinJS.UI.GridLayout, maximumRowsOrColumns: 5 },
                                 itemDataSource: SampleData.Products.dataSource }">
         </div>
+        
+    <h3>Example 3</h3>
+    <div>
+        <input id="txtSearch" />
+    </div>
         
     </body>
 </html>

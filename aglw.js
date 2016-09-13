@@ -489,6 +489,27 @@ var AGLibWinJS = (function () {
     
     
     
+    
+    /**
+     * Filter the items displayed in a ListView by filtering it from the data source associated with the ListView.
+     * @memberof AGLibWinJS
+     * @method
+     * @param {} listView - 
+     * @param {} bindableList - 
+     * @param {} searchField - 
+     * @param {} searchText - 
+     * @returns 
+     */
+    AGLibWinJS.filterList = function (listView, bindableList, searchField, searchText) {
+        var filteredData = bindableList.createFiltered(function (item) {
+            var result = item[searchField].toLowerCase().indexOf(searchText.toLowerCase());
+            return result === 0;
+        });
+        listView.itemDataSource = filteredData.dataSource;
+    };
+    
+    
+    
         
     return AGLibWinJS;
 }());

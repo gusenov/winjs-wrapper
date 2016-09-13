@@ -45,15 +45,15 @@
             id: 10,
             name: "GeForce",
             vendor: "NVIDIA"
-        }]);
+        }]),
+        listControl1;
     
     AGLibWinJS.defineNamespace("SampleData", {
         Products: Products
     });
 
     function example1() {
-        var template = AGLibWinJS.newTemplateObject("template"),
-            listControl1;
+        var template = AGLibWinJS.newTemplateObject("template");
         
         listControl1 = AGLibWinJS.newListViewControl("listView1",
             "grid",
@@ -73,11 +73,19 @@
         AGLibWinJS.renderControls();
     }
     
+    function example3() {
+        var filterText = document.getElementById('txtSearch');
+        filterText.addEventListener("keyup", function () {
+            AGLibWinJS.filterList(listControl1, SampleData.Products, "vendor", filterText.value);
+        });
+    }
+    
     AGLibWinJS.onAppActivated(function () {
         
         if (isFirstActivation) {
             example1();
             example2();
+            example3();
         }
         
         isFirstActivation = false;
