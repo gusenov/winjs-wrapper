@@ -508,8 +508,26 @@ var AGLibWinJS = (function () {
         listView.itemDataSource = filteredData.dataSource;
     };
     
-    
-    
-        
+    AGLibWinJS.groupItemsByCategoryInList = function (listView, bindableList, groupKey) {
+        var groupedEmployees = bindableList.createGrouped(
+            function (item) {
+                return item[groupKey];
+            },
+            function (item) {
+                var groupData = {};
+                groupData[groupKey] = item[groupKey];
+                return groupData;
+            },
+            function (group1, group2) {
+                return group1 > group2 ? 1 : -1;
+            }
+        );
+        listView.groupDataSource = groupedEmployees.groups.dataSource;
+        listView.itemDataSource = groupedEmployees.dataSource;
+    };
+
+
+
+
     return AGLibWinJS;
 }());
