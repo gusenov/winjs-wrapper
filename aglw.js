@@ -264,10 +264,15 @@ var AGLibWinJS = (function () {
      * @method
      */
     AGLibWinJS.getControl = function (id, onComplete, onError, onProgress) {
-        WinJS.UI.processAll().done(function () {
+        if (onComplete) {
+            WinJS.UI.processAll().done(function () {
+                var control = document.getElementById(id).winControl;
+                onComplete(control);
+            }, onError, onProgress);
+        } else {
             var control = document.getElementById(id).winControl;
-            onComplete(control);
-        }, onError, onProgress);
+            return control;
+        }
     };
 
     /**
@@ -509,7 +514,7 @@ var AGLibWinJS = (function () {
     };
     
     AGLibWinJS.groupItemsByCategoryInList = function (listView, bindableList, groupKey) {
-        var groupedEmployees = bindableList.createGrouped(
+        var grouped = bindableList.createGrouped(
             function (item) {
                 return item[groupKey];
             },
@@ -522,8 +527,14 @@ var AGLibWinJS = (function () {
                 return group1 > group2 ? 1 : -1;
             }
         );
-        listView.groupDataSource = groupedEmployees.groups.dataSource;
-        listView.itemDataSource = groupedEmployees.dataSource;
+        listView.groupDataSource = grouped.groups.dataSource;
+        listView.itemDataSource = grouped.dataSource;
+        return grouped;
+    };
+    
+    AGLibWinJS.viewDataAtTwoDifferentZoomLevels = function (listView1, listView2, bindableList, groupKey) {
+        var grouped = AGLibWinJS.groupItemsByCategoryInList(listView1, bindableList, groupKey);
+        listView2.itemDataSource = grouped.groups.dataSource;
     };
 
 

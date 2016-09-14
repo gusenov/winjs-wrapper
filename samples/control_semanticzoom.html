@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        
+        <title></title>
+        <meta name="description" content="">
+        <meta name="author" content="Abbas Gussenov">
+        
+        <link href="../lib/winjs-4.4.0/css/ui-light.css" rel="stylesheet" />
+        <script src="../lib/winjs-4.4.0/js/base.js"></script>
+        <script src="../lib/winjs-4.4.0/js/ui.js"></script>
+        
+        <script src="../aglw.js"></script>
+        
+        <script src="control_semanticzoom.js"></script>
+    </head>
+    <body class="win-type-body">
+        
+        <div id="GroupHeader" data-win-control="WinJS.Binding.Template">
+            <div data-win-bind="innerText: vendor"></div>
+        </div>
+
+        <div id="ProductTemplate" data-win-control="WinJS.Binding.Template">
+            <div data-win-bind="innerText:name" style="width:128px;"></div>
+        </div>
+
+        <!-- Zoom out-->
+        <div id="VendorTemplate" data-win-control="WinJS.Binding.Template">
+            <div data-win-bind="innerText: vendor" style="width:128px;"></div>
+        </div>
+
+        <div data-win-control="WinJS.UI.SemanticZoom" style="height:170px;">
+            <!-- Zoom In-->
+            <div id="lvProducts" data-win-control="WinJS.UI.ListView"
+                data-win-options="{ itemTemplate: select('#ProductTemplate'), 
+                                    groupHeaderTemplate: select('#GroupHeader'),
+                                    itemDataSource: SampleData.Products.dataSource }">
+            </div>
+
+            <!-- Zoom Out-->
+            <div id="lvVendors" data-win-control="WinJS.UI.ListView"
+                data-win-options="{ itemTemplate: select('#VendorTemplate')}">
+            </div>
+        </div>
+        
+    </body>
+</html>
