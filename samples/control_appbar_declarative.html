@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        
+        <title></title>
+        <meta name="description" content="">
+        <meta name="author" content="Abbas Gussenov">
+        
+        <link href="../lib/winjs-4.4.0/css/ui-light.css" rel="stylesheet" />
+        <script src="../lib/winjs-4.4.0/js/base.js"></script>
+        <script src="../lib/winjs-4.4.0/js/ui.js"></script>
+        
+        <script src="../aglw.js"></script>
+        
+        <script src="control_appbar_declarative.js"></script>
+    </head>
+    <body class="win-type-body">
+        <div id="appBar" data-win-control="WinJS.UI.AppBar">
+            <button data-win-control="WinJS.UI.AppBarCommand"
+                    data-win-options="{ id: 'cmdAdd', label: 'Add', icon: 'add', section: 'primary', tooltip: 'Add' }">
+            </button>
+            <button data-win-control="WinJS.UI.AppBarCommand"
+                    data-win-options="{ id: 'cmdRemove', label: 'Remove', icon: 'remove', section: 'primary', tooltip: 'Remove' }">
+            </button>
+            <button data-win-control="WinJS.UI.AppBarCommand"
+                    data-win-options="{ id: 'cmdCamera', label: 'Click Photo', icon: 'camera', section: 'secondary', tooltip: 'click' }">
+            </button>
+        </div>
+    </body>
+</html>

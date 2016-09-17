@@ -237,6 +237,22 @@ var AGLibWinJS = (function () {
         }, typeof async !== 'undefined' ? async : false);
     };
     
+    /**
+     * Provide a ready method that will be called when the page is loaded.
+     * @memberof AGLibWinJS
+     * @method
+     * @param {} uri - The URI for the content that defines the page.
+     * @param {} readyMethod - This function is called after the page control contents have been loaded, controls have been activated, and the resulting elements have been parented to the DOM.
+     * @returns {}
+     */
+    AGLibWinJS.callReadyMethodWhenPageIsLoaded = function (uri, readyMethod) {
+        WinJS.UI.Pages.define(uri, {
+            ready: function (element, options) {
+                readyMethod(element, options);
+            }
+        });
+    };
+    
     
     
     
@@ -470,6 +486,51 @@ var AGLibWinJS = (function () {
         }
         
         return listView;
+    };
+
+    /**
+     * 
+     * @memberof AGLibWinJS
+     * @method
+     * @param {} id - This uniquely identifies the AppBarCommand.
+     * @param {} label - The content displayed in the AppBarCommand.
+     * @param {} icon - The built-in icons for the AppBarCommand.
+     * @param {} section - The section within the AppBar where the command should be displayed. This value can be primary or secondary.
+     * @param {} tooltip - The text to be displayed when you mouse-over the command button.
+     * @param {} method - Command function.
+     * @returns 
+     */
+    AGLibWinJS.newAppBarCommand = function (id, label, icon, section, tooltip, method) {
+        var cmd, element;
+        try {
+            element = document.getElementById(id);
+            cmd = new WinJS.UI.AppBarCommand(element, { id: id, section: section });
+            cmd.label = label;
+            cmd.icon = icon;
+            cmd.tooltip = tooltip;
+            
+            element.addEventListener("click", method, false);
+        } catch (e) {
+            console.log(e);
+        }
+        return cmd;
+    };
+    
+    /**
+     * Add an app bar to your page.
+     * @memberof AGLibWinJS
+     * @method
+     * @param {} id - 
+     * @returns 
+     */
+    AGLibWinJS.newAppBar = function (id) {
+        var appBar;
+        try {
+            appBar = new WinJS.UI.AppBar(document.getElementById(id));
+        } catch (e) {
+            console.log(e);
+        }
+        return appBar;
     };
     
     
