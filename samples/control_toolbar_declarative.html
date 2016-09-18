@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        
+        <title></title>
+        <meta name="description" content="">
+        <meta name="author" content="Abbas Gussenov">
+        
+        <link href="../lib/winjs-4.4.0/css/ui-light.css" rel="stylesheet" />
+        <script src="../lib/winjs-4.4.0/js/base.js"></script>
+        <script src="../lib/winjs-4.4.0/js/ui.js"></script>
+        
+        <script src="../aglw.js"></script>
+        
+        <script src="control_toolbar_declarative.js"></script>
+    </head>
+    <body class="win-type-body">
+
+        <div class="basicToolbar" data-win-control="WinJS.UI.ToolBar">
+            <!-- Primary commands -->
+            <button data-win-control="WinJS.UI.Command" data-win-options="{
+                id: 'cmdAdd',
+                label: 'add',
+                section: 'primary',
+                type: 'button',
+                icon: 'add',
+                onclick: samples.clickcommand }"></button>
+            <button data-win-control="WinJS.UI.Command" data-win-options="{
+                id: 'cmdEdit',
+                label: 'Edit',
+                section: 'primary',
+                type: 'button',
+                icon: 'edit',
+                onclick: samples.clickcommand }"></button>
+            <button data-win-control="WinJS.UI.Command" data-win-options="{
+                id: 'cmdDelete',
+                label: 'delete',
+                section: 'primary',
+                type: 'button',
+                icon: 'delete',
+                onclick: samples.clickcommand }"></button>
+            
+            <!-- Secondary command -->
+            <button data-win-control="WinJS.UI.Command" data-win-options="{
+                id: 'cmdShare',
+                label: 'share',
+                section: 'secondary',
+                type: 'button',
+                onclick: samples.clickcommand }"></button>
+        </div>
+        
+    </body>
+</html>
