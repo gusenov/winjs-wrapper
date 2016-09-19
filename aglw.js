@@ -227,6 +227,18 @@ var AGLibWinJS = (function () {
             });
         return prmise;
     };
+    
+    /**
+     * Creates a new constructor function that supports observability with the specified set of properties.
+     * @memberof AGLibWinJS
+     * @method
+     * @param {object} data - The object to use as the pattern for defining the set of properties. 
+     * @returns {function} A constructor function with 1 optional argument that is the initial state of the properties.
+     */
+    AGLibWinJS.createObservableConstructor = function (data) {
+        var someFunction = WinJS.Binding.define(data);
+        return someFunction;
+    };
 
 
 
