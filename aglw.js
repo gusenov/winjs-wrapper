@@ -1,62 +1,143 @@
 /*jslint browser: true, devel: true, nomen: true */
 /*global WinJS, Windows */
 
-var AGLibWinJS = (function () {
+var W = (function () {
     'use strict';
+
+    /**
+     * @access protected
+     * @constructs W
+     */
+    function W() { }
+
+
+
+
+    // <NAMESPACES>
     
     /**
-     * @constructs AGLibWinJS
-     */
-    function AGLibWinJS() {
-    }
-
-
-
-
-    /**
      * Declare a namespace.
-     * @memberof AGLibWinJS
+     * @access public
+     * @example <caption> </caption>
+     * // Define the namespace ProgrammingLanguages and create the JavaScript under it.
+     * W.nsDef("ProgrammingLanguages", {
+     *     JavaScript: {
+     *         getDescription: function () {
+     *             'use strict';
+     *             return 'JavaScript is the programming language of HTML and the Web.';
+     *         }
+     *     }
+     * });
+     * console.log(ProgrammingLanguages.JavaScript.getDescription());
+     * @example <caption> </caption>
+     * // Define the namespace ProgrammingLanguages.
+     * W.nsDef("ProgrammingLanguages");
+     *
+     * // JavaScript created in the ProgrammingLanguages namespace.
+     * ProgrammingLanguages.JavaScript = {
+     *     getDescription: function () {
+     *         'use strict';
+     *         return 'JavaScript is the programming language of HTML and the Web.';
+     *     }
+     * };
+     * console.log(ProgrammingLanguages.JavaScript.getDescription());
+     * @memberof W
      * @method
-     * @param {string} name -  This is the first parameter and represents the name of the new namespace.
-     * @param {object} [members] - This parameter represents the list of objects that need to be added to the namespace being defined.
+     * @param {string} nameOfNewNamespace - This is the first parameter and represents the name of the new namespace.
+     * @param {Object} [members] - This parameter represents the list of objects that need to be added to the namespace being defined.
      * @returns {Object} The newly-defined namespace.
      */
-    AGLibWinJS.defineNamespace = function (name, members) {
-        WinJS.Namespace.define(name, members);
+    W.nsDef = function (nameOfNewNamespace, members) {
+        // pre-condition
+        console.assert(typeof nameOfNewNamespace === 'string', 'nameOfNewNamespace should be string');
+        if (members) {
+            console.assert(typeof members === 'object', 'members should be Object');
+        }
+        
+        var newNamespace;
+        try {
+            newNamespace = WinJS.Namespace.define(nameOfNewNamespace, members);
+        } catch (e) {
+            console.log(e);
+        }
+        console.assert(newNamespace !== undefined, 'newNamespace should not be undefined');
+        console.assert(newNamespace !== null, 'newNamespace should not be null');
+        
+        return newNamespace;
     };
     
     /**
      * Add a namespace to the existing namespace and define your functionalities.
-     * @memberof AGLibWinJS
+     * @access public
+     * @example <caption> </caption>
+     * W.nsDefChild(ProgrammingLanguages, "CLI", {
+     *     Bash: {
+     *         getDescription: function () {
+     *             'use strict';
+     *             return "Bash is the shell, or command language interpreter, for the GNU operating system.";
+     *         }
+     *     }
+     * });
+     * console.log(ProgrammingLanguages.CLI.Bash.getDescription());
+     * @example <caption> </caption>
+     * W.nsDefChild(ProgrammingLanguages, "CLI");
+     * ProgrammingLanguages.CLI.Bash = {
+     *     getDescription: function () {
+     *         'use strict';
+     *         return "Bash is the shell, or command language interpreter, for the GNU operating system.";
+     *     }
+     * };
+     * console.log(ProgrammingLanguages.CLI.Bash.getDescription());
+     * @memberof W
      * @method
-     * @param {object} parent - The first parameter is the name of the parent namespace.
+     * @param {Object} parentNamespace - The first parameter is the name of the parent namespace.
      * @param {string} childName - This is the name of the namespace to be added to the parent namespace.
-     * @param {object} childMembers - The list of objects to be added to the new namespace. This is an optional parameter.
+     * @param {Object} [childMembers] - The list of objects to be added to the new namespace. This is an optional parameter.
      * @returns {Object} - The newly-defined namespace.
      */
-    AGLibWinJS.defineChildNamespace = function (parent, childName, childMembers) {
-        return WinJS.Namespace.defineWithParent(parent, childName, childMembers);
+    W.nsDefChild = function (parentNamespace, childName, childMembers) {
+        // pre-condition
+        console.assert(typeof parentNamespace === 'object', 'parentNamespace should be Object');
+        console.assert(typeof childName === 'string', 'childName should be string');
+        if (childMembers) {
+            console.assert(typeof childMembers === 'object', 'childMembers should be Object');
+        }
+        
+        var newNamespace;
+        try {
+            newNamespace = WinJS.Namespace.defineWithParent(parentNamespace, childName, childMembers);
+        } catch (e) {
+            console.log(e);
+        }
+        console.assert(newNamespace !== undefined, 'newNamespace should not be undefined');
+        console.assert(newNamespace !== null, 'newNamespace should not be null');
+        
+        return newNamespace;
     };
+    
+    // </NAMESPACES>
 
 
 
 
+    // <OOP>
+    
     /**
      * Create a class.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {Function} constructor - The first parameter lets developers initialize a new object.
      * @param {Object} instanceMembers - The second parameter is the collection of instance members, which includes properties and methods.
      * @param {} staticMembers -  The third parameter includes static properties and static methods.
      * @returns {Object} The newly-defined type.
      */
-    AGLibWinJS.createClass = function (constructor, instanceMembers, staticMembers) {
+    W.createClass = function (constructor, instanceMembers, staticMembers) {
         return WinJS.Class.define(constructor, instanceMembers, staticMembers);
     };
     
     /**
      * Derive one class from another.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {Object} baseClass - The class that the current class needs to inherit from.
      * @param {Function} constructor - This parameter refers to the constructor function that can be used to initialize the class members.
@@ -64,51 +145,55 @@ var AGLibWinJS = (function () {
      * @param {Object} staticMembers - This parameter defines static properties and static methods.
      * @returns {Object} The newly-defined type.
      */
-    AGLibWinJS.deriveClass = function (baseClass, constructor, instanceMembers, staticMembers) {
+    W.deriveClass = function (baseClass, constructor, instanceMembers, staticMembers) {
         return WinJS.Class.derive(baseClass, constructor, instanceMembers, staticMembers);
     };
     
     /**
      * Combine methods and properties from multiple JavaScript objects.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {Function} constructor - The first parameter, which is used to initialize the class members.
      * @param {} mixin - The second parameter is the array that takes the mixin methods.
      * @returns {Object} The newly defined class.
      */
-    AGLibWinJS.createMixin = function (constructor, mixin) {
+    W.createMixin = function (constructor, mixin) {
         return WinJS.Class.mix(constructor, mixin);
     };
+    
+    // </OOP>
 
 
 
 
+    // <EVENTS>
+    
     /**
      * Add the event management functionality to any type that you define.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {} type
      * @returns This method does not return a value.
      */
-    AGLibWinJS.addEventManagementFunctionality = function (type) {
+    W.addEventManagementFunctionality = function (type) {
         WinJS.Class.mix(type, WinJS.Utilities.eventMixin);
     };
     
     /**
      * Define events.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {} type
      * @param {object} events - A variable list of property names.
      * @returns This method does not return a value.
      */
-    AGLibWinJS.defineEvents = function (type, events) {
+    W.defineEvents = function (type, events) {
         WinJS.Class.mix(type, WinJS.Utilities.createEventProperties(events));
     };
     
     /**
      * Adds an event listener to the control.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {} control
      * @param {string} type - The type (name) of the event.
@@ -116,13 +201,13 @@ var AGLibWinJS = (function () {
      * @param {Boolean} useCapture - If true, initiates capture, otherwise false. 
      * @returns This method does not return a value.
      */
-    AGLibWinJS.addEventListener = function (control, type, listener, useCapture) {
+    W.addEventListener = function (control, type, listener, useCapture) {
         control.addEventListener(type, listener, useCapture);
     };
     
     /**
      * Removes an event listener from the control.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {} control
      * @param {string} type - The type (name) of the event.
@@ -130,39 +215,43 @@ var AGLibWinJS = (function () {
      * @param {Boolean} useCapture - true if capture is to be initiated, otherwise false.
      * @returns This method does not return a value.
      */
-    AGLibWinJS.removeEventListener = function (control, type, listener, useCapture) {
+    W.removeEventListener = function (control, type, listener, useCapture) {
         control.removeEventListener(type, listener, useCapture);
     };
     
     /**
      * Raises an event of the specified type and with the specified additional properties.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {} control
      * @param {string} type - The type (name) of the event.
      * @param {object} eventProperties - The set of additional properties to be attached to the event object when the event is raised.
      * @returns {Boolean} true if preventDefault was called on the event.
      */
-    AGLibWinJS.raiseEvent = function (control, type, eventProperties) {
+    W.raiseEvent = function (control, type, eventProperties) {
         return control.dispatchEvent(type, eventProperties);
     };
     
     /**
      * Marks a event handler function as being compatible with declarative processing.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {Object} handler - The handler to be marked as compatible with declarative processing.
      * @returns {Object} The handler, marked as compatible with declarative processing.
      */
-    AGLibWinJS.markEventHandler = function (handler) {
+    W.markEventHandler = function (handler) {
         var object = WinJS.UI.eventHandler(function (ev) {
             handler(ev);
         });
         return object;
     };
     
-    
-    
+    // </EVENTS>
+
+
+
+
+    // <BINDING>
     
     /**
      * This function is used to add binding management functionality, 
@@ -170,11 +259,11 @@ var AGLibWinJS = (function () {
      * This is helpful for wiring up two-way data binding, 
      * something that WinJS doesn’t do itself, but isn’t too hard to pull together. 
      * @class
-     * @memberof AGLibWinJS
+     * @memberof W
      * @param {} data - Just a plain object (and not a Date, Array, or nonobject).
      * @param {} constructor
      */
-    AGLibWinJS.ObservableProxy = WinJS.Class.mix(function (data, constructor) {
+    W.ObservableProxy = WinJS.Class.mix(function (data, constructor) {
         var self = this;
 
         self._initObservable(data);
@@ -191,36 +280,36 @@ var AGLibWinJS = (function () {
     
     /**
      * Creates a WinJS.Binding.List object.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {Array} list - The array containing the elements to initalize the list.
      * @returns 
      */
-    AGLibWinJS.createBindingList = function (list) {
+    W.createBindingList = function (list) {
         return new WinJS.Binding.List(list);
     };
     
     /**
      * Provides a reusable declarative binding element.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {} id - 
      * @returns 
      */
-    AGLibWinJS.newTemplateObject = function (id) {
+    W.newTemplateObject = function (id) {
         var object = new WinJS.Binding.Template(document.getElementById(id));
         return object;
     };
     
     /**
      * Bind the data properties of the business object to HTML elements on the UI.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {} containerId - 
      * @param {} businessObject - A simple business object with data properties. 
      * @returns 
      */
-    AGLibWinJS.bindDataToElement = function (containerId, businessObject) {
+    W.bindDataToElement = function (containerId, businessObject) {
         var container = document.querySelector('#' + containerId),
             prmise = WinJS.UI.processAll().then(function () {
                 WinJS.Binding.processAll(container, businessObject);
@@ -230,48 +319,50 @@ var AGLibWinJS = (function () {
     
     /**
      * Creates a new constructor function that supports observability with the specified set of properties.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {object} data - The object to use as the pattern for defining the set of properties. 
      * @returns {function} A constructor function with 1 optional argument that is the initial state of the properties.
      */
-    AGLibWinJS.createObservableConstructor = function (data) {
+    W.createObservableConstructor = function (data) {
         var someFunction = WinJS.Binding.define(data);
         return someFunction;
     };
+    
+    // </BINDING>
 
 
 
 
     /**
      * 
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      */
-    AGLibWinJS.startApplication = function () {
+    W.startApplication = function () {
         var app = WinJS.Application;
         app.start();
     };
     
     /**
      * Parse the HTML page, identify the attributes with the data-win-control, and generate the control accordingly.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      */
-    AGLibWinJS.renderControls = function () {
+    W.renderControls = function () {
         WinJS.UI.processAll();
     };
     
     /**
      * Wait until all the controls are created and parsed in the document.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {function} onComplete - The function to be called if the promise is fulfilled successfully with a value.
      * @param {function} onError - The function to be called if the promise is fulfilled with an error.
      * @param {function} onProgress - The function to be called if the promise reports progress.
      * @returns {Boolean} true if preventDefault was called on the event.
      */
-    AGLibWinJS.waitUntilAllControlsAreCreated = function (onComplete, onError, onProgress) {
+    W.waitUntilAllControlsAreCreated = function (onComplete, onError, onProgress) {
         WinJS.UI.processAll().done(onComplete, onError, onProgress);
     };
     
@@ -279,13 +370,13 @@ var AGLibWinJS = (function () {
     
     /**
      *
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {Function} callback - A function that executes after the DOMContentLoaded event has occurred.
      * @param {} [async=false] - If true, the callback should be executed asynchronously.
      * @returns 
      */
-    AGLibWinJS.onAppActivated = function (callback, async) {
+    W.onAppActivated = function (callback, async) {
         var app = WinJS.Application;
         app.onactivated = function (args) {
             var prmise = WinJS.Utilities.ready(function () {
@@ -297,29 +388,31 @@ var AGLibWinJS = (function () {
     
     /**
      * Provide a ready method that will be called when the page is loaded.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {} uri - The URI for the content that defines the page.
      * @param {} readyMethod - This function is called after the page control contents have been loaded, controls have been activated, and the resulting elements have been parented to the DOM.
      * @returns {}
      */
-    AGLibWinJS.callReadyMethodWhenPageIsLoaded = function (uri, readyMethod) {
+    W.callReadyMethodWhenPageIsLoaded = function (uri, readyMethod) {
         WinJS.UI.Pages.define(uri, {
             ready: function (element, options) {
                 readyMethod(element, options);
             }
         });
     };
+
     
     
     
+    // <NETWORK>
     
     /**
      * This function wraps the calls made to the XMLHttpRequest in a promise.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      */
-    AGLibWinJS.connectToUrl = function (url, completed, error) {
+    W.connectToUrl = function (url, completed, error) {
         return WinJS.xhr({
             url: url
         }).then(function (result) {
@@ -329,15 +422,19 @@ var AGLibWinJS = (function () {
         });
     };
     
+    // </NETWORK>
+
     
     
+    
+    // <CONTROLS>
     
     /**
      * Get the control from the HTML page’s DOM element.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      */
-    AGLibWinJS.getControl = function (id, onComplete, onError, onProgress) {
+    W.getControl = function (id, onComplete, onError, onProgress) {
         if (onComplete) {
             WinJS.UI.processAll().done(function () {
                 var control = document.getElementById(id).winControl;
@@ -351,7 +448,7 @@ var AGLibWinJS = (function () {
 
     /**
      * Create a new instance of the WinJS.UI.Rating JavaScript class.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {} [id=rating] - The rating div element's id attribute value.
      * @param {} [maxRating=4] - The Rating control’s maximum ratings.
@@ -359,7 +456,7 @@ var AGLibWinJS = (function () {
      * @param {} [userRating=2] - 
      * @returns A reference to the Rating Control on a page.
      */
-    AGLibWinJS.newRatingControl = function (id, maxRating, enableClear, userRating) {
+    W.newRatingControl = function (id, maxRating, enableClear, userRating) {
         var ratingDiv = document.getElementById(typeof id !== 'undefined' ? id : "rating"),
             ratingCtrl = new WinJS.UI.Rating(ratingDiv);
         
@@ -372,7 +469,7 @@ var AGLibWinJS = (function () {
     
     /**
      * Create the ToggleSwitch control on the page using the WinJS.UI.ToggleSwitch.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {} id - 
      * @param {} title - The title sets the title content for the ToggleSwitch.
@@ -382,7 +479,7 @@ var AGLibWinJS = (function () {
      * @param {} [changeEventHandler] - This event is triggered when you change the state of the control.
      * @returns A reference to the ToggleSwitch Control on a page.
      */
-    AGLibWinJS.newToggleSwitchControl = function (id, title, labelOff, labelOn, checked, changeEventHandler) {
+    W.newToggleSwitchControl = function (id, title, labelOff, labelOn, checked, changeEventHandler) {
         var toggleButton = new WinJS.UI.ToggleSwitch(document.getElementById(id));
         toggleButton.title = title;
         toggleButton.labelOff = typeof labelOff !== 'undefined' ? labelOff : "Disabled";
@@ -397,7 +494,7 @@ var AGLibWinJS = (function () {
     /**
      * Create the DatePicker control on the page using the WinJS.UI.DatePicker.
      * Also, check out {@link https://github.com/winjs/winjs/issues/1530|DatePicker - Patterns  · Issue #1530 · winjs/winjs}.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {} id - 
      * @param {} [changeEventHandler] - This event is triggered when you change the state of the control.
@@ -406,7 +503,7 @@ var AGLibWinJS = (function () {
      * @param {} [yearPattern='{year.abbreviated}'] - Display pattern for the year. 
      * @returns A reference to the DatePicker Control on a page.
      */
-    AGLibWinJS.newDatePickerControl = function (id, changeEventHandler, monthPattern, datePattern, yearPattern) {
+    W.newDatePickerControl = function (id, changeEventHandler, monthPattern, datePattern, yearPattern) {
         var datepick = new WinJS.UI.DatePicker(document.getElementById(id));
         datepick.monthPattern = typeof monthPattern !== 'undefined' ? monthPattern : '{month.abbreviated}';
         datepick.datePattern = typeof datePattern !== 'undefined' ? datePattern : '{day.integer(2)}';
@@ -419,7 +516,7 @@ var AGLibWinJS = (function () {
     
     /**
      * Create the TimePicker control on the page using the WinJS.UI.TimePicker.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {} id - 
      * @param {} [changeEventHandler] - This event is triggered when you change the state of the control.
@@ -430,7 +527,7 @@ var AGLibWinJS = (function () {
      * @param {} [periodPattern={period.abbreviated(2)}] - Display pattern for the period based on the value passed as parameter.
      * @returns A reference to the TimePicker Control on a page.
      */
-    AGLibWinJS.newTimePickerControl = function (id, changeEventHandler, clock, minuteIncrement, hourPattern, minutePattern, periodPattern) {
+    W.newTimePickerControl = function (id, changeEventHandler, clock, minuteIncrement, hourPattern, minutePattern, periodPattern) {
         var timepick = new WinJS.UI.TimePicker(document.getElementById(id));
         timepick.clock = typeof clock !== 'undefined' ? clock : '24HourClock';
         timepick.minuteIncrement = typeof minuteIncrement !== 'undefined' ? minuteIncrement : 15;
@@ -447,13 +544,13 @@ var AGLibWinJS = (function () {
     
     /**
      * Create the Tooltip control on the page using the WinJS.UI.Tooltip.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {} id - 
      * @param {} innerHTML - The text for the tooltip control. This text can contain HTML tags too.
      * @returns A reference to the Tooltip Control on a page.
      */
-    AGLibWinJS.newTooltipControl = function (id, innerHTML) {
+    W.newTooltipControl = function (id, innerHTML) {
         var tooltip = new WinJS.UI.Tooltip(document.getElementById(id));
         tooltip.innerHTML = innerHTML;
         return tooltip;
@@ -461,26 +558,26 @@ var AGLibWinJS = (function () {
     
     /**
      * Create the Repeater control on the page using the WinJS.UI.Repeater.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {} id - 
      * @returns A reference to the Repeater Control on a page.
      */
-    AGLibWinJS.newRepeaterControl = function (id) {
+    W.newRepeaterControl = function (id) {
         var repeater = new WinJS.UI.Repeater(document.getElementById(id));
         return repeater;
     };
     
     /**
      * Create the FlipView control on the page using the WinJS.UI.FlipView.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {} id - 
      * @param {} itemTemplate - A Template or function that defines the HTML for each item's page.
      * @param {} itemDataSource - Data source that provides the FlipView with items to display. The FlipView displays one item at a time, on its own page.
      * @returns A reference to the FlipView Control on a page.
      */
-    AGLibWinJS.newFlipViewControl = function (id, itemTemplate, itemDataSource) {
+    W.newFlipViewControl = function (id, itemTemplate, itemDataSource) {
         var flipView;
         try {
             
@@ -501,7 +598,7 @@ var AGLibWinJS = (function () {
     
     /**
      * Create an interactive list of items on the page.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {} id - 
      * @param {} [layoutType=grid] - The overall appearance of the control.
@@ -510,7 +607,7 @@ var AGLibWinJS = (function () {
      * @param {} [layoutMaxRowsOrColumns=1] -
      * @returns 
      */
-    AGLibWinJS.newListViewControl = function (id, layoutType, itemTemplate, itemDataSource, layoutMaxRowsOrColumns) {
+    W.newListViewControl = function (id, layoutType, itemTemplate, itemDataSource, layoutMaxRowsOrColumns) {
         var listView;
         
         try {
@@ -548,7 +645,7 @@ var AGLibWinJS = (function () {
 
     /**
      * 
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {} id - This uniquely identifies the AppBarCommand.
      * @param {} label - The content displayed in the AppBarCommand.
@@ -558,7 +655,7 @@ var AGLibWinJS = (function () {
      * @param {} method - Command function.
      * @returns 
      */
-    AGLibWinJS.newAppBarCommand = function (id, label, icon, section, tooltip, method) {
+    W.newAppBarCommand = function (id, label, icon, section, tooltip, method) {
         var cmd, element;
         try {
             element = document.getElementById(id);
@@ -576,12 +673,12 @@ var AGLibWinJS = (function () {
     
     /**
      * Add an app bar to your page.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {} id - 
      * @returns 
      */
-    AGLibWinJS.newAppBar = function (id) {
+    W.newAppBar = function (id) {
         var appBar;
         try {
             appBar = new WinJS.UI.AppBar(document.getElementById(id));
@@ -593,7 +690,7 @@ var AGLibWinJS = (function () {
     
     /**
      * 
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {} id - Defines the identifier for the command.
      * @param {} label -  Defines the text to be displayed for the command.
@@ -603,7 +700,7 @@ var AGLibWinJS = (function () {
      * @param {} onClick - An event that fires and calls the corresponding JavaScript method.
      * @returns 
      */
-    AGLibWinJS.newCommand = function (id, label, section, type, icon, onClick) {
+    W.newCommand = function (id, label, section, type, icon, onClick) {
         var cmd;
         try {
             cmd = new WinJS.UI.Command(document.getElementById(id), { id: id, section: section });
@@ -621,12 +718,12 @@ var AGLibWinJS = (function () {
     
     /**
      * 
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {} id - 
      * @returns 
      */
-    AGLibWinJS.newToolBar = function (id) {
+    W.newToolBar = function (id) {
         var toolbar;
         try {
             toolbar = new WinJS.UI.ToolBar(document.getElementById(id));
@@ -636,17 +733,19 @@ var AGLibWinJS = (function () {
         return toolbar;
     };
     
+    // </CONTROLS>
+    
     
     
     
     /**
      * 
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {String} content - The message displayed to the user.
      * @returns 
      */
-    AGLibWinJS.showMessage = function (content) {
+    W.showMessage = function (content) {
         if (typeof Windows !== 'undefined') {
             var message = new Windows.UI.Popups.MessageDialog(content);
             message.showAsync();
@@ -661,7 +760,7 @@ var AGLibWinJS = (function () {
     
     /**
      * Filter the items displayed in a ListView by filtering it from the data source associated with the ListView.
-     * @memberof AGLibWinJS
+     * @memberof W
      * @method
      * @param {} listView - 
      * @param {} bindableList - 
@@ -669,7 +768,7 @@ var AGLibWinJS = (function () {
      * @param {} searchText - 
      * @returns 
      */
-    AGLibWinJS.filterList = function (listView, bindableList, searchField, searchText) {
+    W.filterList = function (listView, bindableList, searchField, searchText) {
         var filteredData = bindableList.createFiltered(function (item) {
             var result = item[searchField].toLowerCase().indexOf(searchText.toLowerCase());
             return result === 0;
@@ -677,7 +776,7 @@ var AGLibWinJS = (function () {
         listView.itemDataSource = filteredData.dataSource;
     };
     
-    AGLibWinJS.groupItemsByCategoryInList = function (listView, bindableList, groupKey) {
+    W.groupItemsByCategoryInList = function (listView, bindableList, groupKey) {
         var grouped = bindableList.createGrouped(
             function (item) {
                 return item[groupKey];
@@ -696,13 +795,13 @@ var AGLibWinJS = (function () {
         return grouped;
     };
     
-    AGLibWinJS.viewDataAtTwoDifferentZoomLevels = function (listView1, listView2, bindableList, groupKey) {
-        var grouped = AGLibWinJS.groupItemsByCategoryInList(listView1, bindableList, groupKey);
+    W.viewDataAtTwoDifferentZoomLevels = function (listView1, listView2, bindableList, groupKey) {
+        var grouped = W.groupItemsByCategoryInList(listView1, bindableList, groupKey);
         listView2.itemDataSource = grouped.groups.dataSource;
     };
 
 
 
 
-    return AGLibWinJS;
+    return W;
 }());
