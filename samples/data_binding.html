@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        
+        <title></title>
+        <meta name="description" content="">
+        <meta name="author" content="Abbas Gussenov">
+        
+        <link href="../lib/winjs-4.4.0/css/ui-light.css" rel="stylesheet" />
+        <script src="../lib/winjs-4.4.0/js/base.js"></script>
+        <script src="../lib/winjs-4.4.0/js/ui.js"></script>
+        
+        <script src="../aglw.js"></script>
+        
+        <script src="data_binding.js"></script>
+    </head>
+    <body class="win-type-body">
+
+        <div id="container">
+            <h3>Name:</h3>
+            <h2><span data-win-bind="innerText: name"></span></h2>
+            <h3>Age:</h3>
+            <h2><span data-win-bind="innerText: age"></span></h2>
+            <h3>Designation:</h3>
+            <h2><span data-win-bind="innerText: designation"></span></h2>
+            <h3>City:</h3>
+            <h2><span data-win-bind="innerText: city"></span></h2>
+            <h3>Fav Color:</h3>
+            <div data-win-bind="style.background: favcolor">
+                <div class="favcolor" data-win-bind="innerText: favcolor"></div>
+            </div>
+        </div>
+        
+    </body>
+</html>

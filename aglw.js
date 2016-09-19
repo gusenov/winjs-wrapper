@@ -211,12 +211,38 @@ var AGLibWinJS = (function () {
         var object = new WinJS.Binding.Template(document.getElementById(id));
         return object;
     };
+    
+    /**
+     * Bind the data properties of the business object to HTML elements on the UI.
+     * @memberof AGLibWinJS
+     * @method
+     * @param {} containerId - 
+     * @param {} businessObject - A simple business object with data properties. 
+     * @returns 
+     */
+    AGLibWinJS.bindDataToElement = function (containerId, businessObject) {
+        var container = document.querySelector('#' + containerId),
+            prmise = WinJS.UI.processAll().then(function () {
+                WinJS.Binding.processAll(container, businessObject);
+            });
+        return prmise;
+    };
 
 
 
 
     /**
-     *  Parse the HTML page, identify the attributes with the data-win-control, and generate the control accordingly.
+     * 
+     * @memberof AGLibWinJS
+     * @method
+     */
+    AGLibWinJS.startApplication = function () {
+        var app = WinJS.Application;
+        app.start();
+    };
+    
+    /**
+     * Parse the HTML page, identify the attributes with the data-win-control, and generate the control accordingly.
      * @memberof AGLibWinJS
      * @method
      */
@@ -237,18 +263,24 @@ var AGLibWinJS = (function () {
         WinJS.UI.processAll().done(onComplete, onError, onProgress);
     };
     
+    var isFirstActivation = true;
+    
     /**
      *
      * @memberof AGLibWinJS
      * @method
      * @param {Function} callback - A function that executes after the DOMContentLoaded event has occurred.
      * @param {} [async=false] - If true, the callback should be executed asynchronously.
-     * @returns {Promise} A promise that completes after the DOMContentLoaded event has occurred.
+     * @returns 
      */
     AGLibWinJS.onAppActivated = function (callback, async) {
-        return WinJS.Utilities.ready(function () {
-            callback();
-        }, typeof async !== 'undefined' ? async : false);
+        var app = WinJS.Application;
+        app.onactivated = function (args) {
+            var prmise = WinJS.Utilities.ready(function () {
+                callback(isFirstActivation);
+                isFirstActivation = false;
+            }, typeof async !== 'undefined' ? async : false);
+        };
     };
     
     /**
