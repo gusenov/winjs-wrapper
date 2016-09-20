@@ -1,10 +1,22 @@
 # AGLibWinJS
+
+* [What is AGLibWinJS?](#what-is-aglibwinjs)
+* [Examples](#examples)
+    * [Namespaces](#namespaces)
+    * [Add a namespace to an existing namespace](#add-a-namespace-to-an-existing-namespace)
+    * [Creating a class](#creating-a-class)
+    * [Deriving a class](#deriving-a-class)
+    * [Create mixins](#create-mixins)
+    
+What is AGLibWinJS?
+-----------------
+
 AGLibWinJS is a collection of frequently used functions for WinJS apps.
 
 Examples
 -----------------
 
-### Namespaces in JavaScript ###
+### Namespaces ###
 
 ```js
 // Define the namespace ProgrammingLanguages and create the JavaScript under it.
@@ -54,7 +66,7 @@ ProgrammingLanguages.CLI.Bash = {
 console.log(ProgrammingLanguages.CLI.Bash.getDescription());
 ```
 
-### Creating a Class in WinJS ###
+### Creating a class ###
 
 ```js
 var Robot = W.clsDef(function (name) {
@@ -107,7 +119,7 @@ var Person = W.clsDef(function (firstName, lastName) {
 console.log(ag.firstName + ' ' + ag.lastName);
 ```
 
-### Deriving a Class in WinJS ###
+### Deriving a class ###
 
 ```js
 var MechanicalCar = W.clsDefChild(Car, function (model, fuelTank) {
@@ -161,7 +173,7 @@ var Employee = W.clsDefChild(Person, function (firstName, lastName, position, hi
 console.log(ag.getDescription());
 ```
 
-### Create Mixins in WinJS ###
+### Create mixins ###
 
 ```js
 var HybridCar = W.clsMix(function (model, fuelTank, batteryType) {
