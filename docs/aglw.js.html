@@ -46,17 +46,18 @@ var W = (function () {
     /**
      * Declare a namespace.
      * @access public
+     *
      * @example &lt;caption> &lt;/caption>
      * // Define the namespace ProgrammingLanguages and create the JavaScript under it.
      * W.nsDef("ProgrammingLanguages", {
      *     JavaScript: {
      *         getDescription: function () {
-     *             'use strict';
      *             return 'JavaScript is the programming language of HTML and the Web.';
      *         }
      *     }
      * });
      * console.log(ProgrammingLanguages.JavaScript.getDescription());
+     *
      * @example &lt;caption> &lt;/caption>
      * // Define the namespace ProgrammingLanguages.
      * W.nsDef("ProgrammingLanguages");
@@ -64,11 +65,11 @@ var W = (function () {
      * // JavaScript created in the ProgrammingLanguages namespace.
      * ProgrammingLanguages.JavaScript = {
      *     getDescription: function () {
-     *         'use strict';
      *         return 'JavaScript is the programming language of HTML and the Web.';
      *     }
      * };
      * console.log(ProgrammingLanguages.JavaScript.getDescription());
+     *
      * @memberof W
      * @method
      * @param {string} nameOfNewNamespace - This is the first parameter and represents the name of the new namespace.
@@ -88,8 +89,10 @@ var W = (function () {
         } catch (e) {
             console.log(e);
         }
+        
         console.assert(newNamespace !== undefined, 'newNamespace should not be undefined');
         console.assert(newNamespace !== null, 'newNamespace should not be null');
+        console.assert(typeof newNamespace === 'object', 'newNamespace should be Object');
         
         return newNamespace;
     };
@@ -97,25 +100,26 @@ var W = (function () {
     /**
      * Add a namespace to the existing namespace and define your functionalities.
      * @access public
+     *
      * @example &lt;caption> &lt;/caption>
      * W.nsDefChild(ProgrammingLanguages, "CLI", {
      *     Bash: {
      *         getDescription: function () {
-     *             'use strict';
      *             return "Bash is the shell, or command language interpreter, for the GNU operating system.";
      *         }
      *     }
      * });
      * console.log(ProgrammingLanguages.CLI.Bash.getDescription());
+     *
      * @example &lt;caption> &lt;/caption>
      * W.nsDefChild(ProgrammingLanguages, "CLI");
      * ProgrammingLanguages.CLI.Bash = {
      *     getDescription: function () {
-     *         'use strict';
      *         return "Bash is the shell, or command language interpreter, for the GNU operating system.";
      *     }
      * };
      * console.log(ProgrammingLanguages.CLI.Bash.getDescription());
+     *
      * @memberof W
      * @method
      * @param {Object} parentNamespace - The first parameter is the name of the parent namespace.
@@ -137,8 +141,10 @@ var W = (function () {
         } catch (e) {
             console.log(e);
         }
+        
         console.assert(newNamespace !== undefined, 'newNamespace should not be undefined');
         console.assert(newNamespace !== null, 'newNamespace should not be null');
+        console.assert(typeof newNamespace === 'object', 'newNamespace should be Object');
         
         return newNamespace;
     };
@@ -152,41 +158,216 @@ var W = (function () {
     
     /**
      * Create a class.
+     * @access public
+     *
+     * @example &lt;caption> &lt;/caption>
+     * var Robot = W.clsDef(function (name) {
+     *         this.name = name;
+     *     }, {
+     *         modelName: "",
+     *         on: function () { },
+     *         off: function () { }
+     *     }, {
+     *         harmsHumans: false,
+     *         getModels: function () { return ["R2-D2", "WALL-E", "Bender"]; }
+     *     }),
+     *     models = Robot.getModels(),
+     *     r = new Robot("Artoo-Detoo");
+     * r.model = "R2-D2";
+     * r.on();
+     * Robot.harmsHumans = false;
+     * console.log(models);
+     *
+     * @example &lt;caption> &lt;/caption>
+     * var Car = W.clsDef(function (model) {
+     *         this.model = model;
+     *     }, {
+     *         _model: undefined,
+     *         model: {
+     *             set: function (value) { this._model = value; },
+     *             get: function () { return this._model; }
+     *         }
+     *     });
+     *
+     * @example &lt;caption> &lt;/caption>
+     * var Person = W.clsDef(function (firstName, lastName) {
+     *         this.firstName = firstName;
+     *         this.lastName = lastName;
+     *     }, {
+     *         _firstName: undefined,
+     *         _lastName: undefined,
+     *         firstName: {
+     *             set: function (value) { this._firstName = value; },
+     *             get: function () { return this._firstName; }
+     *         },
+     *         lastName: {
+     *             set: function (value) { this._lastName = value; },
+     *             get: function () { return this._lastName; }
+     *         }
+     *     }),
+     *     ag = new Person("Abbas", "Gussenov");
+     * console.log(ag.firstName + ' ' + ag.lastName);
+     *
      * @memberof W
      * @method
-     * @param {Function} constructor - The first parameter lets developers initialize a new object.
+     * @param {function} constructor - The first parameter lets developers initialize a new object.
      * @param {Object} instanceMembers - The second parameter is the collection of instance members, which includes properties and methods.
-     * @param {} staticMembers -  The third parameter includes static properties and static methods.
-     * @returns {Object} The newly-defined type.
+     * @param {Object} [staticMembers] -  The third parameter includes static properties and static methods.
+     * @returns {function} The newly-defined type.
      */
-    W.createClass = function (constructor, instanceMembers, staticMembers) {
-        return WinJS.Class.define(constructor, instanceMembers, staticMembers);
+    W.clsDef = function (constructor, instanceMembers, staticMembers) {
+        // pre-condition
+        console.assert(typeof constructor === 'function', 'constructor should be function');
+        console.assert(typeof instanceMembers === 'object', 'instanceMembers should be Object');
+        if (staticMembers) {
+            console.assert(typeof staticMembers === 'object', 'staticMembers should be Object');
+        }
+        
+        var newClass;
+        try {
+            newClass = WinJS.Class.define(constructor, instanceMembers, staticMembers);
+        } catch (e) {
+            console.log(e);
+        }
+        
+        console.assert(newClass !== undefined, 'newClass should not be undefined');
+        console.assert(newClass !== null, 'newClass should not be null');
+        console.assert(typeof newClass === 'function', 'newClass should be function');
+        
+        return newClass;
     };
     
     /**
      * Derive one class from another.
+     * @access public
+     *
+     * @example &lt;caption> &lt;/caption>
+     * var MechanicalCar = W.clsDefChild(Car, function (model, fuelTank) {
+     *         this.model = model;
+     *         this.fuelTank = fuelTank;
+     *     }, {
+     *         _fuelTank: undefined,
+     *         fuelTank: {
+     *             set: function (value) { this._fuelTank = value; },
+     *             get: function () { return this._fuelTank; }
+     *         }
+     *     }),
+     * 
+     *     ElectricCar = W.clsDefChild(Car, function (model, batteryType) {
+     *         this.model = model;
+     *         this.batteryType = batteryType;
+     *     }, {
+     *         _batteryType: undefined,
+     *         batteryType: {
+     *             set: function (value) { this._batteryType = value; },
+     *             get: function () { return this._batteryType; }
+     *         }
+     *     });
+     *
+     * @example &lt;caption> &lt;/caption>
+     * var Employee = W.clsDefChild(Person, function (firstName, lastName, position, hireDate) {
+     *         this.firstName = firstName;
+     *         this.lastName = lastName;
+     *         this.position = position;
+     *         this.hireDate = hireDate;
+     *     }, {
+     *         _hireDate: undefined,
+     *         _position: undefined,
+     *         hireDate: {
+     *             set: function (value) { this._hireDate = value; },
+     *             get: function () { return this._hireDate; }
+     *         },
+     *         position: {
+     *             set: function (value) { this._position = value; },
+     *             get: function () { return this._position; }
+     *         },
+     *         getDescription: function () {
+     *             var options = { day: 'numeric', month: 'long', year: 'numeric' };
+     *             return this.firstName + " " + this.lastName
+     *                 + " was hired as a " + this.position
+     *                 + " on the " + this.hireDate.toLocaleString("en-US", options) + ".";
+     *         }
+     *     }),
+     *     ag = new Employee("Abbas", "Gussenov", "software developer", new Date(2016, 8, 20));
+     * console.log(ag.getDescription());
+     *
      * @memberof W
      * @method
-     * @param {Object} baseClass - The class that the current class needs to inherit from.
-     * @param {Function} constructor - This parameter refers to the constructor function that can be used to initialize the class members.
-     * @param {Object} instanceMembers - This parameter defines instance members, which includes properties and methods.
-     * @param {Object} staticMembers - This parameter defines static properties and static methods.
-     * @returns {Object} The newly-defined type.
+     * @param {function} baseClass - The class that the current class needs to inherit from.
+     * @param {function} constructor - This parameter refers to the constructor function that can be used to initialize the class members.
+     * @param {Object}   [instanceMembers] - This parameter defines instance members, which includes properties and methods.
+     * @param {Object}   [staticMembers] - This parameter defines static properties and static methods.
+     * @returns {function} The newly-defined type.
      */
-    W.deriveClass = function (baseClass, constructor, instanceMembers, staticMembers) {
-        return WinJS.Class.derive(baseClass, constructor, instanceMembers, staticMembers);
+    W.clsDefChild = function (baseClass, constructor, instanceMembers, staticMembers) {
+        // pre-condition
+        console.assert(typeof baseClass === 'function', 'baseClass should be function');
+        console.assert(typeof constructor === 'function', 'constructor should be function');
+        if (instanceMembers) {
+            console.assert(typeof instanceMembers === 'object', 'instanceMembers should be Object');
+        }
+        if (staticMembers) {
+            console.assert(typeof staticMembers === 'object', 'staticMembers should be Object');
+        }
+
+        var newClass;
+        try {
+            newClass = WinJS.Class.derive(baseClass, constructor, instanceMembers, staticMembers);
+        } catch (e) {
+            console.log(e);
+        }
+        
+        console.assert(newClass !== undefined, 'newClass should not be undefined');
+        console.assert(newClass !== null, 'newClass should not be null');
+        console.assert(typeof newClass === 'function', 'newClass should be function');
+        
+        return newClass;
     };
     
     /**
      * Combine methods and properties from multiple JavaScript objects.
+     * @access public
+     *
+     * @example &lt;caption> &lt;/caption>
+     * var HybridCar = W.clsMix(function (model, fuelTank, batteryType) {
+     *         this.model = model;
+     *         this.fuelTank = fuelTank;
+     *         this.batteryType = batteryType;
+     *     }, MechanicalCar, ElectricCar),
+     * 
+     *     c = new HybridCar("Toyota Prius 2016", 43, "NiMH");
+     * 
+     * console.log("Specs for " + c.model
+     *     + "\nBattery type: " + c.batteryType
+     *     + "\nFuel tank: " + c.fuelTank + " l");
+     *
      * @memberof W
      * @method
-     * @param {Function} constructor - The first parameter, which is used to initialize the class members.
-     * @param {} mixin - The second parameter is the array that takes the mixin methods.
-     * @returns {Object} The newly defined class.
+     * @param {function} constructor - The first parameter, which is used to initialize the class members.
+     * @param {...function} mixin - The second parameter is the array that takes the mixin methods.
+     * @returns {function} The newly defined class.
      */
-    W.createMixin = function (constructor, mixin) {
-        return WinJS.Class.mix(constructor, mixin);
+    W.clsMix = function (constructor, mixin) {
+        var i, newClass;
+        
+        // pre-condition
+        console.assert(typeof constructor === 'function', 'constructor should be function');
+        for (i = 1; i &lt; arguments.length; i += 1) {
+            console.assert(typeof arguments[i] === 'function', 'mixin should be function');
+        }
+
+        try {
+            //newClass = WinJS.Class.mix(constructor, mixin);
+            newClass = WinJS.Class.mix.apply(null, arguments);
+        } catch (e) {
+            console.log(e);
+        }
+        
+        console.assert(newClass !== undefined, 'newClass should not be undefined');
+        console.assert(newClass !== null, 'newClass should not be null');
+        console.assert(typeof newClass === 'function', 'newClass should be function');
+        
+        return newClass;
     };
     
     // &lt;/OOP>
@@ -848,7 +1029,7 @@ var W = (function () {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Wed Sep 21 2016 23:40:15 GMT+0600 (Центральная Азия (зима))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Sep 20 2016 21:20:22 GMT+0600 (Центральная Азия (зима))
 </footer>
 
 <script> prettyPrint(); </script>
