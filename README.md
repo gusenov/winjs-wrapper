@@ -40,7 +40,7 @@ Examples
 
 ### Namespaces ###
 
-Example of namespace definition:
+#### Example of namespace definition: ####
 
 ```js
 // Define the namespace ProgrammingLanguages and create the JavaScript under it.
@@ -54,7 +54,7 @@ W.nsDef("ProgrammingLanguages", {
 console.log(ProgrammingLanguages.JavaScript.getDescription());
 ```
 
-Example of namespace population:
+#### Example of namespace population: ####
 
 ```js
 // Define the namespace ProgrammingLanguages.
@@ -71,7 +71,7 @@ console.log(ProgrammingLanguages.JavaScript.getDescription());
 
 ### Add a namespace to an existing namespace ###
 
-Example of namespace in namespace:
+#### Example of namespace in namespace: ####
 
 ```js
 W.nsDefChild(ProgrammingLanguages, "CLI", {
@@ -84,7 +84,7 @@ W.nsDefChild(ProgrammingLanguages, "CLI", {
 console.log(ProgrammingLanguages.CLI.Bash.getDescription());
 ```
 
-Example of adding members to nested namespace:
+#### Example of adding members to nested namespace: ####
 
 ```js
 W.nsDefChild(ProgrammingLanguages, "CLI");
@@ -98,7 +98,7 @@ console.log(ProgrammingLanguages.CLI.Bash.getDescription());
 
 ### Creating a class ###
 
-Example of class Robot:
+#### Example of class Robot: ####
 
 ```js
 var Robot = W.clsDef(function (name) {
@@ -119,7 +119,7 @@ Robot.harmsHumans = false;
 console.log(models);
 ```
 
-Example of class Car:
+#### Example of class Car: ####
 
 ```js
 var Car = W.clsDef(function (model) {
@@ -133,7 +133,7 @@ var Car = W.clsDef(function (model) {
     });
 ```
 
-Example of class Person:
+#### Example of class Person: ####
 
 ```js
 var Person = W.clsDef(function (firstName, lastName) {
@@ -157,7 +157,7 @@ console.log(ag.firstName + ' ' + ag.lastName);
 
 ### Deriving a class ###
 
-Example of classes MechanicalCar and ElectricCar:
+#### Example of classes MechanicalCar and ElectricCar: ####
 
 ```js
 var MechanicalCar = W.clsDefChild(Car, function (model, fuelTank) {
@@ -183,7 +183,7 @@ var MechanicalCar = W.clsDefChild(Car, function (model, fuelTank) {
     });
 ```
 
-Example of class Employee:
+#### Example of class Employee: ####
 
 ```js
 var Employee = W.clsDefChild(Person, function (firstName, lastName, position, hireDate) {
@@ -215,7 +215,7 @@ console.log(ag.getDescription());
 
 ### Create mixins ###
 
-Example of class HybridCar:
+#### Example of class HybridCar: ####
 
 ```js
 var HybridCar = W.clsMix(function (model, fuelTank, batteryType) {
@@ -233,19 +233,19 @@ console.log("Specs for " + c.model
 
 ### Manage events
 
-Example of adding event management functionality to the class Person:
+#### Example of adding event management functionality to the class Person: ####
 
 ```js
 W.evtMgmtAdd(Person);
 ```
 
-Example of defining event in the class Person:
+#### Example of defining event in the class Person: ####
 
 ```js
 W.evtDef(Person, "WeightChanged");
 ```
 
-Example of adding event handler:
+#### Example of adding event handler: ####
 
 ```js
 var myPerson = new Person(64),
@@ -258,7 +258,7 @@ myPerson.weight += 1;
 myPerson.weight -= 1;
 ```
 
-Example of dispatching an event in the class Person:
+#### Example of dispatching an event in the class Person: ####
 
 ```js
 var Person = W.clsDef(function (weight) {
@@ -277,14 +277,14 @@ var Person = W.clsDef(function (weight) {
     });
 ```
 
-Example of removing event handler:
+#### Example of removing event handler: ####
 
 ```js
 W.evtHndDel(myPerson, "WeightChanged", listener);
 myPerson.weight = 90;
 ```
 
-Example of marking an event handler function as being compatible with declarative processing:
+#### Example of marking an event handler function as being compatible with declarative processing: ####
 
 ```html
 <body class="win-type-body">
@@ -317,7 +317,7 @@ Example of marking an event handler function as being compatible with declarativ
 
 ### Controls
 
-Example of creating a ToggleSwitch control:
+#### Example of creating a ToggleSwitch control: ####
 
 ```html
 <body class="win-type-body">                
@@ -353,7 +353,7 @@ Example of creating a ToggleSwitch control:
 
 ![](demo/control_checkbox.gif)
 
-Example of creating a Tooltip control:
+#### Example of creating a Tooltip control: ####
 
 ```html
 <head>
@@ -384,7 +384,7 @@ Example of creating a Tooltip control:
 
 ![](demo/control_tooltip.gif)
 
-Example of creating an AppBarCommand:
+#### Example of creating an AppBarCommand: ####
 
 ```html
 <body class="win-type-body">
@@ -414,7 +414,7 @@ Example of creating an AppBarCommand:
 
 ![](demo/control_appbar.gif)
 
-Example of creating a Toolbar control:
+#### Example of creating a Toolbar control: ####
 
 ```html
 <body class="win-type-body">
