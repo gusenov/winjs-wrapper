@@ -286,6 +286,8 @@ myPerson.weight = 90;
 
 #### Example of marking an event handler function as being compatible with declarative processing: ####
 
+![](demo/control_toolbar_declarative.gif)
+
 ```html
 <body class="win-type-body">
     <div class="basicToolbar" data-win-control="WinJS.UI.ToolBar">
@@ -313,11 +315,11 @@ myPerson.weight = 90;
 </body>
 ```
 
-![](demo/control_toolbar_declarative.gif)
-
 ### Controls
 
 #### Example of creating a ToggleSwitch control: ####
+
+![](demo/control_checkbox.gif)
 
 ```html
 <body class="win-type-body">                
@@ -351,9 +353,9 @@ myPerson.weight = 90;
 </body>
 ```
 
-![](demo/control_checkbox.gif)
-
 #### Example of creating a Tooltip control: ####
+
+![](demo/control_tooltip.gif)
 
 ```html
 <head>
@@ -382,9 +384,9 @@ myPerson.weight = 90;
 </body>
 ```
 
-![](demo/control_tooltip.gif)
-
 #### Example of creating an AppBarCommand: ####
+
+![](demo/control_appbar.gif)
 
 ```html
 <body class="win-type-body">
@@ -412,9 +414,9 @@ myPerson.weight = 90;
 </body>
 ```
 
-![](demo/control_appbar.gif)
-
 #### Example of creating a Toolbar control: ####
+
+![](demo/control_toolbar.gif)
 
 ```html
 <body class="win-type-body">
@@ -446,5 +448,3 @@ myPerson.weight = 90;
     </script>
 </body>
 ```
-
-![](demo/control_toolbar.gif)
