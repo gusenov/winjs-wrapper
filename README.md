@@ -50,6 +50,11 @@ What is wJS?
 
 wJS is a collection of frequently used functions for WinJS apps.
 
+wJS structure
+-----------------
+
+<kbd>![](struct/wJS structure.png)</kbd>
+
 Examples
 -----------------
 
