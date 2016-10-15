@@ -87,7 +87,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line11">line 11</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line11">line 11</a>
     </li></ul></dd>
     
 
@@ -143,14 +143,14 @@
 
     
 
-    <h4 class="name" id=".addEventListener"><span class="type-signature">(static) </span>addEventListener<span class="signature">(control, type, listener, useCapture)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".appStart"><span class="type-signature">(static) </span>appStart<span class="signature">(init, becameVisible, longRunOper, saveState, restoreState, toast, voiceCmd)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Adds an event listener to the control.
+    Starts dispatching application events (the activated, checkpoint, error, loaded, ready, settings, and unload events).
 </div>
 
 
@@ -186,48 +186,7 @@
 
         <tr>
             
-                <td class="name"><code>control</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>type</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The type (name) of the event.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>listener</code></td>
+                <td class="name"><code>init</code></td>
             
 
             <td class="type">
@@ -243,20 +202,20 @@
 
             
 
-            <td class="description last">The listener to invoke when the event gets raised.</td>
+            <td class="description last">The app was activated and had not been running. Do general startup initialization here.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>useCapture</code></td>
+                <td class="name"><code>becameVisible</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Boolean</span>
+<span class="param-type">function</span>
 
 
             
@@ -266,7 +225,122 @@
 
             
 
-            <td class="description last">If true, initiates capture, otherwise false.</td>
+            <td class="description last">The app just became visible. This may be a good time to refresh the view.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>longRunOper</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">If prelaunchActivated were true, it would mean the app was prelaunched in the background as an optimization. In that case it would be suspended shortly thereafter. Any long-running operations (like expensive network or disk I/O) or changes to user state which occur at launch should be done here (to avoid doing them in the prelaunch case). Alternatively, this work can be done in a resume or visibilitychanged handler.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>saveState</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">This application is about to be suspended. Save any state that needs to persist across suspensions here. You might use the WinJS.Application.sessionState object, which is automatically saved and restored across suspension. If you need to complete an asynchronous operation before your application is suspended, call args.setPromise().</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>restoreState</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">This application had been suspended and was then terminated to reclaim memory. To create a smooth user experience, restore application state here so that it looks like the app never stopped running. Note: You may want to record the time when the app was last suspended and only restore state if they've returned after a short period.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>toast</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">If the app supports toasts, use this value from the toast payload to determine where in the app to take the user in response to them invoking a toast notification.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>voiceCmd</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">If your app can be started by voice commands, this is a good place to decide whether to populate an input field or choose a different initial view.</td>
         </tr>
 
     
@@ -307,7 +381,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line385">line 385</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line769">line 769</a>
     </li></ul></dd>
     
 
@@ -334,7 +408,7 @@
 
         
 <div class="param-desc">
-    This method does not return a value.
+    A WinJS.Application object instance.
 </div>
 
 
@@ -348,14 +422,14 @@
 
     
 
-    <h4 class="name" id=".addEventManagementFunctionality"><span class="type-signature">(static) </span>addEventManagementFunctionality<span class="signature">(type)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".bndClsNew"><span class="type-signature">(static) </span>bndClsNew<span class="signature">(data)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
 
 
 <div class="description">
-    Add the event management functionality to any type that you define.
+    Creates a new constructor function that supports observability with the specified set of properties.
 </div>
 
 
@@ -391,10 +465,15 @@
 
         <tr>
             
-                <td class="name"><code>type</code></td>
+                <td class="name"><code>data</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
             
             </td>
 
@@ -402,7 +481,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">The object to use as the pattern for defining the set of properties.</td>
         </tr>
 
     
@@ -443,7 +522,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line359">line 359</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line741">line 741</a>
     </li></ul></dd>
     
 
@@ -470,12 +549,31 @@
 
         
 <div class="param-desc">
-    This method does not return a value.
+    A constructor function with 1 optional argument that is the initial state of the properties.
 </div>
 
 
 
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">function</span>
+
+
+    </dd>
+</dl>
+
     
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of creating observable constructor:</p>
+    
+    <pre class="prettyprint"><code>&lt;body class="win-type-body">    &lt;div id="templateDiv" data-win-control="WinJS.Binding.Template">        &lt;div class="templateItem" data-win-bind="style.background: color" style="color: white">            &lt;ol>                &lt;li>&lt;span>Name: &lt;/span>&lt;span data-win-bind="textContent: name">&lt;/span>&lt;/li>                &lt;li>&lt;span>Birthday: &lt;/span>&lt;span data-win-bind="textContent: birthday">&lt;/span>&lt;/li>                &lt;li>&lt;span>Pet's name: &lt;/span>&lt;span data-win-bind="textContent: petname">&lt;/span>&lt;/li>                &lt;li>&lt;span>Dessert: &lt;/span>&lt;span data-win-bind="textContent: dessert">&lt;/span>&lt;/li>            &lt;/ol>        &lt;/div>    &lt;/div>    &lt;div id="renderDiv">&lt;/div>    &lt;fieldset id="templateControlObject">        &lt;legend>Pick a name:&lt;/legend>        &lt;select id="templateControlObjectSelector">            &lt;option value="0">Show John Doe&lt;/option>            &lt;option value="1">Show Jane Dow&lt;/option>            &lt;option value="2">Show Jake Doe&lt;/option>        &lt;/select>    &lt;/fieldset>    &lt;script>        (function () {            'use strict';            var Person = W.bndClsNew({ name: "", color: "", birthday: "", petname: "", dessert: "" }),                people = [                    new Person({ name: "John Doe", color: "red", birthday: "2/2/2002", petname: "Spot", dessert: "chocolate cake" }),                    new Person({ name: "Jane Doe", color: "green", birthday: "3/3/2003", petname: "Xena", dessert: "cherry pie" }),                    new Person({ name: "Jake Doe", color: "blue", birthday: "2/2/2002", petname: "Pablo", dessert: "ice cream" })                ],                selector;            function handleChange(evt) {                var templateElement = document.querySelector("#templateDiv"),                    renderElement = document.querySelector("#renderDiv"),                    selected = evt.target.selectedIndex,                    templateControl = templateElement.winControl;                renderElement.innerHTML = "";                templateElement.winControl.render(people[selected], renderElement);            }            selector = document.querySelector("#templateControlObjectSelector");            W.evtHndAdd(selector, "change", handleChange, false);            W.uiCtrlRender();        }());    &lt;/script>&lt;/body></code></pre>
 
 
 
@@ -484,7 +582,7 @@
 
     
 
-    <h4 class="name" id=".bindDataToElement"><span class="type-signature">(static) </span>bindDataToElement<span class="signature">(containerId, businessObject)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".bndDat2El"><span class="type-signature">(static) </span>bndDat2El<span class="signature">(containerId, businessObject)</span><span class="type-signature"></span></h4>
 
     
 
@@ -597,7 +695,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line493">line 493</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line678">line 678</a>
     </li></ul></dd>
     
 
@@ -628,20 +726,27 @@
     
 
 
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of binding the data properties of the business object to HTML elements on the UI:</p>
+    
+    <pre class="prettyprint"><code>&lt;body class="win-type-body">    &lt;div id="container">        &lt;h3>Name:&lt;/h3>        &lt;h2>&lt;span data-win-bind="innerText: name">&lt;/span>&lt;/h2>        &lt;h3>Age:&lt;/h3>        &lt;h2>&lt;span data-win-bind="innerText: age">&lt;/span>&lt;/h2>        &lt;h3>Designation:&lt;/h3>        &lt;h2>&lt;span data-win-bind="innerText: designation">&lt;/span>&lt;/h2>        &lt;h3>City:&lt;/h3>        &lt;h2>&lt;span data-win-bind="innerText: city">&lt;/span>&lt;/h2>        &lt;h3>Fav Color:&lt;/h3>        &lt;div data-win-bind="style.background: favcolor">            &lt;div class="favcolor" data-win-bind="innerText: favcolor">&lt;/div>        &lt;/div>    &lt;/div>    &lt;script>        (function () {            'use strict';            var person = {                    name: "Abbas Gussenov",                    age: 26,                    designation: "Software Developer",                    city: "Terekty",                    favcolor: "green"                };            W.bndDat2El('container', person);        }());    &lt;/script>&lt;/body></code></pre>
+
+
 
         
             
 
     
 
-    <h4 class="name" id=".callReadyMethodWhenPageIsLoaded"><span class="type-signature">(static) </span>callReadyMethodWhenPageIsLoaded<span class="signature">(uri, readyMethod)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".bndLstNew"><span class="type-signature">(static) </span>bndLstNew<span class="signature">(list)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Provide a ready method that will be called when the page is loaded.
+    Basically, this method creates a bindable list of the given objects.
 </div>
 
 
@@ -677,10 +782,15 @@
 
         <tr>
             
-                <td class="name"><code>uri</code></td>
+                <td class="name"><code>list</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
             
             </td>
 
@@ -688,25 +798,7 @@
 
             
 
-            <td class="description last">The URI for the content that defines the page.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>readyMethod</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">This function is called after the page control contents have been loaded, controls have been activated, and the resulting elements have been parented to the DOM.</td>
+            <td class="description last">The array containing the elements to initalize the list.</td>
         </tr>
 
     
@@ -747,7 +839,146 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line578">line 578</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line620">line 620</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+    
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of creating bindable list:</p>
+    
+    <pre class="prettyprint"><code>&lt;head>    &lt;style>        #basicListView { height: 100%; margin-top: 10px; margin-right: 20px; }        #templateContainer { display: -ms-grid; -ms-grid-columns: 1fr; min-height: 150px; }        #itemContainer { background-color: lightgray; width: 100%; padding: 10px; }    &lt;/style>&lt;/head>&lt;body class="win-type-body">    &lt;div id="flavorItemTemplate" data-win-control="WinJS.Binding.Template">        &lt;div id="templateContainer">            &lt;div id="itemContainer">                &lt;h4 data-win-bind="innerText: title">&lt;/h4>                &lt;h6 data-win-bind="innerText: text">&lt;/h6>            &lt;/div>        &lt;/div>    &lt;/div>    &lt;div id="basicListView" data-win-control="WinJS.UI.ListView"         data-win-options="{ itemDataSource: DataExample.flavorList.dataSource,                             itemTemplate: select('#flavorItemTemplate'),                             selectionMode: 'none',                             layout: { type: WinJS.UI.ListLayout } }">    &lt;/div>    &lt;script>        (function () {            'use strict';            var flavors = [{ title: "Basic banana", text: "Low-fat frozen yogurt" },                { title: "Banana blast", text: "Ice cream" },                { title: "Brilliant banana", text: "Frozen custard" },                { title: "Orange surprise", text: "Sherbet" },                { title: "Original orange", text: "Sherbet" },                { title: "Vanilla", text: "Ice cream" },                { title: "Very vanilla", text: "Frozen custard" },                { title: "Marvelous mint", text: "Gelato" },                { title: "Succulent strawberry", text: "Sorbet" }],                flavorList = W.bndLstNew(flavors);            W.nsDef("DataExample", { flavorList: flavorList });            W.uiCtrlRender();        }());    &lt;/script>&lt;/body></code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".bndTplNew"><span class="type-signature">(static) </span>bndTplNew<span class="signature">(id)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Provides a reusable declarative binding element.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">-</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line632">line 632</a>
     </li></ul></dd>
     
 
@@ -958,7 +1189,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line190">line 190</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line190">line 190</a>
     </li></ul></dd>
     
 
@@ -1007,15 +1238,15 @@
 
     <h5>Examples</h5>
     
-        <p class="code-caption"> </p>
+        <p class="code-caption">Example of class Robot:</p>
     
     <pre class="prettyprint"><code>var Robot = W.clsDef(function (name) {        this.name = name;    }, {        modelName: "",        on: function () { },        off: function () { }    }, {        harmsHumans: false,        getModels: function () { return ["R2-D2", "WALL-E", "Bender"]; }    }),    models = Robot.getModels(),    r = new Robot("Artoo-Detoo");r.model = "R2-D2";r.on();Robot.harmsHumans = false;console.log(models);</code></pre>
 
-        <p class="code-caption"> </p>
+        <p class="code-caption">Example of class Car:</p>
     
     <pre class="prettyprint"><code>var Car = W.clsDef(function (model) {        this.model = model;    }, {        _model: undefined,        model: {            set: function (value) { this._model = value; },            get: function () { return this._model; }        }    });</code></pre>
 
-        <p class="code-caption"> </p>
+        <p class="code-caption">Example of class Person:</p>
     
     <pre class="prettyprint"><code>var Person = W.clsDef(function (firstName, lastName) {        this.firstName = firstName;        this.lastName = lastName;    }, {        _firstName: undefined,        _lastName: undefined,        firstName: {            set: function (value) { this._firstName = value; },            get: function () { return this._firstName; }        },        lastName: {            set: function (value) { this._lastName = value; },            get: function () { return this._lastName; }        }    }),    ag = new Person("Abbas", "Gussenov");console.log(ag.firstName + ' ' + ag.lastName);</code></pre>
 
@@ -1233,7 +1464,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line274">line 274</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line274">line 274</a>
     </li></ul></dd>
     
 
@@ -1282,11 +1513,11 @@
 
     <h5>Examples</h5>
     
-        <p class="code-caption"> </p>
+        <p class="code-caption">Example of classes MechanicalCar and ElectricCar:</p>
     
     <pre class="prettyprint"><code>var MechanicalCar = W.clsDefChild(Car, function (model, fuelTank) {        this.model = model;        this.fuelTank = fuelTank;    }, {        _fuelTank: undefined,        fuelTank: {            set: function (value) { this._fuelTank = value; },            get: function () { return this._fuelTank; }        }    }),    ElectricCar = W.clsDefChild(Car, function (model, batteryType) {        this.model = model;        this.batteryType = batteryType;    }, {        _batteryType: undefined,        batteryType: {            set: function (value) { this._batteryType = value; },            get: function () { return this._batteryType; }        }    });</code></pre>
 
-        <p class="code-caption"> </p>
+        <p class="code-caption">Example of class Employee:</p>
     
     <pre class="prettyprint"><code>var Employee = W.clsDefChild(Person, function (firstName, lastName, position, hireDate) {        this.firstName = firstName;        this.lastName = lastName;        this.position = position;        this.hireDate = hireDate;    }, {        _hireDate: undefined,        _position: undefined,        hireDate: {            set: function (value) { this._hireDate = value; },            get: function () { return this._hireDate; }        },        position: {            set: function (value) { this._position = value; },            get: function () { return this._position; }        },        getDescription: function () {            var options = { day: 'numeric', month: 'long', year: 'numeric' };            return this.firstName + " " + this.lastName                + " was hired as a " + this.position                + " on the " + this.hireDate.toLocaleString("en-US", options) + ".";        }    }),    ag = new Employee("Abbas", "Gussenov", "software developer", new Date(2016, 8, 20));console.log(ag.getDescription());</code></pre>
 
@@ -1440,7 +1671,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line322">line 322</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line322">line 322</a>
     </li></ul></dd>
     
 
@@ -1489,7 +1720,7 @@
 
     <h5>Example</h5>
     
-        <p class="code-caption"> </p>
+        <p class="code-caption">Example of class HybridCar:</p>
     
     <pre class="prettyprint"><code>var HybridCar = W.clsMix(function (model, fuelTank, batteryType) {        this.model = model;        this.fuelTank = fuelTank;        this.batteryType = batteryType;    }, MechanicalCar, ElectricCar),    c = new HybridCar("Toyota Prius 2016", 43, "NiMH");console.log("Specs for " + c.model    + "\nBattery type: " + c.batteryType    + "\nFuel tank: " + c.fuelTank + " l");</code></pre>
 
@@ -1500,379 +1731,7 @@
 
     
 
-    <h4 class="name" id=".connectToUrl"><span class="type-signature">(static) </span>connectToUrl<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    This function wraps the calls made to the XMLHttpRequest in a promise.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line596">line 596</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".createBindingList"><span class="type-signature">(static) </span>createBindingList<span class="signature">(list)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Creates a WinJS.Binding.List object.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>list</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The array containing the elements to initalize the list.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line469">line 469</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".createObservableConstructor"><span class="type-signature">(static) </span>createObservableConstructor<span class="signature">(data)</span><span class="type-signature"> &rarr; {function}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Creates a new constructor function that supports observability with the specified set of properties.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>data</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The object to use as the pattern for defining the set of properties.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line508">line 508</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    A constructor function with 1 optional argument that is the initial state of the properties.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">function</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".defineEvents"><span class="type-signature">(static) </span>defineEvents<span class="signature">(type, events)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".evtDef"><span class="type-signature">(static) </span>evtDef<span class="signature">(type, &hellip;events)</span><span class="type-signature"></span></h4>
 
     
 
@@ -1903,6 +1762,8 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -1920,13 +1781,26 @@
 
             <td class="type">
             
+                
+<span class="param-type">function</span>
+
+
+            
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Any type.</td>
         </tr>
 
     
@@ -1939,12 +1813,22 @@
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">string</span>
 
 
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
             
 
             
@@ -1990,7 +1874,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line371">line 371</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line383">line 383</a>
     </li></ul></dd>
     
 
@@ -2025,20 +1909,27 @@
     
 
 
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of defining event in the class Person:</p>
+    
+    <pre class="prettyprint"><code>W.evtDef(Person, "WeightChanged");</code></pre>
+
+
 
         
             
 
     
 
-    <h4 class="name" id=".filterList"><span class="type-signature">(static) </span>filterList<span class="signature">(listView, bindableList, searchField, searchText)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".evtHndAdd"><span class="type-signature">(static) </span>evtHndAdd<span class="signature">(control, type, listener, useCapture<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Filter the items displayed in a ListView by filtering it from the data source associated with the ListView.
+    Adds an event listener to the control.
 </div>
 
 
@@ -2062,7 +1953,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -2074,72 +1969,144 @@
 
         <tr>
             
-                <td class="name"><code>listView</code></td>
+                <td class="name"><code>control</code></td>
             
 
             <td class="type">
             
+                
+<span class="param-type">Object</span>
+
+
+            
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last">-</td>
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Any other object that supports events.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>bindableList</code></td>
+                <td class="name"><code>type</code></td>
             
 
             <td class="type">
             
+                
+<span class="param-type">string</span>
+
+
+            
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last">-</td>
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The type (name) of the event.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>searchField</code></td>
+                <td class="name"><code>listener</code></td>
             
 
             <td class="type">
             
+                
+<span class="param-type">function</span>
+
+
+            
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last">-</td>
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The listener to invoke when the event gets raised.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>searchText</code></td>
+                <td class="name"><code>useCapture</code></td>
             
 
             <td class="type">
             
+                
+<span class="param-type">boolean</span>
+
+
+            
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last">-</td>
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">If true, initiates capture, otherwise false.</td>
         </tr>
 
     
@@ -2180,7 +2147,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line952">line 952</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line417">line 417</a>
     </li></ul></dd>
     
 
@@ -2206,9 +2173,20 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    This method does not return a value.
+</div>
+
 
 
     
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of adding event handler:</p>
+    
+    <pre class="prettyprint"><code>var myPerson = new Person(64),    listener = function (evt) {        console.log("WeightChanged event fired!");        console.log(myPerson.weight);    };W.evtHndAdd(myPerson, "WeightChanged", listener);myPerson.weight += 1;myPerson.weight -= 1;</code></pre>
 
 
 
@@ -2217,14 +2195,14 @@
 
     
 
-    <h4 class="name" id=".getControl"><span class="type-signature">(static) </span>getControl<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".evtHndDel"><span class="type-signature">(static) </span>evtHndDel<span class="signature">(control, type, listener, useCapture)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Get the control from the HTML page’s DOM element.
+    Removes an event listener from the control.
 </div>
 
 
@@ -2233,6 +2211,124 @@
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>control</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Any other object that supports events.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The type (name) of the event.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>listener</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The listener to remove.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>useCapture</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">true if capture is to be initiated, otherwise false.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -2268,7 +2364,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line618">line 618</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line476">line 476</a>
     </li></ul></dd>
     
 
@@ -2291,6 +2387,23 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    This method does not return a value.
+</div>
+
+
+
+    
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of removing event handler:</p>
+    
+    <pre class="prettyprint"><code>W.evtHndDel(myPerson, "WeightChanged", listener);myPerson.weight = 90;</code></pre>
 
 
 
@@ -2299,14 +2412,14 @@
 
     
 
-    <h4 class="name" id=".markEventHandler"><span class="type-signature">(static) </span>markEventHandler<span class="signature">(handler)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id=".evtHndMark"><span class="type-signature">(static) </span>evtHndMark<span class="signature">(handler)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
 
 
 <div class="description">
-    Marks a event handler function as being compatible with declarative processing.
+    Marks an event handler function as being compatible with declarative processing.
 </div>
 
 
@@ -2348,7 +2461,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">function</span>
 
 
             
@@ -2399,7 +2512,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line423">line 423</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line523">line 523</a>
     </li></ul></dd>
     
 
@@ -2437,7 +2550,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type">function</span>
 
 
     </dd>
@@ -2446,20 +2559,27 @@
     
 
 
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of marking an event handler function as being compatible with declarative processing:</p>
+    
+    <pre class="prettyprint"><code>&lt;body class="win-type-body">    &lt;div class="basicToolbar" data-win-control="WinJS.UI.ToolBar">        &lt;!-- Primary commands -->        &lt;button data-win-control="WinJS.UI.Command" data-win-options="{ id: 'cmdAdd',    label: 'Add',    section: 'primary', type: 'button', icon: 'add',    onclick: cmd.click }">&lt;/button>        &lt;button data-win-control="WinJS.UI.Command" data-win-options="{ id: 'cmdEdit',   label: 'Edit',   section: 'primary', type: 'button', icon: 'edit',   onclick: cmd.click }">&lt;/button>        &lt;button data-win-control="WinJS.UI.Command" data-win-options="{ id: 'cmdDelete', label: 'Delete', section: 'primary', type: 'button', icon: 'delete', onclick: cmd.click }">&lt;/button>        &lt;!-- Secondary command -->        &lt;button data-win-control="WinJS.UI.Command" data-win-options="{ id: 'cmdShare', label: 'Share', section: 'secondary', type: 'button', onclick: cmd.click }">&lt;/button>    &lt;/div>    &lt;script>        (function () {            'use strict';            W.nsDef("cmd", {                click: W.evtHndMark(function (e) {                    var t = e.currentTarget;                    if (t.winControl) {                        console.log(t.winControl.label);                    }                })            });            W.uiCtrlRender();        }());    &lt;/script>        &lt;/body></code></pre>
+
+
 
         
             
 
     
 
-    <h4 class="name" id=".newAppBar"><span class="type-signature">(static) </span>newAppBar<span class="signature">(id)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".evtMgmtAdd"><span class="type-signature">(static) </span>evtMgmtAdd<span class="signature">(type)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Add an app bar to your page.
+    Add the event management functionality to any type that you define.
 </div>
 
 
@@ -2495,10 +2615,15 @@
 
         <tr>
             
-                <td class="name"><code>id</code></td>
+                <td class="name"><code>type</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
             
             </td>
 
@@ -2506,7 +2631,7 @@
 
             
 
-            <td class="description last">-</td>
+            <td class="description last">Any type.</td>
         </tr>
 
     
@@ -2547,7 +2672,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line862">line 862</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line363">line 363</a>
     </li></ul></dd>
     
 
@@ -2573,9 +2698,20 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    This method does not return a value.
+</div>
+
 
 
     
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of adding event management functionality to the class Person:</p>
+    
+    <pre class="prettyprint"><code>W.evtMgmtAdd(Person);</code></pre>
 
 
 
@@ -2584,11 +2720,15 @@
 
     
 
-    <h4 class="name" id=".newAppBarCommand"><span class="type-signature">(static) </span>newAppBarCommand<span class="signature">(id, label, icon, section, tooltip, method)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".evtRaise"><span class="type-signature">(static) </span>evtRaise<span class="signature">(control, type, eventProperties)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
 
     
 
 
+
+<div class="description">
+    Raises an event of the specified type and with the specified additional properties.
+</div>
 
 
 
@@ -2623,10 +2763,15 @@
 
         <tr>
             
-                <td class="name"><code>id</code></td>
+                <td class="name"><code>control</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
             
             </td>
 
@@ -2634,17 +2779,22 @@
 
             
 
-            <td class="description last">This uniquely identifies the AppBarCommand.</td>
+            <td class="description last">Any other object that supports events.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>label</code></td>
+                <td class="name"><code>type</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
             
             </td>
 
@@ -2652,17 +2802,22 @@
 
             
 
-            <td class="description last">The content displayed in the AppBarCommand.</td>
+            <td class="description last">The type (name) of the event.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>icon</code></td>
+                <td class="name"><code>eventProperties</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
             
             </td>
 
@@ -2670,61 +2825,7 @@
 
             
 
-            <td class="description last">The built-in icons for the AppBarCommand.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>section</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The section within the AppBar where the command should be displayed. This value can be primary or secondary.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>tooltip</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The text to be displayed when you mouse-over the command button.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>method</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Command function.</td>
+            <td class="description last">The set of additional properties to be attached to the event object when the event is raised.</td>
         </tr>
 
     
@@ -2765,7 +2866,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line839">line 839</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line456">line 456</a>
     </li></ul></dd>
     
 
@@ -2791,7 +2892,772 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    true if preventDefault was called on the event.
+</div>
 
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of dispatching an event in the class Person:</p>
+    
+    <pre class="prettyprint"><code>var Person = W.clsDef(function (weight) {        this.weight = weight;    }, {        _weightValue: undefined,        weight: {            get: function () {                return this._weightValue;            },            set: function (val) {                this._weightValue = val;                W.evtRaise(this, "WeightChanged");            }        }    });</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".netUrlConnect"><span class="type-signature">(static) </span>netUrlConnect<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    This function wraps the calls made to the XMLHttpRequest in a promise.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1821">line 1821</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of Connecting to URL:</p>
+    
+    <pre class="prettyprint"><code>&lt;body>            &lt;div>        &lt;input id="inputurl" value="https:     * api.github.com" />        &lt;button class="action win-button" id="connect" type="button">Connect&lt;/button>        &lt;button class="action win-button" id="cancel" type="button">Cancel&lt;/button>    &lt;/div>            &lt;div id="output">&lt;/div>    &lt;script>        (function () {            'use strict';            var input = document.getElementById("inputurl"),                cancelBtn = document.getElementById("cancel"),                connectBtn = document.getElementById("connect"),                xhrPromise;            function connect(url) {                var resultDiv = document.getElementById("output");                xhrPromise = W.netUrlConnect(url, function (result, status) {                    if (result.status === 200) {                        resultDiv.style.backgroundColor = "Green";                        resultDiv.innerText = "Success";                    }                }, function (e) {                    resultDiv.style.backgroundColor = "red";                    resultDiv.innerText = e.statusText;                });            }            W.evtHndAdd(input, "change", function (e) {                connect(e.target.value);            });            W.evtHndAdd(cancelBtn, "click", function () {                xhrPromise.cancel();            }, false);            W.evtHndAdd(connectBtn, "click", function () {                connect(input.value);            }, false);        }());    &lt;/script>&lt;/body></code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".nsDef"><span class="type-signature">(static) </span>nsDef<span class="signature">(nameOfNewNamespace, members<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Declare a namespace.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>nameOfNewNamespace</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">This is the first parameter and represents the name of the new namespace.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>members</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">This parameter represents the list of objects that need to be added to the namespace being defined.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line51">line 51</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The newly-defined namespace.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Examples</h5>
+    
+        <p class="code-caption">Example of namespace definition:</p>
+    
+    <pre class="prettyprint"><code>// Define the namespace ProgrammingLanguages and create the JavaScript under it.W.nsDef("ProgrammingLanguages", {    JavaScript: {        getDescription: function () {            return 'JavaScript is the programming language of HTML and the Web.';        }    }});console.log(ProgrammingLanguages.JavaScript.getDescription());</code></pre>
+
+        <p class="code-caption">Example of namespace population:</p>
+    
+    <pre class="prettyprint"><code>// Define the namespace ProgrammingLanguages.W.nsDef("ProgrammingLanguages");// JavaScript created in the ProgrammingLanguages namespace.ProgrammingLanguages.JavaScript = {    getDescription: function () {        return 'JavaScript is the programming language of HTML and the Web.';    }};console.log(ProgrammingLanguages.JavaScript.getDescription());</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".nsDefChild"><span class="type-signature">(static) </span>nsDefChild<span class="signature">(parentNamespace, childName, childMembers<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Add a namespace to the existing namespace and define your functionalities.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>parentNamespace</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The first parameter is the name of the parent namespace.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>childName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">This is the name of the namespace to be added to the parent namespace.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>childMembers</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The list of objects to be added to the new namespace. This is an optional parameter.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line102">line 102</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The newly-defined namespace.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Examples</h5>
+    
+        <p class="code-caption">Example of namespace in namespace:</p>
+    
+    <pre class="prettyprint"><code>W.nsDefChild(ProgrammingLanguages, "CLI", {    Bash: {        getDescription: function () {            return "Bash is the shell, or command language interpreter, for the GNU operating system.";        }    }});console.log(ProgrammingLanguages.CLI.Bash.getDescription());</code></pre>
+
+        <p class="code-caption">Example of adding members to nested namespace:</p>
+    
+    <pre class="prettyprint"><code>W.nsDefChild(ProgrammingLanguages, "CLI");ProgrammingLanguages.CLI.Bash = {    getDescription: function () {        return "Bash is the shell, or command language interpreter, for the GNU operating system.";    }};console.log(ProgrammingLanguages.CLI.Bash.getDescription());</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".pageParsed"><span class="type-signature">(static) </span>pageParsed<span class="signature">(callback, async<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Ensures that the specified function executes only after the DOMContentLoaded event has fired for the current page.The DOMContentLoaded event occurs after the page has been parsed but before all the resources are loaded.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">A function that executes after the DOMContentLoaded event has occurred.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>async</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">If true, the callback should be executed asynchronously.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line836">line 836</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A promise that completes after the DOMContentLoaded event has occurred.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
 
     
 
@@ -2802,7 +3668,183 @@
 
     
 
-    <h4 class="name" id=".newCommand"><span class="type-signature">(static) </span>newCommand<span class="signature">(id, label, section, type, icon, onClick)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".pageReady"><span class="type-signature">(static) </span>pageReady<span class="signature">(uri, readyMethod)</span><span class="type-signature"> &rarr; {PageControl}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Provide a ready method that will be called when the page is loaded.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>uri</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The URI for the content that defines the page.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>readyMethod</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="W.html#~readyMethod">W~readyMethod</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">This function is called after the page control contents have been loaded, controls have been activated, and the resulting elements have been parented to the DOM.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line859">line 859</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A constructor function that creates the PageControl.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">PageControl</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".uiCmdNew"><span class="type-signature">(static) </span>uiCmdNew<span class="signature">(id, label, section, type, icon, onClick)</span><span class="type-signature"></span></h4>
 
     
 
@@ -2983,7 +4025,467 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line884">line 884</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1715">line 1715</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+    
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of placing commands in the toolbar:</p>
+    
+    <pre class="prettyprint"><code>&lt;body class="win-type-body">    &lt;div class="basicToolbar" id="tb">        &lt;!-- Primary commands -->        &lt;button id="cmdAdd">&lt;/button>        &lt;button id="cmdEdit">&lt;/button>        &lt;button id="cmdDelete">&lt;/button>        &lt;!-- Secondary command -->        &lt;button id="cmdShare">&lt;/button>    &lt;/div>    &lt;script>        (function () {            'use strict';                W.nsDef("samples", {                clickcommand: function (ev) {                    var command = ev.currentTarget;                    if (command.winControl) {                        console.log(command.winControl.label);                    }                }            });                var cmdAdd = W.uiCmdNew('cmdAdd', 'Add', 'primary', 'button', 'add', samples.clickcommand),                cmdEdit = W.uiCmdNew('cmdEdit', 'Edit', 'primary', 'button', 'edit', samples.clickcommand),                cmdDelete = W.uiCmdNew('cmdDelete', 'Delete', 'primary', 'button', 'delete', samples.clickcommand),                cmdShare = W.uiCmdNew('cmdShare', 'Share', 'secondary', 'button', null, samples.clickcommand),                toolbar = W.uiCtrlTbNew('tb');        }());    &lt;/script>&lt;/body></code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".uiCtrlBarCmdNew"><span class="type-signature">(static) </span>uiCtrlBarCmdNew<span class="signature">(id, label, icon, method, section<span class="signature-attributes">opt</span>, tooltip<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">This uniquely identifies the AppBarCommand.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The content displayed in the AppBarCommand.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>icon</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The built-in icons for the AppBarCommand.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>method</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Command function.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>section</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The section within the AppBar where the command should be displayed. This value can be primary or secondary.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tooltip</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The text to be displayed when you mouse-over the command button.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1615">line 1615</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of placing commands in the appbar:</p>
+    
+    <pre class="prettyprint"><code>&lt;body class="win-type-body">    &lt;div id="appBar">        &lt;button id="cmdAdd">&lt;/button>        &lt;button id="cmdRemove">&lt;/button>        &lt;button id="cmdCamera">&lt;/button>    &lt;/div>    &lt;script>        (function () {            'use strict';            function addMethod() { console.log("Add button pressed"); }            function remMethod() { console.log("Remove button pressed"); }            function camMethod() { console.log("Camera button pressed"); }            var cmdAdd = W.uiCtrlBarCmdNew('cmdAdd', 'Add', 'add', addMethod),                cmdRem = W.uiCtrlBarCmdNew('cmdRemove', 'Remove', 'remove', remMethod),                cmdCam = W.uiCtrlBarCmdNew('cmdCamera', 'Click Photo', 'camera', camMethod),                appBar = W.uiCtrlBarNew('appBar');            W.uiCtrlRender();        }());    &lt;/script>&lt;/body></code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".uiCtrlBarNew"><span class="type-signature">(static) </span>uiCtrlBarNew<span class="signature">(id)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Add an app bar to your page.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">-</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1661">line 1661</a>
     </li></ul></dd>
     
 
@@ -3020,7 +4522,7 @@
 
     
 
-    <h4 class="name" id=".newDatePickerControl"><span class="type-signature">(static) </span>newDatePickerControl<span class="signature">(id, changeEventHandler<span class="signature-attributes">opt</span>, monthPattern<span class="signature-attributes">opt</span>, datePattern<span class="signature-attributes">opt</span>, yearPattern<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".uiCtrlDateNew"><span class="type-signature">(static) </span>uiCtrlDateNew<span class="signature">(id, changeEventHandler<span class="signature-attributes">opt</span>, monthPattern<span class="signature-attributes">opt</span>, datePattern<span class="signature-attributes">opt</span>, yearPattern<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -3265,7 +4767,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line687">line 687</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1050">line 1050</a>
     </li></ul></dd>
     
 
@@ -3300,13 +4802,20 @@
     
 
 
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of creating a DatePicker control:</p>
+    
+    <pre class="prettyprint"><code>&lt;body class="win-type-body">    &lt;h3>Example 1 (programmatically)&lt;/h3>    &lt;div id="birthday">&lt;/div>    &lt;div id="info">&lt;/div>    &lt;h3>Example 2 (declaratively)&lt;/h3>    &lt;div data-win-control="WinJS.UI.DatePicker"         data-win-options="{ monthPattern: '{month.abbreviated}',                               datePattern: '{day.integer(2)}',                               yearPattern: '{year.abbreviated}' }">    &lt;/div>    &lt;script>        (function () {            'use strict';            var datePick, infoEl = document.getElementById("info");            W.uiCtrlRender();            datePick = new W.uiCtrlDateNew("birthday", function (args) {                infoEl.innerHTML = "The selected date is " + datePick.current.toDateString();            }, '{month.abbreviated}', '{day.integer(2)}', '{year.abbreviated}');        }());    &lt;/script>&lt;/body></code></pre>
+
+
 
         
             
 
     
 
-    <h4 class="name" id=".newFlipViewControl"><span class="type-signature">(static) </span>newFlipViewControl<span class="signature">(id, itemTemplate, itemDataSource)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".uiCtrlFlipNew"><span class="type-signature">(static) </span>uiCtrlFlipNew<span class="signature">(id, itemTemplate, itemDataSource)</span><span class="type-signature"></span></h4>
 
     
 
@@ -3437,7 +4946,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line761">line 761</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1261">line 1261</a>
     </li></ul></dd>
     
 
@@ -3472,13 +4981,466 @@
     
 
 
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of creating a FlipView control:</p>
+    
+    <pre class="prettyprint"><code>&lt;body class="win-type-body">            &lt;h1>Example 1 (programmatically)&lt;/h1>    &lt;div id="template">        &lt;div>            &lt;h4 data-win-bind="innerText: name">&lt;/h4>            &lt;h6 data-win-bind="innerText: vendor">&lt;/h6>        &lt;/div>    &lt;/div>    &lt;div id="flipView1" style="height: 128px;">&lt;/div>            &lt;h1>Example 2 (declaratively)&lt;/h1>    &lt;div id="template2" data-win-control="WinJS.Binding.Template">        &lt;div>            &lt;h4 data-win-bind="innerText: name">&lt;/h4>            &lt;h6 data-win-bind="innerText: vendor">&lt;/h6>        &lt;/div>    &lt;/div>    &lt;div id="flipView2" style="height: 128px;" data-win-control="WinJS.UI.FlipView"        data-win-options="{ itemTemplate: select('#template2'), itemDataSource: SampleData.Products.dataSource }">    &lt;/div>    &lt;script>        (function () {            'use strict';            var Products = W.bndLstNew([{ id: 1, name: "iPad", vendor: "Apple" },                    { id: 2, name: "iPhone", vendor: "Apple" }]);            W.nsDef("SampleData", {                Products: Products            });            var template = W.bndTplNew("template"),                flipView1 = W.uiCtrlFlipNew("flipView1", template, SampleData.Products);            W.uiCtrlRender();        }());    &lt;/script>&lt;/body></code></pre>
+
+
 
         
             
 
     
 
-    <h4 class="name" id=".newListViewControl"><span class="type-signature">(static) </span>newListViewControl<span class="signature">(id, layoutType<span class="signature-attributes">opt</span>, itemTemplate, itemDataSource, layoutMaxRowsOrColumns<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".uiCtrlGet"><span class="type-signature">(static) </span>uiCtrlGet<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Get the control from the HTML page’s DOM element.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line901">line 901</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".uiCtrlLstFilter"><span class="type-signature">(static) </span>uiCtrlLstFilter<span class="signature">(listView, bindableList, searchField, searchText)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Filter the items displayed in a ListView by filtering it from the data source associated with the ListView.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>listView</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">-</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bindableList</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">-</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>searchField</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">-</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>searchText</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">-</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1432">line 1432</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+    
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of filtering items in the ListView control:</p>
+    
+    <pre class="prettyprint"><code>&lt;body class="win-type-body">    &lt;div id="template">        &lt;div style="height: 60px; width: 100px;">            &lt;h4 data-win-bind="innerText: name">&lt;/h4>            &lt;h6 data-win-bind="innerText: vendor">&lt;/h6>        &lt;/div>    &lt;/div>    &lt;div id="listView1" style="height: 128px;">&lt;/div>    &lt;div>&lt;input id="txtSearch" />&lt;/div>    &lt;script>        (function () {            'use strict';            var Products = W.bndLstNew([{ id: 1, name: "iPad", vendor: "Apple" },                { id: 2, name: "iPhone", vendor: "Apple" },                { id: 3, name: "Kindle", vendor: "Amazon" },                { id: 4, name: "Xbox", vendor: "Microsoft" },                { id: 5, name: "PlayStation", vendor: "Sony" },                { id: 6, name: "Galaxy", vendor: "Samsung" },                { id: 7, name: "MacBook", vendor: "Apple" },                { id: 8, name: "ZenBook", vendor: "ASUS" },                { id: 9, name: "Core i7", vendor: "Intel" },                { id: 10, name: "GeForce", vendor: "NVIDIA" }]),                listControl1, template, filterText;            W.nsDef("SampleData", { Products: Products });            template = W.bndTplNew("template");            listControl1 = W.uiCtrlLstNew("listView1", "grid", template, SampleData.Products, 0);            listControl1.addEventListener("iteminvoked", function (e) {                var index = e.detail.itemIndex;                e.detail.itemPromise.then(function (item) {                    console.log(item.data.name);                });            });            filterText = document.getElementById('txtSearch');            filterText.addEventListener("keyup", function () {                W.uiCtrlLstFilter(listControl1, SampleData.Products, "vendor", filterText.value);            });        }());    &lt;/script>&lt;/body></code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".uiCtrlLstGrp"><span class="type-signature">(static) </span>uiCtrlLstGrp<span class="signature">(listView, bindableList, groupKey)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>listView</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">-</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bindableList</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">-</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>groupKey</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">-</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1489">line 1489</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+    
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of grouping items in the ListView control:</p>
+    
+    <pre class="prettyprint"><code>&lt;body class="win-type-body">    &lt;div id="GroupHeader" data-win-control="WinJS.Binding.Template">        &lt;div data-win-bind="innerText: vendor">&lt;/div>    &lt;/div>    &lt;div id="product" data-win-control="WinJS.Binding.Template">        &lt;div data-win-bind="innerText:name" style="width:128px;">&lt;/div>    &lt;/div>    &lt;div id="lvProducts" style="height: 180px;" data-win-control="WinJS.UI.ListView"        data-win-options="{ itemTemplate: select('#product'),                           groupHeaderTemplate: select('#GroupHeader'),                          itemDataSource: SampleData.Products.dataSource }">    &lt;/div>    &lt;script>        (function () {            'use strict';            var products = W.bndLstNew([{ id: 1, name: "iPad", vendor: "Apple" },                    { id: 2, name: "iPhone", vendor: "Apple" },                    { id: 3, name: "Kindle", vendor: "Amazon" },                    { id: 4, name: "Xbox", vendor: "Microsoft" },                    { id: 5, name: "PlayStation", vendor: "Sony" },                    { id: 6, name: "Galaxy", vendor: "Samsung" },                    { id: 7, name: "MacBook", vendor: "Apple" },                    { id: 8, name: "ZenBook", vendor: "ASUS" },                    { id: 9, name: "Core i7", vendor: "Intel" },                    { id: 10, name: "GeForce", vendor: "NVIDIA"}]),                listControl1;            W.nsDef("SampleData", {                Products: products            });            W.uiCtrlRender(function () {                W.uiCtrlGet("lvProducts", function (listView1) {                    W.uiCtrlLstGrp(listView1, SampleData.Products, "vendor");                });            });        }());    &lt;/script>&lt;/body></code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".uiCtrlLstNew"><span class="type-signature">(static) </span>uiCtrlLstNew<span class="signature">(id, layoutType<span class="signature-attributes">opt</span>, itemTemplate, itemDataSource, layoutMaxRowsOrColumns<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -3717,7 +5679,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line791">line 791</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1343">line 1343</a>
     </li></ul></dd>
     
 
@@ -3748,13 +5710,209 @@
     
 
 
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of creating a ListView control:</p>
+    
+    <pre class="prettyprint"><code>&lt;body class="win-type-body">    &lt;h3>Example 1 (programmatically)&lt;/h3>    &lt;div id="template">        &lt;div style="height: 60px; width: 100px;">            &lt;h4 data-win-bind="innerText: name">&lt;/h4>            &lt;h6 data-win-bind="innerText: vendor">&lt;/h6>        &lt;/div>    &lt;/div>    &lt;div id="listView1" style="height: 128px;">&lt;/div>    &lt;h3>Example 2 (declaratively)&lt;/h3>    &lt;div id="template2" data-win-control="WinJS.Binding.Template">        &lt;div style="height: 60px; width: 100px;">            &lt;h4 data-win-bind="innerText: name">&lt;/h4>            &lt;h6 data-win-bind="innerText: vendor">&lt;/h6>        &lt;/div>    &lt;/div>    &lt;div data-win-control="WinJS.UI.ListView" style="height: 180px;"        data-win-options="{ itemTemplate: select('#template2'),                             layout: { type: WinJS.UI.GridLayout, maximumRowsOrColumns: 5 },                            itemDataSource: SampleData.Products.dataSource }">    &lt;/div>    &lt;script>        (function () {            'use strict';            var Products = W.bndLstNew([{ id: 1, name: "iPad", vendor: "Apple" },                { id: 2, name: "iPhone", vendor: "Apple" },                { id: 3, name: "Kindle", vendor: "Amazon" },                { id: 4, name: "Xbox", vendor: "Microsoft" },                { id: 5, name: "PlayStation", vendor: "Sony" },                { id: 6, name: "Galaxy", vendor: "Samsung" },                { id: 7, name: "MacBook", vendor: "Apple" },                { id: 8, name: "ZenBook", vendor: "ASUS" },                { id: 9, name: "Core i7", vendor: "Intel" },                { id: 10, name: "GeForce", vendor: "NVIDIA" }]),                listControl1, template;            W.nsDef("SampleData", { Products: Products });            template = W.bndTplNew("template");            listControl1 = W.uiCtrlLstNew("listView1", "grid", template, SampleData.Products, 0);            listControl1.addEventListener("iteminvoked", function (e) {                var index = e.detail.itemIndex;                e.detail.itemPromise.then(function (item) {                    console.log(item.data.name);                });            });            W.uiCtrlRender();        }());    &lt;/script>&lt;/body></code></pre>
+
+
 
         
             
 
     
 
-    <h4 class="name" id=".newRatingControl"><span class="type-signature">(static) </span>newRatingControl<span class="signature">(id<span class="signature-attributes">opt</span>, maxRating<span class="signature-attributes">opt</span>, enableClear<span class="signature-attributes">opt</span>, userRating<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".uiCtrlLstZoom"><span class="type-signature">(static) </span>uiCtrlLstZoom<span class="signature">(listView1, listView2, bindableList, groupKey)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>listView1</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">-</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>listView2</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">-</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bindableList</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">-</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>groupKey</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">-</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1571">line 1571</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+    
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of viewing data at two different zoom levels:</p>
+    
+    <pre class="prettyprint"><code>&lt;body class="win-type-body">            &lt;div id="GroupHeader" data-win-control="WinJS.Binding.Template">        &lt;div data-win-bind="innerText: vendor">&lt;/div>    &lt;/div>    &lt;div id="ProductTemplate" data-win-control="WinJS.Binding.Template">        &lt;div data-win-bind="innerText:name" style="width:128px;">&lt;/div>    &lt;/div>    &lt;!-- Zoom out-->    &lt;div id="VendorTemplate" data-win-control="WinJS.Binding.Template">        &lt;div data-win-bind="innerText: vendor" style="width:128px;">&lt;/div>    &lt;/div>    &lt;div data-win-control="WinJS.UI.SemanticZoom" style="height:170px;">        &lt;!-- Zoom In-->        &lt;div id="lvProducts" data-win-control="WinJS.UI.ListView"            data-win-options="{ itemTemplate: select('#ProductTemplate'),                                 groupHeaderTemplate: select('#GroupHeader'),                                itemDataSource: SampleData.Products.dataSource }">        &lt;/div>        &lt;!-- Zoom Out-->        &lt;div id="lvVendors" data-win-control="WinJS.UI.ListView"            data-win-options="{ itemTemplate: select('#VendorTemplate')}">        &lt;/div>    &lt;/div>    &lt;script>        (function () {            'use strict';            var products = W.bndLstNew([{ id: 1, name: "iPad", vendor: "Apple" },                { id: 2, name: "iPhone", vendor: "Apple" },                { id: 3, name: "Kindle", vendor: "Amazon" },                { id: 4, name: "Xbox", vendor: "Microsoft" },                { id: 5, name: "PlayStation", vendor: "Sony" },                { id: 6, name: "Galaxy", vendor: "Samsung" },                { id: 7, name: "MacBook", vendor: "Apple" },                { id: 8, name: "ZenBook", vendor: "ASUS" },                { id: 9, name: "Core i7", vendor: "Intel" },                { id: 10, name: "GeForce", vendor: "NVIDIA" }]);            W.nsDef("SampleData", {                Products: products            });            W.uiCtrlRender(function () {                W.uiCtrlLstZoom(W.uiCtrlGet("lvProducts"), W.uiCtrlGet("lvVendors"), SampleData.Products, "vendor");            });        }());    &lt;/script>&lt;/body></code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".uiCtrlRatingNew"><span class="type-signature">(static) </span>uiCtrlRatingNew<span class="signature">(id<span class="signature-attributes">opt</span>, maxRating<span class="signature-attributes">opt</span>, enableClear<span class="signature-attributes">opt</span>, userRating<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -3971,7 +6129,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line640">line 640</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line945">line 945</a>
     </li></ul></dd>
     
 
@@ -4006,13 +6164,207 @@
     
 
 
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of creating a Rating control:</p>
+    
+    <pre class="prettyprint"><code>&lt;body class="win-type-body">    &lt;h1>Example 1 (declaratively)&lt;/h1>    &lt;div data-win-control="WinJS.UI.Rating" data-win-options="{ maxRating: 4, enableClear: false }">&lt;/div>    &lt;h1>Example 2 (programmatically)&lt;/h1>    &lt;div id="rating">&lt;/div>    &lt;button class="action win-button" id="btnInc" type="button">Increase&lt;/button>    &lt;script>        (function () {            'use strict';            W.uiCtrlRender();            var ratingCtrl = W.uiCtrlRatingNew();            W.evtHndAdd(document.getElementById("btnInc"), "click", function () {                var ratingControl = W.uiCtrlGet("rating");                ratingControl.userRating += 1;            });        }());    &lt;/script>&lt;/body></code></pre>
+
+
 
         
             
 
     
 
-    <h4 class="name" id=".newRepeaterControl"><span class="type-signature">(static) </span>newRepeaterControl<span class="signature">(id)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".uiCtrlRender"><span class="type-signature">(static) </span>uiCtrlRender<span class="signature">(onComplete, onError, onProgress)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Parse the HTML page, identify the attributes with the data-win-control, and generate the control accordingly.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>onComplete</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The function to be called if the promise is fulfilled successfully with a value.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onError</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The function to be called if the promise is fulfilled with an error.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onProgress</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The function to be called if the promise reports progress.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line885">line 885</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    This method does not return a value.
+</div>
+
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".uiCtrlRepeaterNew"><span class="type-signature">(static) </span>uiCtrlRepeaterNew<span class="signature">(id)</span><span class="type-signature"></span></h4>
 
     
 
@@ -4107,7 +6459,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line747">line 747</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1210">line 1210</a>
     </li></ul></dd>
     
 
@@ -4142,21 +6494,24 @@
     
 
 
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of creating a Repeater control:</p>
+    
+    <pre class="prettyprint"><code>&lt;body class="win-type-body">            &lt;h1>Example 1 (programmatically)&lt;/h1>    &lt;table>        &lt;thead>            &lt;tr>                &lt;th>Employee ID&lt;/th>                &lt;th>Employee Name&lt;/th>                &lt;th>Employee Designation&lt;/th>            &lt;/tr>        &lt;/thead>        &lt;tbody id="repeaterData">            &lt;tr>               &lt;td data-win-bind="textContent:id">&lt;/td>               &lt;td data-win-bind="textContent:name">&lt;/td>               &lt;td data-win-bind="textContent:designation">&lt;/td>            &lt;/tr>        &lt;/tbody>    &lt;/table>    &lt;h1>Example 2 (declaratively)&lt;/h1>    &lt;div id="repeaterData2" data-win-control="WinJS.UI.Repeater">        &lt;div data-win-control="WinJS.UI.ItemContainer" data-win-bind="dataset.name:name">            &lt;div data-win-bind="textContent:name">&lt;/div>        &lt;/div>    &lt;/div>    &lt;script>        (function () {            'use strict';            var employees = W.bndLstNew([{ id: 1, name: "Abbas Gussenov", designation: "Software Developer" },                    { id: 2, name: "John Smith", designation: "Web Designer" }]),                repeaterControl1;            repeaterControl1 = W.uiCtrlRepeaterNew("repeaterData");            repeaterControl1.data = employees;            W.uiCtrlRender(function () {                var repeaterControl2 = document.getElementById('repeaterData2').winControl;                repeaterControl2.data = employees;                repeaterControl2.addEventListener("invoked", function (e) {                    console.log(e.target.dataset.name);                });            });        }());    &lt;/script>&lt;/body></code></pre>
+
+
 
         
             
 
     
 
-    <h4 class="name" id=".newTemplateObject"><span class="type-signature">(static) </span>newTemplateObject<span class="signature">(id)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".uiCtrlTbNew"><span class="type-signature">(static) </span>uiCtrlTbNew<span class="signature">(id)</span><span class="type-signature"></span></h4>
 
     
 
 
-
-<div class="description">
-    Provides a reusable declarative binding element.
-</div>
 
 
 
@@ -4243,7 +6598,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line480">line 480</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1739">line 1739</a>
     </li></ul></dd>
     
 
@@ -4280,7 +6635,7 @@
 
     
 
-    <h4 class="name" id=".newTimePickerControl"><span class="type-signature">(static) </span>newTimePickerControl<span class="signature">(id, changeEventHandler<span class="signature-attributes">opt</span>, clock<span class="signature-attributes">opt</span>, minuteIncrement<span class="signature-attributes">opt</span>, hourPattern<span class="signature-attributes">opt</span>, minutePattern<span class="signature-attributes">opt</span>, periodPattern<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".uiCtrlTimeNew"><span class="type-signature">(static) </span>uiCtrlTimeNew<span class="signature">(id, changeEventHandler<span class="signature-attributes">opt</span>, clock<span class="signature-attributes">opt</span>, minuteIncrement<span class="signature-attributes">opt</span>, hourPattern<span class="signature-attributes">opt</span>, minutePattern<span class="signature-attributes">opt</span>, periodPattern<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -4593,7 +6948,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line711">line 711</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1097">line 1097</a>
     </li></ul></dd>
     
 
@@ -4628,13 +6983,181 @@
     
 
 
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of creating a TimePicker control:</p>
+    
+    <pre class="prettyprint"><code>&lt;body class="win-type-body">    &lt;h3>Example 1 (programmatically)&lt;/h3>    &lt;div id="timeSelector">&lt;/div>            &lt;div id="info">&lt;/div>            &lt;h3>Example 2 (declaratively)&lt;/h3>    &lt;div data-win-control="WinJS.UI.TimePicker"          data-win-options="{ clock: '24HourClock', minuteIncrement: 15 }">    &lt;/div>    &lt;script>        (function () {            'use strict';            var timePick, infoEl = document.getElementById("info");            W.uiCtrlRender();            timePick = new W.uiCtrlTimeNew("timeSelector", function (args) {                infoEl.innerHTML = "The selected time is " + timePick.current.toTimeString();            }, '24HourClock', 15, 'Hour: {hour.integer(2)}', 'Min: {minute.integer(2)}', '{period.abbreviated(2)}');        }());    &lt;/script>&lt;/body></code></pre>
+
+
 
         
             
 
     
 
-    <h4 class="name" id=".newToggleSwitchControl"><span class="type-signature">(static) </span>newToggleSwitchControl<span class="signature">(id, title, labelOff<span class="signature-attributes">opt</span>, labelOn<span class="signature-attributes">opt</span>, checked<span class="signature-attributes">opt</span>, changeEventHandler<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".uiCtrlTipNew"><span class="type-signature">(static) </span>uiCtrlTipNew<span class="signature">(id, innerHTML)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Create the Tooltip control on the page using the WinJS.UI.Tooltip.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">-</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>innerHTML</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The text for the tooltip control. This text can contain HTML tags too.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1148">line 1148</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A reference to the Tooltip Control on a page.
+</div>
+
+
+
+    
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of creating a Tooltip control:</p>
+    
+    <pre class="prettyprint"><code>&lt;head>    &lt;style>        .win-tooltip        {            background-color: bisque;            border-radius:30px;            border-color:red;        }    &lt;/style>&lt;/head>&lt;body class="win-type-body">    &lt;button id="btnSave" class="action win-button">Save&lt;/button>    &lt;button data-win-control="WinJS.UI.Tooltip" class="action win-button"            data-win-options="{ innerHTML: 'Removes the &lt;b>Employee&lt;/b> record' }">Remove&lt;/button>    &lt;script>        (function () {            'use strict';            W.pageParsed(function () {                var tooltip = W.uiCtrlTipNew("btnSave", 'Saves the &lt;b>Employee&lt;/b> record');                W.uiCtrlRender();            });        }());    &lt;/script>&lt;/body></code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".uiCtrlToggleNew"><span class="type-signature">(static) </span>uiCtrlToggleNew<span class="signature">(id, title, labelOff<span class="signature-attributes">opt</span>, labelOn<span class="signature-attributes">opt</span>, checked<span class="signature-attributes">opt</span>, changeEventHandler<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -4909,7 +7432,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line663">line 663</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1001">line 1001</a>
     </li></ul></dd>
     
 
@@ -4944,132 +7467,11 @@
     
 
 
-
-        
-            
-
+    <h5>Example</h5>
     
-
-    <h4 class="name" id=".newToolBar"><span class="type-signature">(static) </span>newToolBar<span class="signature">(id)</span><span class="type-signature"></span></h4>
-
+        <p class="code-caption">Example of creating a ToggleSwitch control:</p>
     
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>id</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">-</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line907">line 907</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-    
+    <pre class="prettyprint"><code>&lt;body class="win-type-body">                    &lt;div id="locationServices">&lt;/div>    &lt;div id="info">&lt;/div>                    &lt;div data-win-control="WinJS.UI.ToggleSwitch"          data-win-options="{title :'Wi-Fi', labelOff: 'OFF', labelOn:'ON', checked:true}">    &lt;/div>    &lt;script>        (function () {            'use strict';            var toggleBtn,                infoEl;            function chgEvtHnd(args) {                if (toggleBtn.checked) {                    infoEl.innerHTML = 'Location Services enabled';                } else {                    infoEl.innerHTML = 'Location Services disabled';                }            }            W.uiCtrlRender(function () {                toggleBtn = W.uiCtrlToggleNew('locationServices', 'Location Services', 'Disabled', 'Enabled', true, chgEvtHnd);                infoEl = document.getElementById('info');            });        }());    &lt;/script>&lt;/body></code></pre>
 
 
 
@@ -5078,1270 +7480,7 @@
 
     
 
-    <h4 class="name" id=".newTooltipControl"><span class="type-signature">(static) </span>newTooltipControl<span class="signature">(id, innerHTML)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Create the Tooltip control on the page using the WinJS.UI.Tooltip.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>id</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">-</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>innerHTML</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The text for the tooltip control. This text can contain HTML tags too.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line734">line 734</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    A reference to the Tooltip Control on a page.
-</div>
-
-
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".nsDef"><span class="type-signature">(static) </span>nsDef<span class="signature">(nameOfNewNamespace, members<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Declare a namespace.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>nameOfNewNamespace</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">This is the first parameter and represents the name of the new namespace.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>members</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">This parameter represents the list of objects that need to be added to the namespace being defined.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line51">line 51</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    The newly-defined namespace.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-    <h5>Examples</h5>
-    
-        <p class="code-caption"> </p>
-    
-    <pre class="prettyprint"><code>// Define the namespace ProgrammingLanguages and create the JavaScript under it.W.nsDef("ProgrammingLanguages", {    JavaScript: {        getDescription: function () {            return 'JavaScript is the programming language of HTML and the Web.';        }    }});console.log(ProgrammingLanguages.JavaScript.getDescription());</code></pre>
-
-        <p class="code-caption"> </p>
-    
-    <pre class="prettyprint"><code>// Define the namespace ProgrammingLanguages.W.nsDef("ProgrammingLanguages");// JavaScript created in the ProgrammingLanguages namespace.ProgrammingLanguages.JavaScript = {    getDescription: function () {        return 'JavaScript is the programming language of HTML and the Web.';    }};console.log(ProgrammingLanguages.JavaScript.getDescription());</code></pre>
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".nsDefChild"><span class="type-signature">(static) </span>nsDefChild<span class="signature">(parentNamespace, childName, childMembers<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Add a namespace to the existing namespace and define your functionalities.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>parentNamespace</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">The first parameter is the name of the parent namespace.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>childName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">This is the name of the namespace to be added to the parent namespace.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>childMembers</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">The list of objects to be added to the new namespace. This is an optional parameter.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line102">line 102</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    - The newly-defined namespace.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-    <h5>Examples</h5>
-    
-        <p class="code-caption"> </p>
-    
-    <pre class="prettyprint"><code>W.nsDefChild(ProgrammingLanguages, "CLI", {    Bash: {        getDescription: function () {            return "Bash is the shell, or command language interpreter, for the GNU operating system.";        }    }});console.log(ProgrammingLanguages.CLI.Bash.getDescription());</code></pre>
-
-        <p class="code-caption"> </p>
-    
-    <pre class="prettyprint"><code>W.nsDefChild(ProgrammingLanguages, "CLI");ProgrammingLanguages.CLI.Bash = {    getDescription: function () {        return "Bash is the shell, or command language interpreter, for the GNU operating system.";    }};console.log(ProgrammingLanguages.CLI.Bash.getDescription());</code></pre>
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".onAppActivated"><span class="type-signature">(static) </span>onAppActivated<span class="signature">(callback, async<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">A function that executes after the DOMContentLoaded event has occurred.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>async</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    false
-                
-                </td>
-            
-
-            <td class="description last">If true, the callback should be executed asynchronously.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line560">line 560</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".raiseEvent"><span class="type-signature">(static) </span>raiseEvent<span class="signature">(control, type, eventProperties)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Raises an event of the specified type and with the specified additional properties.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>control</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>type</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The type (name) of the event.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>eventProperties</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The set of additional properties to be attached to the event object when the event is raised.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line412">line 412</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    true if preventDefault was called on the event.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".removeEventListener"><span class="type-signature">(static) </span>removeEventListener<span class="signature">(control, type, listener, useCapture)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Removes an event listener from the control.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>control</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>type</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The type (name) of the event.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>listener</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The listener to remove.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>useCapture</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">true if capture is to be initiated, otherwise false.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line399">line 399</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    This method does not return a value.
-</div>
-
-
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".renderControls"><span class="type-signature">(static) </span>renderControls<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Parse the HTML page, identify the attributes with the data-win-control, and generate the control accordingly.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line533">line 533</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".showMessage"><span class="type-signature">(static) </span>showMessage<span class="signature">(content)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".uiMsgShow"><span class="type-signature">(static) </span>uiMsgShow<span class="signature">(content)</span><span class="type-signature"></span></h4>
 
     
 
@@ -6437,7 +7576,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line929">line 929</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1757">line 1757</a>
     </li></ul></dd>
     
 
@@ -6470,96 +7609,24 @@
 
 
         
-            
-
-    
-
-    <h4 class="name" id=".startApplication"><span class="type-signature">(static) </span>startApplication<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
     
 
     
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line523">line 523</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        <h3 class="subsection-title">Type Definitions</h3>
 
         
-            
+                
 
     
 
-    <h4 class="name" id=".waitUntilAllControlsAreCreated"><span class="type-signature">(static) </span>waitUntilAllControlsAreCreated<span class="signature">(onComplete, onError, onProgress)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+    <h4 class="name" id="~readyMethod"><span class="type-signature"></span>readyMethod<span class="signature">(element, options)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Wait until all the controls are created and parsed in the document.
+    A ready method that will be called when the page is loaded.
 </div>
 
 
@@ -6595,13 +7662,13 @@
 
         <tr>
             
-                <td class="name"><code>onComplete</code></td>
+                <td class="name"><code>element</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">function</span>
+<span class="param-type">DOMElement</span>
 
 
             
@@ -6611,20 +7678,20 @@
 
             
 
-            <td class="description last">The function to be called if the promise is fulfilled successfully with a value.</td>
+            <td class="description last">The DOM element that contains all the content for the page.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>onError</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">function</span>
+<span class="param-type">Object</span>
 
 
             
@@ -6634,30 +7701,7 @@
 
             
 
-            <td class="description last">The function to be called if the promise is fulfilled with an error.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>onProgress</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The function to be called if the promise reports progress.</td>
+            <td class="description last">An object that contains one or more property/value pairs to apply to the PageControl. How these property/value pairs are used (or not used) depends on the implementation of that particular PageControl.</td>
         </tr>
 
     
@@ -6698,7 +7742,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="aglw.js.html">aglw.js</a>, <a href="aglw.js.html#line546">line 546</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line842">line 842</a>
     </li></ul></dd>
     
 
@@ -6721,34 +7765,10 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    true if preventDefault was called on the event.
-</div>
 
 
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-    
-
+            
     
 
     
@@ -6768,7 +7788,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Sep 20 2016 21:20:22 GMT+0600 (Центральная Азия (зима))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sat Oct 15 2016 17:03:19 GMT+0600 (Центральная Азия (зима))
 </footer>
 
 <script> prettyPrint(); </script>

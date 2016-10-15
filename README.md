@@ -24,11 +24,26 @@
         * [Example of dispatching an event in the class Person](#example-of-dispatching-an-event-in-the-class-person)
         * [Example of removing event handler](#example-of-removing-event-handler)
         * [Example of marking an event handler function as being compatible with declarative processing](#example-of-marking-an-event-handler-function-as-being-compatible-with-declarative-processing)
+    * [Binding](#binding)
+        * [Example of creating bindable list](#example-of-creating-bindable-list)
+        * [Example of binding the data properties of the business object to HTML elements on the UI](#example-of-binding-the-data-properties-of-the-business-object-to-html-elements-on-the-ui)
+        * [Example of creating observable constructor](#example-of-creating-observable-constructor)
     * [Controls](#controls)
+        * [Example of creating a Rating control](#example-of-creating-a-rating-control)
         * [Example of creating a ToggleSwitch control](#example-of-creating-a-toggleswitch-control)
+        * [Example of creating a DatePicker control](#example-of-creating-a-datepicker-control)
+        * [Example of creating a TimePicker control](#example-of-creating-a-timepicker-control)
         * [Example of creating a Tooltip control](#example-of-creating-a-tooltip-control)
-        * [Example of creating an AppBarCommand](#example-of-creating-an-appbarcommand)
-        * [Example of creating a Toolbar control](#example-of-creating-a-toolbar-control)
+        * [Example of creating a Repeater control](#example-of-creating-a-repeater-control)
+        * [Example of creating a FlipView control](#example-of-creating-a-flipview-control)
+        * [Example of creating a ListView control](#example-of-creating-a-listview-control)
+        * [Example of filtering items in the ListView control](#example-of-filtering-items-in-the-listview-control)
+        * [Example of grouping items in the ListView control](#example-of-grouping-items-in-the-listview-control)
+        * [Example of viewing data at two different zoom levels](#example-of-viewing-data-at-two-different-zoom-levels)
+        * [Example of placing commands in the appbar](#example-of-placing-commands-in-the-appbar)
+        * [Example of placing commands in the toolbar](#example-of-placing-commands-in-the-toolbar)
+    * [Network](#network)
+        * [Example of Connecting to URL](#example-of-connecting-to-url)
 
 What is wJS?
 -----------------
@@ -286,7 +301,7 @@ myPerson.weight = 90;
 
 #### Example of marking an event handler function as being compatible with declarative processing: ####
 
-![](demo/control_toolbar_declarative.gif)
+<kbd>![](demo/control_toolbar_declarative.gif)</kbd>
 
 ```html
 <body class="win-type-body">
@@ -315,11 +330,172 @@ myPerson.weight = 90;
 </body>
 ```
 
-### Controls
+### Binding ###
+
+#### Example of creating bindable list ####
+
+<kbd>![](demo/data_binding_listview.gif)</kbd>
+
+```html
+<head>
+    <style>
+        #basicListView { height: 100%; margin-top: 10px; margin-right: 20px; }
+        #templateContainer { display: -ms-grid; -ms-grid-columns: 1fr; min-height: 150px; }
+        #itemContainer { background-color: lightgray; width: 100%; padding: 10px; }
+    </style>
+</head>
+<body class="win-type-body">
+    <div id="flavorItemTemplate" data-win-control="WinJS.Binding.Template">
+        <div id="templateContainer">
+            <div id="itemContainer">
+                <h4 data-win-bind="innerText: title"></h4>
+                <h6 data-win-bind="innerText: text"></h6>
+            </div>
+        </div>
+    </div>
+    <div id="basicListView" data-win-control="WinJS.UI.ListView"
+         data-win-options="{ itemDataSource: DataExample.flavorList.dataSource,
+                             itemTemplate: select('#flavorItemTemplate'),
+                             selectionMode: 'none',
+                             layout: { type: WinJS.UI.ListLayout } }">
+    </div>
+    <script>
+        (function () {
+            'use strict';
+            var flavors = [{ title: "Basic banana", text: "Low-fat frozen yogurt" },
+                { title: "Banana blast", text: "Ice cream" },
+                { title: "Brilliant banana", text: "Frozen custard" },
+                { title: "Orange surprise", text: "Sherbet" },
+                { title: "Original orange", text: "Sherbet" },
+                { title: "Vanilla", text: "Ice cream" },
+                { title: "Very vanilla", text: "Frozen custard" },
+                { title: "Marvelous mint", text: "Gelato" },
+                { title: "Succulent strawberry", text: "Sorbet" }],
+                flavorList = W.bndLstNew(flavors);
+            W.nsDef("DataExample", { flavorList: flavorList });
+            W.uiCtrlRender();
+        }());
+    </script>
+</body>
+```
+
+#### Example of binding the data properties of the business object to HTML elements on the UI ####
+
+<kbd>![](demo/data_binding.png)</kbd>
+
+```html
+<body class="win-type-body">
+    <div id="container">
+        <h3>Name:</h3>
+        <h2><span data-win-bind="innerText: name"></span></h2>
+        <h3>Age:</h3>
+        <h2><span data-win-bind="innerText: age"></span></h2>
+        <h3>Designation:</h3>
+        <h2><span data-win-bind="innerText: designation"></span></h2>
+        <h3>City:</h3>
+        <h2><span data-win-bind="innerText: city"></span></h2>
+        <h3>Fav Color:</h3>
+        <div data-win-bind="style.background: favcolor">
+            <div class="favcolor" data-win-bind="innerText: favcolor"></div>
+        </div>
+    </div>
+    <script>
+        (function () {
+            'use strict';
+            var person = {
+                    name: "Abbas Gussenov",
+                    age: 26,
+                    designation: "Software Developer",
+                    city: "Terekty",
+                    favcolor: "green"
+                };
+            W.bndDat2El('container', person);
+        }());
+    </script>
+</body>
+```
+
+#### Example of creating observable constructor ####
+
+<kbd>![](demo/data_binding_template.gif)</kbd>
+
+```html
+<body class="win-type-body">
+    <div id="templateDiv" data-win-control="WinJS.Binding.Template">
+        <div class="templateItem" data-win-bind="style.background: color" style="color: white">
+            <ol>
+                <li><span>Name: </span><span data-win-bind="textContent: name"></span></li>
+                <li><span>Birthday: </span><span data-win-bind="textContent: birthday"></span></li>
+                <li><span>Pet's name: </span><span data-win-bind="textContent: petname"></span></li>
+                <li><span>Dessert: </span><span data-win-bind="textContent: dessert"></span></li>
+            </ol>
+        </div>
+    </div>
+    <div id="renderDiv"></div>
+    <fieldset id="templateControlObject">
+        <legend>Pick a name:</legend>
+        <select id="templateControlObjectSelector">
+            <option value="0">Show John Doe</option>
+            <option value="1">Show Jane Dow</option>
+            <option value="2">Show Jake Doe</option>
+        </select>
+    </fieldset>
+    <script>
+        (function () {
+            'use strict';
+            var Person = W.bndClsNew({ name: "", color: "", birthday: "", petname: "", dessert: "" }),
+                people = [
+                    new Person({ name: "John Doe", color: "red", birthday: "2/2/2002", petname: "Spot", dessert: "chocolate cake" }),
+                    new Person({ name: "Jane Doe", color: "green", birthday: "3/3/2003", petname: "Xena", dessert: "cherry pie" }),
+                    new Person({ name: "Jake Doe", color: "blue", birthday: "2/2/2002", petname: "Pablo", dessert: "ice cream" })
+                ],
+                selector;
+            function handleChange(evt) {
+                var templateElement = document.querySelector("#templateDiv"),
+                    renderElement = document.querySelector("#renderDiv"),
+                    selected = evt.target.selectedIndex,
+                    templateControl = templateElement.winControl;
+                renderElement.innerHTML = "";
+                templateElement.winControl.render(people[selected], renderElement);
+            }
+            selector = document.querySelector("#templateControlObjectSelector");
+            W.evtHndAdd(selector, "change", handleChange, false);
+            W.uiCtrlRender();
+        }());
+    </script>
+</body>
+```
+
+### Controls ###
+
+#### Example of creating a Rating control: ####
+
+<kbd>![](demo/control_rating.gif)</kbd>
+
+```html
+<body class="win-type-body">
+    <h1>Example 1 (declaratively)</h1>
+    <div data-win-control="WinJS.UI.Rating" data-win-options="{ maxRating: 4, enableClear: false }"></div>
+    <h1>Example 2 (programmatically)</h1>
+    <div id="rating"></div>
+    <button class="action win-button" id="btnInc" type="button">Increase</button>
+    <script>
+        (function () {
+            'use strict';
+            W.uiCtrlRender();
+            var ratingCtrl = W.uiCtrlRatingNew();
+            W.evtHndAdd(document.getElementById("btnInc"), "click", function () {
+                var ratingControl = W.uiCtrlGet("rating");
+                ratingControl.userRating += 1;
+            });
+        }());
+    </script>
+</body>
+```
 
 #### Example of creating a ToggleSwitch control: ####
 
-![](demo/control_checkbox.gif)
+<kbd>![](demo/control_checkbox.gif)</kbd>
 
 ```html
 <body class="win-type-body">                
@@ -353,9 +529,63 @@ myPerson.weight = 90;
 </body>
 ```
 
+#### Example of creating a DatePicker control: ####
+
+<kbd>![](demo/control_datepicker.gif)</kbd>
+
+```html
+<body class="win-type-body">
+    <h3>Example 1 (programmatically)</h3>
+    <div id="birthday"></div>
+    <div id="info"></div>
+    <h3>Example 2 (declaratively)</h3>
+    <div data-win-control="WinJS.UI.DatePicker"
+         data-win-options="{ monthPattern: '{month.abbreviated}', 
+                              datePattern: '{day.integer(2)}', 
+                              yearPattern: '{year.abbreviated}' }">
+    </div>
+    <script>
+        (function () {
+            'use strict';
+            var datePick, infoEl = document.getElementById("info");
+            W.uiCtrlRender();
+            datePick = new W.uiCtrlDateNew("birthday", function (args) {
+                infoEl.innerHTML = "The selected date is " + datePick.current.toDateString();
+            }, '{month.abbreviated}', '{day.integer(2)}', '{year.abbreviated}');
+        }());
+    </script>
+</body>
+```
+
+#### Example of creating a TimePicker control: ####
+
+<kbd>![](demo/control_timepicker.gif)</kbd>
+
+```html
+<body class="win-type-body">
+    <h3>Example 1 (programmatically)</h3>
+    <div id="timeSelector"></div>        
+    <div id="info"></div>        
+    <h3>Example 2 (declaratively)</h3>
+    <div data-win-control="WinJS.UI.TimePicker" 
+         data-win-options="{ clock: '24HourClock', minuteIncrement: 15 }">
+    </div>
+    <script>
+        (function () {
+            'use strict';
+            var timePick, infoEl = document.getElementById("info");
+            W.uiCtrlRender();
+            timePick = new W.uiCtrlTimeNew("timeSelector", function (args) {
+                infoEl.innerHTML = "The selected time is " + timePick.current.toTimeString();
+            }, '24HourClock', 15, 'Hour: {hour.integer(2)}', 'Min: {minute.integer(2)}', '{period.abbreviated(2)}');
+        }());
+    </script>
+</body>
+```
+
 #### Example of creating a Tooltip control: ####
 
-![](demo/control_tooltip.gif)
+<kbd>![](demo/control_tooltip.gif)</kbd>
 
 ```html
 <head>
@@ -384,9 +614,303 @@ myPerson.weight = 90;
 </body>
 ```
 
-#### Example of creating an AppBarCommand: ####
+#### Example of creating a Repeater control: ####
 
-![](demo/control_appbar.gif)
+<kbd>![](demo/control_repeater.gif)</kbd>
+
+```html
+<body class="win-type-body">        
+    <h1>Example 1 (programmatically)</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Employee ID</th>
+                <th>Employee Name</th>
+                <th>Employee Designation</th>
+            </tr>
+        </thead>
+        <tbody id="repeaterData">
+            <tr>
+               <td data-win-bind="textContent:id"></td>
+               <td data-win-bind="textContent:name"></td>
+               <td data-win-bind="textContent:designation"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h1>Example 2 (declaratively)</h1>
+    <div id="repeaterData2" data-win-control="WinJS.UI.Repeater">
+        <div data-win-control="WinJS.UI.ItemContainer" data-win-bind="dataset.name:name">
+            <div data-win-bind="textContent:name"></div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            'use strict';
+            var employees = W.bndLstNew([{ id: 1, name: "Abbas Gussenov", designation: "Software Developer" },
+                    { id: 2, name: "John Smith", designation: "Web Designer" }]),
+                repeaterControl1;
+            repeaterControl1 = W.uiCtrlRepeaterNew("repeaterData");
+            repeaterControl1.data = employees;
+
+            W.uiCtrlRender(function () {
+                var repeaterControl2 = document.getElementById('repeaterData2').winControl;
+                repeaterControl2.data = employees;
+                repeaterControl2.addEventListener("invoked", function (e) {
+                    console.log(e.target.dataset.name);
+                });
+            });
+        }());
+    </script>
+</body>
+```
+
+#### Example of creating a FlipView control: ####
+
+<kbd>![](demo/control_flipview.gif)</kbd>
+
+```html
+<body class="win-type-body">        
+    <h1>Example 1 (programmatically)</h1>
+    <div id="template">
+        <div>
+            <h4 data-win-bind="innerText: name"></h4>
+            <h6 data-win-bind="innerText: vendor"></h6>
+        </div>
+    </div>
+    <div id="flipView1" style="height: 128px;"></div>        
+    <h1>Example 2 (declaratively)</h1>
+    <div id="template2" data-win-control="WinJS.Binding.Template">
+        <div>
+            <h4 data-win-bind="innerText: name"></h4>
+            <h6 data-win-bind="innerText: vendor"></h6>
+        </div>
+    </div>
+    <div id="flipView2" style="height: 128px;" data-win-control="WinJS.UI.FlipView"
+        data-win-options="{ itemTemplate: select('#template2'), itemDataSource: SampleData.Products.dataSource }">
+    </div>
+    <script>
+        (function () {
+            'use strict';
+            var Products = W.bndLstNew([{ id: 1, name: "iPad", vendor: "Apple" },
+                    { id: 2, name: "iPhone", vendor: "Apple" }]);
+            W.nsDef("SampleData", {
+                Products: Products
+            });
+            var template = W.bndTplNew("template"),
+                flipView1 = W.uiCtrlFlipNew("flipView1", template, SampleData.Products);
+            W.uiCtrlRender();
+        }());
+    </script>
+</body>
+```
+
+#### Example of creating a ListView control: ####
+
+<kbd>![](demo/control_listview.gif)</kbd>
+
+```html
+<body class="win-type-body">
+    <h3>Example 1 (programmatically)</h3>
+    <div id="template">
+        <div style="height: 60px; width: 100px;">
+            <h4 data-win-bind="innerText: name"></h4>
+            <h6 data-win-bind="innerText: vendor"></h6>
+        </div>
+    </div>
+    <div id="listView1" style="height: 128px;"></div>
+    <h3>Example 2 (declaratively)</h3>
+    <div id="template2" data-win-control="WinJS.Binding.Template">
+        <div style="height: 60px; width: 100px;">
+            <h4 data-win-bind="innerText: name"></h4>
+            <h6 data-win-bind="innerText: vendor"></h6>
+        </div>
+    </div>
+    <div data-win-control="WinJS.UI.ListView" style="height: 180px;"
+        data-win-options="{ itemTemplate: select('#template2'), 
+                            layout: { type: WinJS.UI.GridLayout, maximumRowsOrColumns: 5 },
+                            itemDataSource: SampleData.Products.dataSource }">
+    </div>
+    <script>
+        (function () {
+            'use strict';
+            var Products = W.bndLstNew([{ id: 1, name: "iPad", vendor: "Apple" },
+                { id: 2, name: "iPhone", vendor: "Apple" },
+                { id: 3, name: "Kindle", vendor: "Amazon" },
+                { id: 4, name: "Xbox", vendor: "Microsoft" },
+                { id: 5, name: "PlayStation", vendor: "Sony" },
+                { id: 6, name: "Galaxy", vendor: "Samsung" },
+                { id: 7, name: "MacBook", vendor: "Apple" },
+                { id: 8, name: "ZenBook", vendor: "ASUS" },
+                { id: 9, name: "Core i7", vendor: "Intel" },
+                { id: 10, name: "GeForce", vendor: "NVIDIA" }]),
+                listControl1, template;
+            W.nsDef("SampleData", { Products: Products });
+            template = W.bndTplNew("template");
+            listControl1 = W.uiCtrlLstNew("listView1", "grid", template, SampleData.Products, 0);
+            listControl1.addEventListener("iteminvoked", function (e) {
+                var index = e.detail.itemIndex;
+                e.detail.itemPromise.then(function (item) {
+                    console.log(item.data.name);
+                });
+            });
+            W.uiCtrlRender();
+        }());
+    </script>
+</body>
+```
+
+#### Example of filtering items in the ListView control: ####
+
+<kbd>![](demo/control_listview_filter.gif)</kbd>
+
+```html
+<body class="win-type-body">
+    <div id="template">
+        <div style="height: 60px; width: 100px;">
+            <h4 data-win-bind="innerText: name"></h4>
+            <h6 data-win-bind="innerText: vendor"></h6>
+        </div>
+    </div>
+    <div id="listView1" style="height: 128px;"></div>
+    <div><input id="txtSearch" /></div>
+    <script>
+        (function () {
+            'use strict';
+            var Products = W.bndLstNew([{ id: 1, name: "iPad", vendor: "Apple" },
+                { id: 2, name: "iPhone", vendor: "Apple" },
+                { id: 3, name: "Kindle", vendor: "Amazon" },
+                { id: 4, name: "Xbox", vendor: "Microsoft" },
+                { id: 5, name: "PlayStation", vendor: "Sony" },
+                { id: 6, name: "Galaxy", vendor: "Samsung" },
+                { id: 7, name: "MacBook", vendor: "Apple" },
+                { id: 8, name: "ZenBook", vendor: "ASUS" },
+                { id: 9, name: "Core i7", vendor: "Intel" },
+                { id: 10, name: "GeForce", vendor: "NVIDIA" }]),
+                listControl1, template, filterText;
+            W.nsDef("SampleData", { Products: Products });
+            template = W.bndTplNew("template");
+            listControl1 = W.uiCtrlLstNew("listView1", "grid", template, SampleData.Products, 0);
+            listControl1.addEventListener("iteminvoked", function (e) {
+                var index = e.detail.itemIndex;
+                e.detail.itemPromise.then(function (item) {
+                    console.log(item.data.name);
+                });
+            });
+            filterText = document.getElementById('txtSearch');
+            filterText.addEventListener("keyup", function () {
+                W.uiCtrlLstFilter(listControl1, SampleData.Products, "vendor", filterText.value);
+            });
+        }());
+    </script>
+</body>
+```
+
+#### Example of grouping items in the ListView control: ####
+
+<kbd>![](demo/control_listview_group.gif)</kbd>
+
+```html
+<body class="win-type-body">
+    <div id="GroupHeader" data-win-control="WinJS.Binding.Template">
+        <div data-win-bind="innerText: vendor"></div>
+    </div>
+    <div id="product" data-win-control="WinJS.Binding.Template">
+        <div data-win-bind="innerText:name" style="width:128px;"></div>
+    </div>
+    <div id="lvProducts" style="height: 180px;" data-win-control="WinJS.UI.ListView"
+        data-win-options="{ itemTemplate: select('#product'), 
+                          groupHeaderTemplate: select('#GroupHeader'),
+                          itemDataSource: SampleData.Products.dataSource }">
+    </div>
+    <script>
+        (function () {
+            'use strict';
+            var products = W.bndLstNew([{ id: 1, name: "iPad", vendor: "Apple" },
+                    { id: 2, name: "iPhone", vendor: "Apple" },
+                    { id: 3, name: "Kindle", vendor: "Amazon" },
+                    { id: 4, name: "Xbox", vendor: "Microsoft" },
+                    { id: 5, name: "PlayStation", vendor: "Sony" },
+                    { id: 6, name: "Galaxy", vendor: "Samsung" },
+                    { id: 7, name: "MacBook", vendor: "Apple" },
+                    { id: 8, name: "ZenBook", vendor: "ASUS" },
+                    { id: 9, name: "Core i7", vendor: "Intel" },
+                    { id: 10, name: "GeForce", vendor: "NVIDIA"}]),
+                listControl1;
+            W.nsDef("SampleData", {
+                Products: products
+            });
+            W.uiCtrlRender(function () {
+                W.uiCtrlGet("lvProducts", function (listView1) {
+                    W.uiCtrlLstGrp(listView1, SampleData.Products, "vendor");
+                });
+            });
+        }());
+    </script>
+</body>
+```
+
+#### Example of viewing data at two different zoom levels: ####
+
+<kbd>![](demo/control_semanticzoom.gif)</kbd>
+
+```html
+<body class="win-type-body">        
+    <div id="GroupHeader" data-win-control="WinJS.Binding.Template">
+        <div data-win-bind="innerText: vendor"></div>
+    </div>
+
+    <div id="ProductTemplate" data-win-control="WinJS.Binding.Template">
+        <div data-win-bind="innerText:name" style="width:128px;"></div>
+    </div>
+
+    <!-- Zoom out-->
+    <div id="VendorTemplate" data-win-control="WinJS.Binding.Template">
+        <div data-win-bind="innerText: vendor" style="width:128px;"></div>
+    </div>
+
+    <div data-win-control="WinJS.UI.SemanticZoom" style="height:170px;">
+        <!-- Zoom In-->
+        <div id="lvProducts" data-win-control="WinJS.UI.ListView"
+            data-win-options="{ itemTemplate: select('#ProductTemplate'), 
+                                groupHeaderTemplate: select('#GroupHeader'),
+                                itemDataSource: SampleData.Products.dataSource }">
+        </div>
+
+        <!-- Zoom Out-->
+        <div id="lvVendors" data-win-control="WinJS.UI.ListView"
+            data-win-options="{ itemTemplate: select('#VendorTemplate')}">
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            'use strict';
+            var products = W.bndLstNew([{ id: 1, name: "iPad", vendor: "Apple" },
+                { id: 2, name: "iPhone", vendor: "Apple" },
+                { id: 3, name: "Kindle", vendor: "Amazon" },
+                { id: 4, name: "Xbox", vendor: "Microsoft" },
+                { id: 5, name: "PlayStation", vendor: "Sony" },
+                { id: 6, name: "Galaxy", vendor: "Samsung" },
+                { id: 7, name: "MacBook", vendor: "Apple" },
+                { id: 8, name: "ZenBook", vendor: "ASUS" },
+                { id: 9, name: "Core i7", vendor: "Intel" },
+                { id: 10, name: "GeForce", vendor: "NVIDIA" }]);
+            W.nsDef("SampleData", {
+                Products: products
+            });
+            W.uiCtrlRender(function () {
+                W.uiCtrlLstZoom(W.uiCtrlGet("lvProducts"), W.uiCtrlGet("lvVendors"), SampleData.Products, "vendor");
+            });
+        }());
+    </script>
+</body>
+```
+
+#### Example of placing commands in the appbar: ####
+
+<kbd>![](demo/control_appbar.gif)</kbd>
 
 ```html
 <body class="win-type-body">
@@ -414,9 +938,9 @@ myPerson.weight = 90;
 </body>
 ```
 
-#### Example of creating a Toolbar control: ####
+#### Example of placing commands in the toolbar: ####
 
-![](demo/control_toolbar.gif)
+<kbd>![](demo/control_toolbar.gif)</kbd>
 
 ```html
 <body class="win-type-body">
@@ -444,6 +968,53 @@ myPerson.weight = 90;
                 cmdDelete = W.uiCmdNew('cmdDelete', 'Delete', 'primary', 'button', 'delete', samples.clickcommand),
                 cmdShare = W.uiCmdNew('cmdShare', 'Share', 'secondary', 'button', null, samples.clickcommand),
                 toolbar = W.uiCtrlTbNew('tb');
+        }());
+    </script>
+</body>
+```
+
+### Network ###
+
+#### Example of Connecting to URL: ####
+
+<kbd>![](demo/request.gif)</kbd>
+
+```html
+<body>        
+    <div>
+        <input id="inputurl" value="https:     * api.github.com" />
+        <button class="action win-button" id="connect" type="button">Connect</button>
+        <button class="action win-button" id="cancel" type="button">Cancel</button>
+    </div>        
+    <div id="output"></div>
+    <script>
+        (function () {
+            'use strict';
+            var input = document.getElementById("inputurl"),
+                cancelBtn = document.getElementById("cancel"),
+                connectBtn = document.getElementById("connect"),
+                xhrPromise;
+            function connect(url) {
+                var resultDiv = document.getElementById("output");
+                xhrPromise = W.netUrlConnect(url, function (result, status) {
+                    if (result.status === 200) {
+                        resultDiv.style.backgroundColor = "Green";
+                        resultDiv.innerText = "Success";
+                    }
+                }, function (e) {
+                    resultDiv.style.backgroundColor = "red";
+                    resultDiv.innerText = e.statusText;
+                });
+            }
+            W.evtHndAdd(input, "change", function (e) {
+                connect(e.target.value);
+            });
+            W.evtHndAdd(cancelBtn, "click", function () {
+                xhrPromise.cancel();
+            }, false);
+            W.evtHndAdd(connectBtn, "click", function () {
+                connect(input.value);
+            }, false);
         }());
     </script>
 </body>

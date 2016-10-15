@@ -1,10 +1,10 @@
 /*jslint browser: true, devel: true, nomen: true */
-/*global AGLibWinJS */
+/*global W */
 
 (function () {
     'use strict';
     
-    var ViewModel = AGLibWinJS.createClass(function () {
+    var ViewModel = W.clsDef(function () {
             // this is the constructor function                        
         }, {
             // object literal for methods and attributes on the "class"		
@@ -22,30 +22,26 @@
         yourTemplateElement,
         yourTargetContainer;
     
-    vm = new AGLibWinJS.ObservableProxy(ViewModel, function (self) {
+    vm = new W.ObservableProxy(ViewModel, function (self) {
         self.someProperty = "test";
     });
     
-    function onValueChanged() {
+    vm.bind("someProperty", function () {
         console.log("Value changed!");
-    }
+    });
     
-    vm.bind("someProperty", onValueChanged);
-    
-    function onChange(e) {
-        var propName = e.target.getAttribute("name");
-        vm.setProperty(propName, e.target.value);
-    }
-    
-    document.addEventListener("DOMContentLoaded", function () {
+    W.pageParsed(function () {
         yourTemplateElement = document.getElementById("yourTemplate");
         yourTargetContainer = document.getElementById("yourTargetContainer");
         
-        AGLibWinJS.waitUntilAllControlsAreCreated(function () {
+        W.uiCtrlRender(function () {
             yourTemplateElement.winControl.render(vm, yourTargetContainer).then(function (e) {
                 var element = yourTargetContainer.querySelector("input[name='someProperty']");
                 if (element) {
-                    element.addEventListener("change", onChange);
+                    element.addEventListener("change", function (e) {
+                        var propName = e.target.getAttribute("name");
+                        vm.setProperty(propName, e.target.value);
+                    });
                 }
             });
         });
