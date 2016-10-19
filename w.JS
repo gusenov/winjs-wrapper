@@ -19,106 +19,102 @@ var W = (function () {
      * Declare a namespace.
      * @access public
      *
-     * @example <caption>Example of namespace definition:</caption>
-     * // Define the namespace ProgrammingLanguages and create the JavaScript under it.
-     * W.nsDef("ProgrammingLanguages", {
-     *     JavaScript: {
-     *         getDescription: function () {
-     *             return 'JavaScript is the programming language of HTML and the Web.';
+     * @example <caption>Namespace definition and namespace extension:</caption>
+     * (function () {
+     *     'use strict';
+     *     W.nsDef("System", {
+     *         Console: {
+     *             WriteLine: function (msg) {
+     *                 console.log(msg);
+     *             }
      *         }
-     *     }
-     * });
-     * console.log(ProgrammingLanguages.JavaScript.getDescription());
-     *
-     * @example <caption>Example of namespace population:</caption>
-     * // Define the namespace ProgrammingLanguages.
-     * W.nsDef("ProgrammingLanguages");
-     *
-     * // JavaScript created in the ProgrammingLanguages namespace.
-     * ProgrammingLanguages.JavaScript = {
-     *     getDescription: function () {
-     *         return 'JavaScript is the programming language of HTML and the Web.';
-     *     }
-     * };
-     * console.log(ProgrammingLanguages.JavaScript.getDescription());
+     *     });
+     *     System.out = {
+     *         println: function (msg) {
+     *             console.log(msg);
+     *         }
+     *     };
+     *     System.Console.WriteLine("A message from the WriteLine() method.");
+     *     System.out.println("A message from the println() method.");
+     * }());
      *
      * @memberof W
      * @method
-     * @param {string} nameOfNewNamespace - This is the first parameter and represents the name of the new namespace.
-     * @param {Object} [members] - This parameter represents the list of objects that need to be added to the namespace being defined.
+     * @param {string} nsName - The name of the new namespace.
+     * @param {Object} [nsMembers] - The list of objects that need to be added to the namespace being defined.
      * @returns {Object} The newly-defined namespace.
      */
-    W.nsDef = function (nameOfNewNamespace, members) {
-        // pre-condition
-        console.assert(typeof nameOfNewNamespace === 'string', 'nameOfNewNamespace should be string');
-        if (members) {
-            console.assert(typeof members === 'object', 'members should be Object');
+    W.nsDef = function (nsName, nsMembers) {
+        // Precondition:
+        console.assert(typeof nsName === 'string', 'nsName should be string');
+        if (nsMembers) {
+            console.assert(typeof nsMembers === 'object', 'nsMembers should be Object');
         }
         
-        var newNamespace;
+        var ns;
         try {
-            newNamespace = WinJS.Namespace.define(nameOfNewNamespace, members);
+            ns = WinJS.Namespace.define(nsName, nsMembers);
         } catch (e) {
             console.log(e);
         }
         
-        console.assert(newNamespace !== undefined, 'newNamespace should not be undefined');
-        console.assert(newNamespace !== null, 'newNamespace should not be null');
-        console.assert(typeof newNamespace === 'object', 'newNamespace should be Object');
+        // Postcondition:
+        console.assert(ns !== undefined, 'ns should not be undefined');
+        console.assert(ns !== null, 'ns should not be null');
+        console.assert(typeof ns === 'object', 'ns should be Object');
         
-        return newNamespace;
+        return ns;
     };
     
     /**
      * Add a namespace to the existing namespace and define your functionalities.
      * @access public
      *
-     * @example <caption>Example of namespace in namespace:</caption>
-     * W.nsDefChild(ProgrammingLanguages, "CLI", {
-     *     Bash: {
-     *         getDescription: function () {
-     *             return "Bash is the shell, or command language interpreter, for the GNU operating system.";
+     * @example <caption>Add a namespace to an existing namespace:</caption>
+     * (function () {
+     *     'use strict';
+     *     W.nsDef("System");
+     *     W.nsChildDef(System, "Console", {
+     *         WriteLine: function (msg) {
+     *             console.log(msg);
      *         }
-     *     }
-     * });
-     * console.log(ProgrammingLanguages.CLI.Bash.getDescription());
-     *
-     * @example <caption>Example of adding members to nested namespace:</caption>
-     * W.nsDefChild(ProgrammingLanguages, "CLI");
-     * ProgrammingLanguages.CLI.Bash = {
-     *     getDescription: function () {
-     *         return "Bash is the shell, or command language interpreter, for the GNU operating system.";
-     *     }
-     * };
-     * console.log(ProgrammingLanguages.CLI.Bash.getDescription());
+     *     });
+     *     W.nsChildDef(System, "out");
+     *     System.out.println = function (msg) {
+     *         console.log(msg);
+     *     };
+     *     System.Console.WriteLine("A message from the WriteLine() method.");
+     *     System.out.println("A message from the println() method.");
+     * }());
      *
      * @memberof W
      * @method
-     * @param {Object} parentNamespace - The first parameter is the name of the parent namespace.
-     * @param {string} childName - This is the name of the namespace to be added to the parent namespace.
-     * @param {Object} [childMembers] - The list of objects to be added to the new namespace. This is an optional parameter.
+     * @param {Object} nsParent - Name of the parent namespace.
+     * @param {string} nsChildName - Name of the namespace to be added to the parent namespace.
+     * @param {Object} [nsChildMembers] - The list of objects to be added to the new namespace.
      * @returns {Object} The newly-defined namespace.
      */
-    W.nsDefChild = function (parentNamespace, childName, childMembers) {
-        // pre-condition
-        console.assert(typeof parentNamespace === 'object', 'parentNamespace should be Object');
-        console.assert(typeof childName === 'string', 'childName should be string');
-        if (childMembers) {
-            console.assert(typeof childMembers === 'object', 'childMembers should be Object');
+    W.nsChildDef = function (nsParent, nsChildName, nsChildMembers) {
+        // Precondition:
+        console.assert(typeof nsParent === 'object', 'nsParent should be Object');
+        console.assert(typeof nsChildName === 'string', 'nsChildName should be string');
+        if (nsChildMembers) {
+            console.assert(typeof nsChildMembers === 'object', 'nsChildMembers should be Object');
         }
         
-        var newNamespace;
+        var ns;
         try {
-            newNamespace = WinJS.Namespace.defineWithParent(parentNamespace, childName, childMembers);
+            ns = WinJS.Namespace.defineWithParent(nsParent, nsChildName, nsChildMembers);
         } catch (e) {
             console.log(e);
         }
         
-        console.assert(newNamespace !== undefined, 'newNamespace should not be undefined');
-        console.assert(newNamespace !== null, 'newNamespace should not be null');
-        console.assert(typeof newNamespace === 'object', 'newNamespace should be Object');
+        // Postcondition:
+        console.assert(ns !== undefined, 'ns should not be undefined');
+        console.assert(ns !== null, 'ns should not be null');
+        console.assert(typeof ns === 'object', 'ns should be Object');
         
-        return newNamespace;
+        return ns;
     };
     
     // </NAMESPACES>
@@ -214,7 +210,7 @@ var W = (function () {
      * @access public
      *
      * @example <caption>Example of classes MechanicalCar and ElectricCar:</caption>
-     * var MechanicalCar = W.clsDefChild(Car, function (model, fuelTank) {
+     * var MechanicalCar = W.clsChildDef(Car, function (model, fuelTank) {
      *         this.model = model;
      *         this.fuelTank = fuelTank;
      *     }, {
@@ -225,7 +221,7 @@ var W = (function () {
      *         }
      *     }),
      *
-     *     ElectricCar = W.clsDefChild(Car, function (model, batteryType) {
+     *     ElectricCar = W.clsChildDef(Car, function (model, batteryType) {
      *         this.model = model;
      *         this.batteryType = batteryType;
      *     }, {
@@ -237,7 +233,7 @@ var W = (function () {
      *     });
      *
      * @example <caption>Example of class Employee:</caption>
-     * var Employee = W.clsDefChild(Person, function (firstName, lastName, position, hireDate) {
+     * var Employee = W.clsChildDef(Person, function (firstName, lastName, position, hireDate) {
      *         this.firstName = firstName;
      *         this.lastName = lastName;
      *         this.position = position;
@@ -271,7 +267,7 @@ var W = (function () {
      * @param {Object}   [staticMembers] - This parameter defines static properties and static methods.
      * @returns {function} The newly-defined type.
      */
-    W.clsDefChild = function (baseClass, constructor, instanceMembers, staticMembers) {
+    W.clsChildDef = function (baseClass, constructor, instanceMembers, staticMembers) {
         // pre-condition
         console.assert(typeof baseClass === 'function', 'baseClass should be function');
         console.assert(typeof constructor === 'function', 'constructor should be function');
@@ -546,12 +542,56 @@ var W = (function () {
      * This is helpful for wiring up two-way data binding, 
      * something that WinJS doesn’t do itself, but isn’t too hard to pull together. 
      * @access public
+     *
+     * @example <caption>Example of observable proxy:</caption>
+     * <body>                
+     *     <div id="yourTemplate" data-win-control="WinJS.Binding.Template">
+     *         <input data-win-bind="value: someProperty" name="someProperty" type="text" />
+     *     </div>
+     *     <div id="yourTargetContainer"></div>        
+     *     <script>
+     *         (function () {
+     *             'use strict';
+     *             var ViewModel = W.clsDef(function () {
+     *                     // this is the constructor function
+     *                 }, {
+     *                     // object literal for methods and attributes on the "class"		
+     *                     _someProperty: undefined,
+     *                     someProperty: {
+     *                         set: function (value) { this._someProperty = value; },
+     *                         get: function () { return this._someProperty; }
+     *                     }
+     *                 }),
+     *                 vm,
+     *                 tplEl,
+     *                 targetContainer;
+     *             vm = new W.ObsPrx(ViewModel, function (self) { self.someProperty = "test"; });
+     *             vm.bind("someProperty", function () { console.log("Value changed!"); });
+     *             W.pageParsed(function () {
+     *                 tplEl = document.getElementById("yourTemplate");
+     *                 targetContainer = document.getElementById("yourTargetContainer");
+     *                 W.uiCtrlRender(function () {
+     *                     tplEl.winControl.render(vm, targetContainer).then(function (e) {
+     *                         var el = targetContainer.querySelector("input[name='someProperty']");
+     *                         if (el) {
+     *                             el.addEventListener("change", function (e) {
+     *                                 var propName = e.target.getAttribute("name");
+     *                                 vm.setProperty(propName, e.target.value);
+     *                             });
+     *                         }
+     *                     });
+     *                 });
+     *             });
+     *         }());
+     *     </script>
+     * </body>
+     *
      * @class
      * @memberof W
      * @param {} data - Just a plain object (and not a Date, Array, or nonobject).
      * @param {} constructor
      */
-    W.ObservableProxy = WinJS.Class.mix(function (data, constructor) {
+    W.ObsPrx = WinJS.Class.mix(function (data, constructor) {
         var self = this;
 
         self._initObservable(data);
@@ -1653,6 +1693,35 @@ var W = (function () {
     /**
      * Add an app bar to your page.
      * @access public
+     *
+     * @example <caption>Example of appbar:</caption>
+     * <body class="win-type-body">
+     *     <div id="appBar" data-win-control="WinJS.UI.AppBar">
+     *         <button data-win-control="WinJS.UI.AppBarCommand"
+     *                 data-win-options="{ id: 'cmdAdd', label: 'Add', icon: 'add', section: 'primary', tooltip: 'Add' }">
+     *         </button>
+     *         <button data-win-control="WinJS.UI.AppBarCommand"
+     *                 data-win-options="{ id: 'cmdRemove', label: 'Remove', icon: 'remove', section: 'primary', tooltip: 'Remove' }">
+     *         </button>
+     *         <button data-win-control="WinJS.UI.AppBarCommand"
+     *                 data-win-options="{ id: 'cmdCamera', label: 'Click Photo', icon: 'camera', section: 'secondary', tooltip: 'click' }">
+     *         </button>
+     *     </div>
+     *     <script>
+     *         (function () {
+     *             'use strict';
+     *             function addMethod() { console.log("Add Button Pressed"); }
+     *             function removeMethod() { console.log("Remove button pressed"); }
+     *             function cameraMethod() { console.log("Camera button pressed"); }
+     *             W.pageReady("control_appbar_declarative.html", function (el, options) {
+     *                 el.querySelector("#cmdAdd").addEventListener("click", addMethod, false);
+     *                 el.querySelector("#cmdRemove").addEventListener("click", removeMethod, false);
+     *                 el.querySelector("#cmdCamera").addEventListener("click", cameraMethod, false);
+     *             });
+     *         }());
+     *     </script>
+     * </body>
+     *
      * @memberof W
      * @method
      * @param {} id - 

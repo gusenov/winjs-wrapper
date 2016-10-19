@@ -124,7 +124,7 @@
         <h3 class="subsection-title">Classes</h3>
 
         <dl>
-            <dt><a href="W.ObservableProxy.html">ObservableProxy</a></dt>
+            <dt><a href="W.ObsPrx.html">ObsPrx</a></dt>
             <dd></dd>
         </dl>
     
@@ -381,7 +381,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line769">line 769</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line809">line 809</a>
     </li></ul></dd>
     
 
@@ -522,7 +522,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line741">line 741</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line781">line 781</a>
     </li></ul></dd>
     
 
@@ -695,7 +695,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line678">line 678</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line718">line 718</a>
     </li></ul></dd>
     
 
@@ -839,7 +839,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line620">line 620</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line660">line 660</a>
     </li></ul></dd>
     
 
@@ -978,7 +978,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line632">line 632</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line672">line 672</a>
     </li></ul></dd>
     
 
@@ -1015,249 +1015,7 @@
 
     
 
-    <h4 class="name" id=".clsDef"><span class="type-signature">(static) </span>clsDef<span class="signature">(constructor, instanceMembers, staticMembers<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {function}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Create a class.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>constructor</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">The first parameter lets developers initialize a new object.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>instanceMembers</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">The second parameter is the collection of instance members, which includes properties and methods.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>staticMembers</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">The third parameter includes static properties and static methods.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line190">line 190</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    The newly-defined type.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">function</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-    <h5>Examples</h5>
-    
-        <p class="code-caption">Example of class Robot:</p>
-    
-    <pre class="prettyprint"><code>var Robot = W.clsDef(function (name) {        this.name = name;    }, {        modelName: "",        on: function () { },        off: function () { }    }, {        harmsHumans: false,        getModels: function () { return ["R2-D2", "WALL-E", "Bender"]; }    }),    models = Robot.getModels(),    r = new Robot("Artoo-Detoo");r.model = "R2-D2";r.on();Robot.harmsHumans = false;console.log(models);</code></pre>
-
-        <p class="code-caption">Example of class Car:</p>
-    
-    <pre class="prettyprint"><code>var Car = W.clsDef(function (model) {        this.model = model;    }, {        _model: undefined,        model: {            set: function (value) { this._model = value; },            get: function () { return this._model; }        }    });</code></pre>
-
-        <p class="code-caption">Example of class Person:</p>
-    
-    <pre class="prettyprint"><code>var Person = W.clsDef(function (firstName, lastName) {        this.firstName = firstName;        this.lastName = lastName;    }, {        _firstName: undefined,        _lastName: undefined,        firstName: {            set: function (value) { this._firstName = value; },            get: function () { return this._firstName; }        },        lastName: {            set: function (value) { this._lastName = value; },            get: function () { return this._lastName; }        }    }),    ag = new Person("Abbas", "Gussenov");console.log(ag.firstName + ' ' + ag.lastName);</code></pre>
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".clsDefChild"><span class="type-signature">(static) </span>clsDefChild<span class="signature">(baseClass, constructor, instanceMembers<span class="signature-attributes">opt</span>, staticMembers<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id=".clsChildDef"><span class="type-signature">(static) </span>clsChildDef<span class="signature">(baseClass, constructor, instanceMembers<span class="signature-attributes">opt</span>, staticMembers<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -1464,7 +1222,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line274">line 274</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line270">line 270</a>
     </li></ul></dd>
     
 
@@ -1515,11 +1273,253 @@
     
         <p class="code-caption">Example of classes MechanicalCar and ElectricCar:</p>
     
-    <pre class="prettyprint"><code>var MechanicalCar = W.clsDefChild(Car, function (model, fuelTank) {        this.model = model;        this.fuelTank = fuelTank;    }, {        _fuelTank: undefined,        fuelTank: {            set: function (value) { this._fuelTank = value; },            get: function () { return this._fuelTank; }        }    }),    ElectricCar = W.clsDefChild(Car, function (model, batteryType) {        this.model = model;        this.batteryType = batteryType;    }, {        _batteryType: undefined,        batteryType: {            set: function (value) { this._batteryType = value; },            get: function () { return this._batteryType; }        }    });</code></pre>
+    <pre class="prettyprint"><code>var MechanicalCar = W.clsChildDef(Car, function (model, fuelTank) {        this.model = model;        this.fuelTank = fuelTank;    }, {        _fuelTank: undefined,        fuelTank: {            set: function (value) { this._fuelTank = value; },            get: function () { return this._fuelTank; }        }    }),    ElectricCar = W.clsChildDef(Car, function (model, batteryType) {        this.model = model;        this.batteryType = batteryType;    }, {        _batteryType: undefined,        batteryType: {            set: function (value) { this._batteryType = value; },            get: function () { return this._batteryType; }        }    });</code></pre>
 
         <p class="code-caption">Example of class Employee:</p>
     
-    <pre class="prettyprint"><code>var Employee = W.clsDefChild(Person, function (firstName, lastName, position, hireDate) {        this.firstName = firstName;        this.lastName = lastName;        this.position = position;        this.hireDate = hireDate;    }, {        _hireDate: undefined,        _position: undefined,        hireDate: {            set: function (value) { this._hireDate = value; },            get: function () { return this._hireDate; }        },        position: {            set: function (value) { this._position = value; },            get: function () { return this._position; }        },        getDescription: function () {            var options = { day: 'numeric', month: 'long', year: 'numeric' };            return this.firstName + " " + this.lastName                + " was hired as a " + this.position                + " on the " + this.hireDate.toLocaleString("en-US", options) + ".";        }    }),    ag = new Employee("Abbas", "Gussenov", "software developer", new Date(2016, 8, 20));console.log(ag.getDescription());</code></pre>
+    <pre class="prettyprint"><code>var Employee = W.clsChildDef(Person, function (firstName, lastName, position, hireDate) {        this.firstName = firstName;        this.lastName = lastName;        this.position = position;        this.hireDate = hireDate;    }, {        _hireDate: undefined,        _position: undefined,        hireDate: {            set: function (value) { this._hireDate = value; },            get: function () { return this._hireDate; }        },        position: {            set: function (value) { this._position = value; },            get: function () { return this._position; }        },        getDescription: function () {            var options = { day: 'numeric', month: 'long', year: 'numeric' };            return this.firstName + " " + this.lastName                + " was hired as a " + this.position                + " on the " + this.hireDate.toLocaleString("en-US", options) + ".";        }    }),    ag = new Employee("Abbas", "Gussenov", "software developer", new Date(2016, 8, 20));console.log(ag.getDescription());</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".clsDef"><span class="type-signature">(static) </span>clsDef<span class="signature">(constructor, instanceMembers, staticMembers<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {function}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Create a class.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>constructor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The first parameter lets developers initialize a new object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>instanceMembers</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The second parameter is the collection of instance members, which includes properties and methods.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>staticMembers</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The third parameter includes static properties and static methods.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line186">line 186</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The newly-defined type.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">function</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Examples</h5>
+    
+        <p class="code-caption">Example of class Robot:</p>
+    
+    <pre class="prettyprint"><code>var Robot = W.clsDef(function (name) {        this.name = name;    }, {        modelName: "",        on: function () { },        off: function () { }    }, {        harmsHumans: false,        getModels: function () { return ["R2-D2", "WALL-E", "Bender"]; }    }),    models = Robot.getModels(),    r = new Robot("Artoo-Detoo");r.model = "R2-D2";r.on();Robot.harmsHumans = false;console.log(models);</code></pre>
+
+        <p class="code-caption">Example of class Car:</p>
+    
+    <pre class="prettyprint"><code>var Car = W.clsDef(function (model) {        this.model = model;    }, {        _model: undefined,        model: {            set: function (value) { this._model = value; },            get: function () { return this._model; }        }    });</code></pre>
+
+        <p class="code-caption">Example of class Person:</p>
+    
+    <pre class="prettyprint"><code>var Person = W.clsDef(function (firstName, lastName) {        this.firstName = firstName;        this.lastName = lastName;    }, {        _firstName: undefined,        _lastName: undefined,        firstName: {            set: function (value) { this._firstName = value; },            get: function () { return this._firstName; }        },        lastName: {            set: function (value) { this._lastName = value; },            get: function () { return this._lastName; }        }    }),    ag = new Person("Abbas", "Gussenov");console.log(ag.firstName + ' ' + ag.lastName);</code></pre>
 
 
 
@@ -1671,7 +1671,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line322">line 322</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line318">line 318</a>
     </li></ul></dd>
     
 
@@ -1874,7 +1874,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line383">line 383</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line379">line 379</a>
     </li></ul></dd>
     
 
@@ -2147,7 +2147,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line417">line 417</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line413">line 413</a>
     </li></ul></dd>
     
 
@@ -2364,7 +2364,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line476">line 476</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line472">line 472</a>
     </li></ul></dd>
     
 
@@ -2512,7 +2512,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line523">line 523</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line519">line 519</a>
     </li></ul></dd>
     
 
@@ -2672,7 +2672,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line363">line 363</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line359">line 359</a>
     </li></ul></dd>
     
 
@@ -2866,7 +2866,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line456">line 456</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line452">line 452</a>
     </li></ul></dd>
     
 
@@ -2977,7 +2977,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1821">line 1821</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1890">line 1890</a>
     </li></ul></dd>
     
 
@@ -3015,214 +3015,7 @@
 
     
 
-    <h4 class="name" id=".nsDef"><span class="type-signature">(static) </span>nsDef<span class="signature">(nameOfNewNamespace, members<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Declare a namespace.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>nameOfNewNamespace</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">This is the first parameter and represents the name of the new namespace.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>members</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">This parameter represents the list of objects that need to be added to the namespace being defined.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line51">line 51</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    The newly-defined namespace.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-    <h5>Examples</h5>
-    
-        <p class="code-caption">Example of namespace definition:</p>
-    
-    <pre class="prettyprint"><code>// Define the namespace ProgrammingLanguages and create the JavaScript under it.W.nsDef("ProgrammingLanguages", {    JavaScript: {        getDescription: function () {            return 'JavaScript is the programming language of HTML and the Web.';        }    }});console.log(ProgrammingLanguages.JavaScript.getDescription());</code></pre>
-
-        <p class="code-caption">Example of namespace population:</p>
-    
-    <pre class="prettyprint"><code>// Define the namespace ProgrammingLanguages.W.nsDef("ProgrammingLanguages");// JavaScript created in the ProgrammingLanguages namespace.ProgrammingLanguages.JavaScript = {    getDescription: function () {        return 'JavaScript is the programming language of HTML and the Web.';    }};console.log(ProgrammingLanguages.JavaScript.getDescription());</code></pre>
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".nsDefChild"><span class="type-signature">(static) </span>nsDefChild<span class="signature">(parentNamespace, childName, childMembers<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id=".nsChildDef"><span class="type-signature">(static) </span>nsChildDef<span class="signature">(nsParent, nsChildName, nsChildMembers<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
@@ -3267,7 +3060,7 @@
 
         <tr>
             
-                <td class="name"><code>parentNamespace</code></td>
+                <td class="name"><code>nsParent</code></td>
             
 
             <td class="type">
@@ -3291,14 +3084,14 @@
 
             
 
-            <td class="description last">The first parameter is the name of the parent namespace.</td>
+            <td class="description last">Name of the parent namespace.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>childName</code></td>
+                <td class="name"><code>nsChildName</code></td>
             
 
             <td class="type">
@@ -3322,14 +3115,14 @@
 
             
 
-            <td class="description last">This is the name of the namespace to be added to the parent namespace.</td>
+            <td class="description last">Name of the namespace to be added to the parent namespace.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>childMembers</code></td>
+                <td class="name"><code>nsChildMembers</code></td>
             
 
             <td class="type">
@@ -3355,7 +3148,7 @@
 
             
 
-            <td class="description last">The list of objects to be added to the new namespace. This is an optional parameter.</td>
+            <td class="description last">The list of objects to be added to the new namespace.</td>
         </tr>
 
     
@@ -3396,7 +3189,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line102">line 102</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line97">line 97</a>
     </li></ul></dd>
     
 
@@ -3443,15 +3236,214 @@
     
 
 
-    <h5>Examples</h5>
+    <h5>Example</h5>
     
-        <p class="code-caption">Example of namespace in namespace:</p>
+        <p class="code-caption">Add a namespace to an existing namespace:</p>
     
-    <pre class="prettyprint"><code>W.nsDefChild(ProgrammingLanguages, "CLI", {    Bash: {        getDescription: function () {            return "Bash is the shell, or command language interpreter, for the GNU operating system.";        }    }});console.log(ProgrammingLanguages.CLI.Bash.getDescription());</code></pre>
+    <pre class="prettyprint"><code>(function () {    'use strict';    W.nsDef("System");    W.nsChildDef(System, "Console", {        WriteLine: function (msg) {            console.log(msg);        }    });    W.nsChildDef(System, "out");    System.out.println = function (msg) {        console.log(msg);    };    System.Console.WriteLine("A message from the WriteLine() method.");    System.out.println("A message from the println() method.");}());</code></pre>
 
-        <p class="code-caption">Example of adding members to nested namespace:</p>
+
+
+        
+            
+
     
-    <pre class="prettyprint"><code>W.nsDefChild(ProgrammingLanguages, "CLI");ProgrammingLanguages.CLI.Bash = {    getDescription: function () {        return "Bash is the shell, or command language interpreter, for the GNU operating system.";    }};console.log(ProgrammingLanguages.CLI.Bash.getDescription());</code></pre>
+
+    <h4 class="name" id=".nsDef"><span class="type-signature">(static) </span>nsDef<span class="signature">(nsName, nsMembers<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Declare a namespace.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>nsName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The name of the new namespace.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>nsMembers</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The list of objects that need to be added to the namespace being defined.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line47">line 47</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The newly-defined namespace.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">Namespace definition and namespace extension:</p>
+    
+    <pre class="prettyprint"><code>(function () {    'use strict';    W.nsDef("System", {        Console: {            WriteLine: function (msg) {                console.log(msg);            }        }    });    System.out = {        println: function (msg) {            console.log(msg);        }    };    System.Console.WriteLine("A message from the WriteLine() method.");    System.out.println("A message from the println() method.");}());</code></pre>
 
 
 
@@ -3615,7 +3607,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line836">line 836</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line876">line 876</a>
     </li></ul></dd>
     
 
@@ -3791,7 +3783,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line859">line 859</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line899">line 899</a>
     </li></ul></dd>
     
 
@@ -4025,7 +4017,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1715">line 1715</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1784">line 1784</a>
     </li></ul></dd>
     
 
@@ -4334,7 +4326,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1615">line 1615</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1655">line 1655</a>
     </li></ul></dd>
     
 
@@ -4485,7 +4477,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1661">line 1661</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1730">line 1730</a>
     </li></ul></dd>
     
 
@@ -4514,6 +4506,13 @@
 
 
     
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">Example of appbar:</p>
+    
+    <pre class="prettyprint"><code>&lt;body class="win-type-body">    &lt;div id="appBar" data-win-control="WinJS.UI.AppBar">        &lt;button data-win-control="WinJS.UI.AppBarCommand"                data-win-options="{ id: 'cmdAdd', label: 'Add', icon: 'add', section: 'primary', tooltip: 'Add' }">        &lt;/button>        &lt;button data-win-control="WinJS.UI.AppBarCommand"                data-win-options="{ id: 'cmdRemove', label: 'Remove', icon: 'remove', section: 'primary', tooltip: 'Remove' }">        &lt;/button>        &lt;button data-win-control="WinJS.UI.AppBarCommand"                data-win-options="{ id: 'cmdCamera', label: 'Click Photo', icon: 'camera', section: 'secondary', tooltip: 'click' }">        &lt;/button>    &lt;/div>    &lt;script>        (function () {            'use strict';            function addMethod() { console.log("Add Button Pressed"); }            function removeMethod() { console.log("Remove button pressed"); }            function cameraMethod() { console.log("Camera button pressed"); }            W.pageReady("control_appbar_declarative.html", function (el, options) {                el.querySelector("#cmdAdd").addEventListener("click", addMethod, false);                el.querySelector("#cmdRemove").addEventListener("click", removeMethod, false);                el.querySelector("#cmdCamera").addEventListener("click", cameraMethod, false);            });        }());    &lt;/script>&lt;/body></code></pre>
 
 
 
@@ -4767,7 +4766,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1050">line 1050</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1090">line 1090</a>
     </li></ul></dd>
     
 
@@ -4946,7 +4945,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1261">line 1261</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1301">line 1301</a>
     </li></ul></dd>
     
 
@@ -5045,7 +5044,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line901">line 901</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line941">line 941</a>
     </li></ul></dd>
     
 
@@ -5225,7 +5224,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1432">line 1432</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1472">line 1472</a>
     </li></ul></dd>
     
 
@@ -5396,7 +5395,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1489">line 1489</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1529">line 1529</a>
     </li></ul></dd>
     
 
@@ -5679,7 +5678,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1343">line 1343</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1383">line 1383</a>
     </li></ul></dd>
     
 
@@ -5868,7 +5867,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1571">line 1571</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1611">line 1611</a>
     </li></ul></dd>
     
 
@@ -6129,7 +6128,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line945">line 945</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line985">line 985</a>
     </li></ul></dd>
     
 
@@ -6323,7 +6322,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line885">line 885</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line925">line 925</a>
     </li></ul></dd>
     
 
@@ -6459,7 +6458,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1210">line 1210</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1250">line 1250</a>
     </li></ul></dd>
     
 
@@ -6598,7 +6597,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1739">line 1739</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1808">line 1808</a>
     </li></ul></dd>
     
 
@@ -6948,7 +6947,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1097">line 1097</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1137">line 1137</a>
     </li></ul></dd>
     
 
@@ -7109,7 +7108,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1148">line 1148</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1188">line 1188</a>
     </li></ul></dd>
     
 
@@ -7432,7 +7431,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1001">line 1001</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1041">line 1041</a>
     </li></ul></dd>
     
 
@@ -7576,7 +7575,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1757">line 1757</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1826">line 1826</a>
     </li></ul></dd>
     
 
@@ -7742,7 +7741,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line842">line 842</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line882">line 882</a>
     </li></ul></dd>
     
 
@@ -7782,13 +7781,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="W.html">W</a></li><li><a href="W.ObservableProxy.html">ObservableProxy</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="W.html">W</a></li><li><a href="W.ObsPrx.html">ObsPrx</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sat Oct 15 2016 17:03:19 GMT+0600 (Центральная Азия (зима))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Wed Oct 19 2016 13:51:36 GMT+0600 (Центральная Азия (зима))
 </footer>
 
 <script> prettyPrint(); </script>

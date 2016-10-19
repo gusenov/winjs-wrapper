@@ -1,13 +1,11 @@
 # wJS
 
 * [What is wJS?](#what-is-wjs)
+* [wJS structure](#wjs-structure)
 * [Examples](#examples)
     * [Namespaces](#namespaces)
-        * [Example of namespace definition](#example-of-namespace-definition)
-        * [Example of namespace population](#example-of-namespace-population)
-    * [Add a namespace to an existing namespace](#add-a-namespace-to-an-existing-namespace)
-        * [Example of namespace in namespace](#example-of-namespace-in-namespace)
-        * [Example of adding members to nested namespace](#example-of-adding-members-to-nested-namespace)
+        * [Namespace definition and namespace extension](#namespace-definition-and-namespace-extension)
+        * [Add a namespace to an existing namespace](#add-a-namespace-to-an-existing-namespace)
     * [Creating a class](#creating-a-class)
         * [Example of class Robot](#example-of-class-robot)
         * [Example of class Car](#example-of-class-car)
@@ -25,6 +23,7 @@
         * [Example of removing event handler](#example-of-removing-event-handler)
         * [Example of marking an event handler function as being compatible with declarative processing](#example-of-marking-an-event-handler-function-as-being-compatible-with-declarative-processing)
     * [Binding](#binding)
+        * [Example of observable proxy](#example-of-observable-proxy)
         * [Example of creating bindable list](#example-of-creating-bindable-list)
         * [Example of binding the data properties of the business object to HTML elements on the UI](#example-of-binding-the-data-properties-of-the-business-object-to-html-elements-on-the-ui)
         * [Example of creating observable constructor](#example-of-creating-observable-constructor)
@@ -60,60 +59,46 @@ Examples
 
 ### Namespaces ###
 
-#### Example of namespace definition: ####
+#### Namespace definition and namespace extension: ####
 
 ```js
-// Define the namespace ProgrammingLanguages and create the JavaScript under it.
-W.nsDef("ProgrammingLanguages", {
-    JavaScript: {
-        getDescription: function () {
-            return 'JavaScript is the programming language of HTML and the Web.';
+(function () {
+    'use strict';
+    W.nsDef("System", {
+        Console: {
+            WriteLine: function (msg) {
+                console.log(msg);
+            }
         }
-    }
-});
-console.log(ProgrammingLanguages.JavaScript.getDescription());
-```
-
-#### Example of namespace population: ####
-
-```js
-// Define the namespace ProgrammingLanguages.
-W.nsDef("ProgrammingLanguages");
-
-// JavaScript created in the ProgrammingLanguages namespace.
-ProgrammingLanguages.JavaScript = {
-    getDescription: function () {
-        return 'JavaScript is the programming language of HTML and the Web.';
-    }
-};
-console.log(ProgrammingLanguages.JavaScript.getDescription());
-```
-
-### Add a namespace to an existing namespace ###
-
-#### Example of namespace in namespace: ####
-
-```js
-W.nsDefChild(ProgrammingLanguages, "CLI", {
-    Bash: {
-        getDescription: function () {
-            return "Bash is the shell, or command language interpreter, for the GNU operating system.";
+    });
+    System.out = {
+        println: function (msg) {
+            console.log(msg);
         }
-    }
-});
-console.log(ProgrammingLanguages.CLI.Bash.getDescription());
+    };
+    System.Console.WriteLine("A message from the WriteLine() method.");
+    System.out.println("A message from the println() method.");
+}());
 ```
 
-#### Example of adding members to nested namespace: ####
+#### Add a namespace to an existing namespace: ####
 
 ```js
-W.nsDefChild(ProgrammingLanguages, "CLI");
-ProgrammingLanguages.CLI.Bash = {
-    getDescription: function () {
-        return "Bash is the shell, or command language interpreter, for the GNU operating system.";
-    }
-};
-console.log(ProgrammingLanguages.CLI.Bash.getDescription());
+(function () {
+    'use strict';
+    W.nsDef("System");
+    W.nsChildDef(System, "Console", {
+        WriteLine: function (msg) {
+            console.log(msg);
+        }
+    });
+    W.nsChildDef(System, "out");
+    System.out.println = function (msg) {
+        console.log(msg);
+    };
+    System.Console.WriteLine("A message from the WriteLine() method.");
+    System.out.println("A message from the println() method.");
+}());
 ```
 
 ### Creating a class ###
@@ -180,7 +165,7 @@ console.log(ag.firstName + ' ' + ag.lastName);
 #### Example of classes MechanicalCar and ElectricCar: ####
 
 ```js
-var MechanicalCar = W.clsDefChild(Car, function (model, fuelTank) {
+var MechanicalCar = W.clsChildDef(Car, function (model, fuelTank) {
         this.model = model;
         this.fuelTank = fuelTank;
     }, {
@@ -191,7 +176,7 @@ var MechanicalCar = W.clsDefChild(Car, function (model, fuelTank) {
         }
     }),
 
-    ElectricCar = W.clsDefChild(Car, function (model, batteryType) {
+    ElectricCar = W.clsChildDef(Car, function (model, batteryType) {
         this.model = model;
         this.batteryType = batteryType;
     }, {
@@ -206,7 +191,7 @@ var MechanicalCar = W.clsDefChild(Car, function (model, fuelTank) {
 #### Example of class Employee: ####
 
 ```js
-var Employee = W.clsDefChild(Person, function (firstName, lastName, position, hireDate) {
+var Employee = W.clsChildDef(Person, function (firstName, lastName, position, hireDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.position = position;
@@ -336,6 +321,55 @@ myPerson.weight = 90;
 ```
 
 ### Binding ###
+
+
+#### Example of observable proxy ####
+
+<kbd>![](demo/observable_proxy.gif)</kbd>
+
+```html
+<body>                
+    <div id="yourTemplate" data-win-control="WinJS.Binding.Template">
+        <input data-win-bind="value: someProperty" name="someProperty" type="text" />
+    </div>
+    <div id="yourTargetContainer"></div>        
+    <script>
+        (function () {
+            'use strict';
+            var ViewModel = W.clsDef(function () {
+                    // this is the constructor function
+                }, {
+                    // object literal for methods and attributes on the "class"		
+                    _someProperty: undefined,
+                    someProperty: {
+                        set: function (value) { this._someProperty = value; },
+                        get: function () { return this._someProperty; }
+                    }
+                }),
+                vm,
+                tplEl,
+                targetContainer;
+            vm = new W.ObsPrx(ViewModel, function (self) { self.someProperty = "test"; });
+            vm.bind("someProperty", function () { console.log("Value changed!"); });
+            W.pageParsed(function () {
+                tplEl = document.getElementById("yourTemplate");
+                targetContainer = document.getElementById("yourTargetContainer");
+                W.uiCtrlRender(function () {
+                    tplEl.winControl.render(vm, targetContainer).then(function (e) {
+                        var el = targetContainer.querySelector("input[name='someProperty']");
+                        if (el) {
+                            el.addEventListener("change", function (e) {
+                                var propName = e.target.getAttribute("name");
+                                vm.setProperty(propName, e.target.value);
+                            });
+                        }
+                    });
+                });
+            });
+        }());
+    </script>
+</body>
+```
 
 #### Example of creating bindable list ####
 
@@ -938,6 +972,39 @@ myPerson.weight = 90;
                 appBar = W.uiCtrlBarNew('appBar');
 
             W.uiCtrlRender();
+        }());
+    </script>
+</body>
+```
+
+#### Example of appbar: ####
+
+<kbd>![](demo/control_appbar_declarative.gif)</kbd>
+
+```html
+<body class="win-type-body">
+    <div id="appBar" data-win-control="WinJS.UI.AppBar">
+        <button data-win-control="WinJS.UI.AppBarCommand"
+                data-win-options="{ id: 'cmdAdd', label: 'Add', icon: 'add', section: 'primary', tooltip: 'Add' }">
+        </button>
+        <button data-win-control="WinJS.UI.AppBarCommand"
+                data-win-options="{ id: 'cmdRemove', label: 'Remove', icon: 'remove', section: 'primary', tooltip: 'Remove' }">
+        </button>
+        <button data-win-control="WinJS.UI.AppBarCommand"
+                data-win-options="{ id: 'cmdCamera', label: 'Click Photo', icon: 'camera', section: 'secondary', tooltip: 'click' }">
+        </button>
+    </div>
+    <script>
+        (function () {
+            'use strict';
+            function addMethod() { console.log("Add Button Pressed"); }
+            function removeMethod() { console.log("Remove button pressed"); }
+            function cameraMethod() { console.log("Camera button pressed"); }
+            W.pageReady("control_appbar_declarative.html", function (el, options) {
+                el.querySelector("#cmdAdd").addEventListener("click", addMethod, false);
+                el.querySelector("#cmdRemove").addEventListener("click", removeMethod, false);
+                el.querySelector("#cmdCamera").addEventListener("click", cameraMethod, false);
+            });
         }());
     </script>
 </body>
