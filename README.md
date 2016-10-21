@@ -6,15 +6,16 @@
     * [Namespaces](#namespaces)
         * [Namespace definition and namespace extension](#namespace-definition-and-namespace-extension)
         * [Add a namespace to an existing namespace](#add-a-namespace-to-an-existing-namespace)
-    * [Creating a class](#creating-a-class)
-        * [Example of class Robot](#example-of-class-robot)
-        * [Example of class Car](#example-of-class-car)
-        * [Example of class Person](#example-of-class-person)
-    * [Deriving a class](#deriving-a-class)
-        * [Example of classes MechanicalCar and ElectricCar](#example-of-classes-mechanicalcar-and-electriccar)
-        * [Example of class Employee](#example-of-class-employee)
-    * [Create mixins](#create-mixins)
-        * [Example of class HybridCar](#example-of-class-hybridcar)
+    * [Object-oriented programming](#object-oriented-programming)
+        * [Creating a class](#creating-a-class)
+            * [Example of class Robot](#example-of-class-robot)
+            * [Example of class Car](#example-of-class-car)
+            * [Example of class Person](#example-of-class-person)
+        * [Deriving a class](#deriving-a-class)
+            * [Example of classes MechanicalCar and ElectricCar](#example-of-classes-mechanicalcar-and-electriccar)
+            * [Example of class Employee](#example-of-class-employee)
+        * [Create mixins](#create-mixins)
+            * [Example of class HybridCar](#example-of-class-hybridcar)
     * [Manage events](#manage-events)
         * [Example of adding event management functionality to the class Person](#example-of-adding-event-management-functionality-to-the-class-person)
         * [Example of defining event in the class Person](#example-of-defining-event-in-the-class-person)
@@ -64,7 +65,7 @@ Examples
 ```js
 (function () {
     'use strict';
-    W.nsDef("System", {
+    W.nsDef('System', {
         Console: {
             WriteLine: function (msg) {
                 console.log(msg);
@@ -76,8 +77,10 @@ Examples
             console.log(msg);
         }
     };
-    System.Console.WriteLine("A message from the WriteLine() method.");
-    System.out.println("A message from the println() method.");
+    System.Console.WriteLine('A message from the WriteLine() method.');
+    // A message from the WriteLine() method.
+    System.out.println('A message from the println() method.');
+    // A message from the println() method.
 }());
 ```
 
@@ -86,78 +89,87 @@ Examples
 ```js
 (function () {
     'use strict';
-    W.nsDef("System");
-    W.nsChildDef(System, "Console", {
+    W.nsDef('System');
+    W.nsChildDef(System, 'Console', {
         WriteLine: function (msg) {
             console.log(msg);
         }
     });
-    W.nsChildDef(System, "out");
+    W.nsChildDef(System, 'out');
     System.out.println = function (msg) {
         console.log(msg);
     };
-    System.Console.WriteLine("A message from the WriteLine() method.");
-    System.out.println("A message from the println() method.");
+    System.Console.WriteLine('A message from the WriteLine() method.');
+    // A message from the WriteLine() method.
+    System.out.println('A message from the println() method.');
+    // A message from the println() method.
 }());
 ```
 
-### Creating a class ###
+### Object-oriented programming ###
 
-#### Example of class Robot: ####
-
-```js
-var Robot = W.clsDef(function (name) {
-        this.name = name;
-    }, {
-        modelName: "",
-        on: function () { },
-        off: function () { }
-    }, {
-        harmsHumans: false,
-        getModels: function () { return ["R2-D2", "WALL-E", "Bender"]; }
-    }),
-    models = Robot.getModels(),
-    r = new Robot("Artoo-Detoo");
-r.model = "R2-D2";
-r.on();
-Robot.harmsHumans = false;
-console.log(models);
-```
-
-#### Example of class Car: ####
+#### Creating a class ####
 
 ```js
-var Car = W.clsDef(function (model) {
-        this.model = model;
-    }, {
-        _model: undefined,
-        model: {
-            set: function (value) { this._model = value; },
-            get: function () { return this._model; }
-        }
-    });
-```
-
-#### Example of class Person: ####
-
-```js
-var Person = W.clsDef(function (firstName, lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }, {
-        _firstName: undefined,
-        _lastName: undefined,
-        firstName: {
-            set: function (value) { this._firstName = value; },
-            get: function () { return this._firstName; }
-        },
-        lastName: {
-            set: function (value) { this._lastName = value; },
-            get: function () { return this._lastName; }
-        }
-    }),
-    ag = new Person("Abbas", "Gussenov");
-console.log(ag.firstName + ' ' + ag.lastName);
+(function () {
+    'use strict';
+    var TCar = W.clsDef(function (model, color) {
+            this.model = model;
+            this.color = color;
+            this.constructor._count += 1;
+        }, {
+            _model: undefined,
+            model: {
+                set: function (value) {
+                    this._model = value;
+                },
+                get: function () {
+                    return this._model;
+                }
+            },
+            _color: undefined,
+            color: {
+                set: function (value) {
+                    this._color = value;
+                },
+                get: function () {
+                    return this._color;
+                }
+            },
+            display: function () {
+                console.log(this.model + ' has ' + this.color + ' color.');
+            }
+        }, {
+            _count: 0,
+            count: {
+                set: function (value) {
+                    throw new Error('UnimplementedMethod');
+                },
+                get: function () {
+                    return this._count;
+                }
+            }
+        }),
+        cars = [];
+    cars.push(new TCar('Jaguar XE R-Sport', 'DarkRed'));
+    cars.push(new TCar('Porsche 718 Cayman S', 'DarkCyan'));
+    cars[0].display();
+    // Jaguar XE R-Sport has DarkRed color.
+    cars[1].display();
+    // Porsche 718 Cayman S has DarkCyan color.
+    cars[1].model = 'McLaren 570S';
+    cars[1].color = 'DarkOrange';
+    cars[1].display();
+    // McLaren 570S has DarkOrange color.
+    console.log('Number of instances of the TCar class: ' + TCar.count);
+    // Number of instances of the TCar class: 2
+    try {
+        TCar.count = 10;
+    } catch (e) {
+        console.log(e);
+        // Error: UnimplementedMethod(…)
+    }
+}());
 ```
 
 ### Deriving a class ###

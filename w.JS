@@ -22,7 +22,7 @@ var W = (function () {
      * @example <caption>Namespace definition and namespace extension:</caption>
      * (function () {
      *     'use strict';
-     *     W.nsDef("System", {
+     *     W.nsDef('System', {
      *         Console: {
      *             WriteLine: function (msg) {
      *                 console.log(msg);
@@ -34,26 +34,28 @@ var W = (function () {
      *             console.log(msg);
      *         }
      *     };
-     *     System.Console.WriteLine("A message from the WriteLine() method.");
-     *     System.out.println("A message from the println() method.");
+     *     System.Console.WriteLine('A message from the WriteLine() method.');
+     *     // A message from the WriteLine() method.
+     *     System.out.println('A message from the println() method.');
+     *     // A message from the println() method.
      * }());
      *
      * @memberof W
      * @method
      * @param {string} nsName - The name of the new namespace.
-     * @param {Object} [nsMembers] - The list of objects that need to be added to the namespace being defined.
+     * @param {Object} [nsMemb] - The list of objects that need to be added to the namespace being defined.
      * @returns {Object} The newly-defined namespace.
      */
-    W.nsDef = function (nsName, nsMembers) {
+    W.nsDef = function (nsName, nsMemb) {
         // Precondition:
         console.assert(typeof nsName === 'string', 'nsName should be string');
-        if (nsMembers) {
-            console.assert(typeof nsMembers === 'object', 'nsMembers should be Object');
+        if (nsMemb) {
+            console.assert(typeof nsMemb === 'object', 'nsMemb should be Object');
         }
         
         var ns;
         try {
-            ns = WinJS.Namespace.define(nsName, nsMembers);
+            ns = WinJS.Namespace.define(nsName, nsMemb);
         } catch (e) {
             console.log(e);
         }
@@ -73,38 +75,40 @@ var W = (function () {
      * @example <caption>Add a namespace to an existing namespace:</caption>
      * (function () {
      *     'use strict';
-     *     W.nsDef("System");
-     *     W.nsChildDef(System, "Console", {
+     *     W.nsDef('System');
+     *     W.nsChildDef(System, 'Console', {
      *         WriteLine: function (msg) {
      *             console.log(msg);
      *         }
      *     });
-     *     W.nsChildDef(System, "out");
+     *     W.nsChildDef(System, 'out');
      *     System.out.println = function (msg) {
      *         console.log(msg);
      *     };
-     *     System.Console.WriteLine("A message from the WriteLine() method.");
-     *     System.out.println("A message from the println() method.");
+     *     System.Console.WriteLine('A message from the WriteLine() method.');
+     *     // A message from the WriteLine() method.
+     *     System.out.println('A message from the println() method.');
+     *     // A message from the println() method.
      * }());
      *
      * @memberof W
      * @method
      * @param {Object} nsParent - Name of the parent namespace.
      * @param {string} nsChildName - Name of the namespace to be added to the parent namespace.
-     * @param {Object} [nsChildMembers] - The list of objects to be added to the new namespace.
+     * @param {Object} [nsChildMemb] - The list of objects to be added to the new namespace.
      * @returns {Object} The newly-defined namespace.
      */
-    W.nsChildDef = function (nsParent, nsChildName, nsChildMembers) {
+    W.nsChildDef = function (nsParent, nsChildName, nsChildMemb) {
         // Precondition:
         console.assert(typeof nsParent === 'object', 'nsParent should be Object');
         console.assert(typeof nsChildName === 'string', 'nsChildName should be string');
-        if (nsChildMembers) {
-            console.assert(typeof nsChildMembers === 'object', 'nsChildMembers should be Object');
+        if (nsChildMemb) {
+            console.assert(typeof nsChildMemb === 'object', 'nsChildMemb should be Object');
         }
         
         var ns;
         try {
-            ns = WinJS.Namespace.defineWithParent(nsParent, nsChildName, nsChildMembers);
+            ns = WinJS.Namespace.defineWithParent(nsParent, nsChildName, nsChildMemb);
         } catch (e) {
             console.log(e);
         }
@@ -128,81 +132,95 @@ var W = (function () {
      * Create a class.
      * @access public
      *
-     * @example <caption>Example of class Robot:</caption>
-     * var Robot = W.clsDef(function (name) {
-     *         this.name = name;
-     *     }, {
-     *         modelName: "",
-     *         on: function () { },
-     *         off: function () { }
-     *     }, {
-     *         harmsHumans: false,
-     *         getModels: function () { return ["R2-D2", "WALL-E", "Bender"]; }
-     *     }),
-     *     models = Robot.getModels(),
-     *     r = new Robot("Artoo-Detoo");
-     * r.model = "R2-D2";
-     * r.on();
-     * Robot.harmsHumans = false;
-     * console.log(models);
-     *
-     * @example <caption>Example of class Car:</caption>
-     * var Car = W.clsDef(function (model) {
-     *         this.model = model;
-     *     }, {
-     *         _model: undefined,
-     *         model: {
-     *             set: function (value) { this._model = value; },
-     *             get: function () { return this._model; }
-     *         }
-     *     });
-     *
-     * @example <caption>Example of class Person:</caption>
-     * var Person = W.clsDef(function (firstName, lastName) {
-     *         this.firstName = firstName;
-     *         this.lastName = lastName;
-     *     }, {
-     *         _firstName: undefined,
-     *         _lastName: undefined,
-     *         firstName: {
-     *             set: function (value) { this._firstName = value; },
-     *             get: function () { return this._firstName; }
-     *         },
-     *         lastName: {
-     *             set: function (value) { this._lastName = value; },
-     *             get: function () { return this._lastName; }
-     *         }
-     *     }),
-     *     ag = new Person("Abbas", "Gussenov");
-     * console.log(ag.firstName + ' ' + ag.lastName);
+     * @example <caption>Creating a class:</caption>
+     * (function () {
+     *     'use strict';
+     *     var TCar = W.clsDef(function (model, color) {
+     *             this.model = model;
+     *             this.color = color;
+     *             this.constructor._count += 1;
+     *         }, {
+     *             _model: undefined,
+     *             model: {
+     *                 set: function (value) {
+     *                     this._model = value;
+     *                 },
+     *                 get: function () {
+     *                     return this._model;
+     *                 }
+     *             },
+     *             _color: undefined,
+     *             color: {
+     *                 set: function (value) {
+     *                     this._color = value;
+     *                 },
+     *                 get: function () {
+     *                     return this._color;
+     *                 }
+     *             },
+     *             display: function () {
+     *                 console.log(this.model + ' has ' + this.color + ' color.');
+     *             }
+     *         }, {
+     *             _count: 0,
+     *             count: {
+     *                 set: function (value) {
+     *                     throw new Error('UnimplementedMethod');
+     *                 },
+     *                 get: function () {
+     *                     return this._count;
+     *                 }
+     *             }
+     *         }),
+     *         cars = [];
+     *     cars.push(new TCar('Jaguar XE R-Sport', 'DarkRed'));
+     *     cars.push(new TCar('Porsche 718 Cayman S', 'DarkCyan'));
+     *     cars[0].display();
+     *     // Jaguar XE R-Sport has DarkRed color.
+     *     cars[1].display();
+     *     // Porsche 718 Cayman S has DarkCyan color.
+     *     cars[1].model = 'McLaren 570S';
+     *     cars[1].color = 'DarkOrange';
+     *     cars[1].display();
+     *     // McLaren 570S has DarkOrange color.
+     *     console.log('Number of instances of the TCar class: ' + TCar.count);
+     *     // Number of instances of the TCar class: 2
+     *     try {
+     *         TCar.count = 10;
+     *     } catch (e) {
+     *         console.log(e);
+     *         // Error: UnimplementedMethod(…)
+     *     }
+     * }());
      *
      * @memberof W
      * @method
-     * @param {function} constructor - The first parameter lets developers initialize a new object.
-     * @param {Object} instanceMembers - The second parameter is the collection of instance members, which includes properties and methods.
-     * @param {Object} [staticMembers] -  The third parameter includes static properties and static methods.
+     * @param {function} clsConst - The first parameter lets developers initialize a new object.
+     * @param {Object} clsMembInst - The collection of instance members, which includes properties and methods.
+     * @param {Object} [clsMembStat] -  Static properties and static methods.
      * @returns {function} The newly-defined type.
      */
-    W.clsDef = function (constructor, instanceMembers, staticMembers) {
-        // pre-condition
-        console.assert(typeof constructor === 'function', 'constructor should be function');
-        console.assert(typeof instanceMembers === 'object', 'instanceMembers should be Object');
-        if (staticMembers) {
-            console.assert(typeof staticMembers === 'object', 'staticMembers should be Object');
+    W.clsDef = function (clsConst, clsMembInst, clsMembStat) {
+        // Precondition:
+        console.assert(typeof clsConst === 'function', 'clsConst should be function');
+        console.assert(typeof clsMembInst === 'object', 'clsMembInst should be Object');
+        if (clsMembStat) {
+            console.assert(typeof clsMembStat === 'object', 'clsMembStat should be Object');
         }
         
-        var newClass;
+        var clazz;
         try {
-            newClass = WinJS.Class.define(constructor, instanceMembers, staticMembers);
+            clazz = WinJS.Class.define(clsConst, clsMembInst, clsMembStat);
         } catch (e) {
             console.log(e);
         }
         
-        console.assert(newClass !== undefined, 'newClass should not be undefined');
-        console.assert(newClass !== null, 'newClass should not be null');
-        console.assert(typeof newClass === 'function', 'newClass should be function');
+        // Postcondition:
+        console.assert(clazz !== undefined, 'clazz should not be undefined');
+        console.assert(clazz !== null, 'clazz should not be null');
+        console.assert(typeof clazz === 'function', 'clazz should be function');
         
-        return newClass;
+        return clazz;
     };
     
     /**
