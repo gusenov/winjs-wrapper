@@ -42,9 +42,9 @@ var W = (function () {
      *
      * @memberof W
      * @method
-     * @param {string} nsName - The name of the new namespace.
-     * @param {Object} [nsMemb] - The list of objects that need to be added to the namespace being defined.
-     * @returns {Object} The newly-defined namespace.
+     * @param   {string} nsName   - The name of the new namespace.
+     * @param   {Object} [nsMemb] - The list of objects that need to be added to the namespace being defined.
+     * @returns {Object}            The newly-defined namespace.
      */
     W.nsDef = function (nsName, nsMemb) {
         // Precondition:
@@ -93,10 +93,10 @@ var W = (function () {
      *
      * @memberof W
      * @method
-     * @param {Object} nsParent - Name of the parent namespace.
-     * @param {string} nsChildName - Name of the namespace to be added to the parent namespace.
-     * @param {Object} [nsChildMemb] - The list of objects to be added to the new namespace.
-     * @returns {Object} The newly-defined namespace.
+     * @param   {Object} nsParent      - Name of the parent namespace.
+     * @param   {string} nsChildName   - Name of the namespace to be added to the parent namespace.
+     * @param   {Object} [nsChildMemb] - The list of objects to be added to the new namespace.
+     * @returns {Object}                 The newly-defined namespace.
      */
     W.nsChildDef = function (nsParent, nsChildName, nsChildMemb) {
         // Precondition:
@@ -195,10 +195,10 @@ var W = (function () {
      *
      * @memberof W
      * @method
-     * @param {function} clsConst - The first parameter lets developers initialize a new object.
-     * @param {Object} clsMembInst - The collection of instance members, which includes properties and methods.
-     * @param {Object} [clsMembStat] -  Static properties and static methods.
-     * @returns {function} The newly-defined type.
+     * @param   {function} clsConst      - The first parameter lets developers initialize a new object.
+     * @param   {Object}   clsMembInst   - The collection of instance members, which includes properties and methods.
+     * @param   {Object}   [clsMembStat] - Static properties and static methods.
+     * @returns {function}                 The newly-defined type.
      */
     W.clsDef = function (clsConst, clsMembInst, clsMembStat) {
         // Precondition:
@@ -227,132 +227,150 @@ var W = (function () {
      * Derive one class from another.
      * @access public
      *
-     * @example <caption>Example of classes MechanicalCar and ElectricCar:</caption>
-     * var MechanicalCar = W.clsChildDef(Car, function (model, fuelTank) {
-     *         this.model = model;
-     *         this.fuelTank = fuelTank;
-     *     }, {
-     *         _fuelTank: undefined,
-     *         fuelTank: {
-     *             set: function (value) { this._fuelTank = value; },
-     *             get: function () { return this._fuelTank; }
-     *         }
-     *     }),
-     *
-     *     ElectricCar = W.clsChildDef(Car, function (model, batteryType) {
-     *         this.model = model;
-     *         this.batteryType = batteryType;
-     *     }, {
-     *         _batteryType: undefined,
-     *         batteryType: {
-     *             set: function (value) { this._batteryType = value; },
-     *             get: function () { return this._batteryType; }
-     *         }
-     *     });
-     *
-     * @example <caption>Example of class Employee:</caption>
-     * var Employee = W.clsChildDef(Person, function (firstName, lastName, position, hireDate) {
-     *         this.firstName = firstName;
-     *         this.lastName = lastName;
-     *         this.position = position;
-     *         this.hireDate = hireDate;
-     *     }, {
-     *         _hireDate: undefined,
-     *         _position: undefined,
-     *         hireDate: {
-     *             set: function (value) { this._hireDate = value; },
-     *             get: function () { return this._hireDate; }
-     *         },
-     *         position: {
-     *             set: function (value) { this._position = value; },
-     *             get: function () { return this._position; }
-     *         },
-     *         getDescription: function () {
-     *             var options = { day: 'numeric', month: 'long', year: 'numeric' };
-     *             return this.firstName + " " + this.lastName
-     *                 + " was hired as a " + this.position
-     *                 + " on the " + this.hireDate.toLocaleString("en-US", options) + ".";
-     *         }
-     *     }),
-     *     ag = new Employee("Abbas", "Gussenov", "software developer", new Date(2016, 8, 20));
-     * console.log(ag.getDescription());
+     * @example <caption>Deriving a class:</caption>
+     * (function () {
+     *     'use strict';
+     *     var TMechanicalCar = W.clsChildDef(TCar, function (model, color, fuelTank) {
+     *             this.model = model;
+     *             this.color = color;
+     *             this.fuelTank = fuelTank;
+     *             this.constructor._count += 1;
+     *         }, {
+     *             _fuelTank: undefined,
+     *             fuelTank: {
+     *                 set: function (value) {
+     *                     this._fuelTank = value;
+     *                 },
+     *                 get: function () {
+     *                     return this._fuelTank;
+     *                 }
+     *             },
+     *             display: function () {
+     *                 console.log(this.model + ' has ' + this.color + ' color and ' + this.fuelTank + ' gal fuel tank.');
+     *             }
+     *         }, {
+     *             _count: 0,
+     *             count: {
+     *                 set: function (value) {
+     *                     throw new Error('UnimplementedMethod');
+     *                 },
+     *                 get: function () {
+     *                     return this._count;
+     *                 }
+     *             }
+     *         }),
+     *         TElectricCar = W.clsChildDef(TCar, function (model, color, batteryType) {
+     *             this.model = model;
+     *             this.color = color;
+     *             this.batteryType = batteryType;
+     *             this.constructor._count += 1;
+     *         }, {
+     *             _batteryType: undefined,
+     *             batteryType: {
+     *                 set: function (value) {
+     *                     this._batteryType = value;
+     *                 },
+     *                 get: function () {
+     *                     return this._batteryType;
+     *                 }
+     *             },
+     *             display: function () {
+     *                 console.log(this.model + ' has ' + this.color + ' color and ' + this.batteryType + ' battery.');
+     *             }
+     *         }, {
+     *             _count: 0,
+     *             count: {
+     *                 set: function (value) {
+     *                     throw new Error('UnimplementedMethod');
+     *                 },
+     *                 get: function () {
+     *                     return this._count;
+     *                 }
+     *             }
+     *         }),
+     *         cars = [];
+     *     cars.push(new TMechanicalCar('Subaru BRZ', 'LightSkyBlue', 13.2));
+     *     cars.push(new TElectricCar('Tesla Model X', 'WhiteSmoke', 'Li-ion'));
+     *     cars[0].display();
+     *     // Subaru BRZ has LightSkyBlue color and 13.2 gal fuel tank.
+     *     cars[1].display();
+     *     // Tesla Model X has WhiteSmoke color and Li-ion battery.
+     *     console.log('Number of instances of the TCar class: ' + TCar.count);
+     *     // Number of instances of the TCar class: 0
+     *     console.log('Number of instances of the TMechanicalCar class: ' + TMechanicalCar.count);
+     *     // Number of instances of the TMechanicalCar class: 1
+     *     console.log('Number of instances of the TElectricCar class: ' + TElectricCar.count);
+     *     // Number of instances of the TElectricCar class: 1
+     * }());
      *
      * @memberof W
      * @method
-     * @param {function} baseClass - The class that the current class needs to inherit from.
-     * @param {function} constructor - This parameter refers to the constructor function that can be used to initialize the class members.
-     * @param {Object}   [instanceMembers] - This parameter defines instance members, which includes properties and methods.
-     * @param {Object}   [staticMembers] - This parameter defines static properties and static methods.
-     * @returns {function} The newly-defined type.
+     * @param   {function} clsBase       - The class that the current class needs to inherit from.
+     * @param   {function} clsConst      - The constructor function that can be used to initialize the class members.
+     * @param   {Object}   [clsMembInst] - Instance members, which includes properties and methods.
+     * @param   {Object}   [clsMembStat] - Static properties and static methods.
+     * @returns {function}                 The newly-defined type.
      */
-    W.clsChildDef = function (baseClass, constructor, instanceMembers, staticMembers) {
-        // pre-condition
-        console.assert(typeof baseClass === 'function', 'baseClass should be function');
-        console.assert(typeof constructor === 'function', 'constructor should be function');
-        if (instanceMembers) {
-            console.assert(typeof instanceMembers === 'object', 'instanceMembers should be Object');
+    W.clsChildDef = function (clsBase, clsConst, clsMembInst, clsMembStat) {
+        // Precondition:
+        console.assert(typeof clsBase === 'function', 'clsBase should be function');
+        console.assert(typeof clsConst === 'function', 'clsConst should be function');
+        if (clsMembInst) {
+            console.assert(typeof clsMembInst === 'object', 'clsMembInst should be Object');
         }
-        if (staticMembers) {
-            console.assert(typeof staticMembers === 'object', 'staticMembers should be Object');
+        if (clsMembStat) {
+            console.assert(typeof clsMembStat === 'object', 'clsMembStat should be Object');
         }
 
-        var newClass;
+        var clazz;
         try {
-            newClass = WinJS.Class.derive(baseClass, constructor, instanceMembers, staticMembers);
+            clazz = WinJS.Class.derive(clsBase, clsConst, clsMembInst, clsMembStat);
         } catch (e) {
             console.log(e);
         }
         
-        console.assert(newClass !== undefined, 'newClass should not be undefined');
-        console.assert(newClass !== null, 'newClass should not be null');
-        console.assert(typeof newClass === 'function', 'newClass should be function');
+        // Postcondition:
+        console.assert(clazz !== undefined, 'clazz should not be undefined');
+        console.assert(clazz !== null, 'clazz should not be null');
+        console.assert(typeof clazz === 'function', 'clazz should be function');
         
-        return newClass;
+        return clazz;
     };
     
     /**
      * Combine methods and properties from multiple JavaScript objects.
      * @access public
      *
-     * @example <caption>Example of class HybridCar:</caption>
-     * var HybridCar = W.clsMix(function (model, fuelTank, batteryType) {
-     *         this.model = model;
-     *         this.fuelTank = fuelTank;
-     *         this.batteryType = batteryType;
-     *     }, MechanicalCar, ElectricCar),
-     *
-     *     c = new HybridCar("Toyota Prius 2016", 43, "NiMH");
-     *
-     * console.log("Specs for " + c.model
-     *     + "\nBattery type: " + c.batteryType
-     *     + "\nFuel tank: " + c.fuelTank + " l");
+     * @example <caption>Create mixins:</caption>
+
      *
      * @memberof W
      * @method
-     * @param {function} constructor - The first parameter, which is used to initialize the class members.
-     * @param {...function} mixin - The second parameter is the array that takes the mixin methods.
-     * @returns {function} The newly defined class.
+     * @param {function}    constr - The first parameter, which is used to initialize the class members.
+     * @param {...function} mixin  - The array that takes the mixin methods.
+     * @returns {function}           The newly defined class.
      */
-    W.clsMix = function (constructor, mixin) {
-        var i, newClass;
+    W.clsMix = function (constr, mixin) {
+        var i, clazz;
         
-        // pre-condition
-        console.assert(typeof constructor === 'function', 'constructor should be function');
+        // Precondition:
+        console.assert(typeof constr === 'function', 'constr should be function');
         for (i = 1; i < arguments.length; i += 1) {
             console.assert(typeof arguments[i] === 'function', 'mixin should be function');
         }
 
         try {
-            newClass = WinJS.Class.mix.apply(null, arguments);
+            clazz = WinJS.Class.mix.apply(null, arguments);
         } catch (e) {
             console.log(e);
         }
         
-        console.assert(newClass !== undefined, 'newClass should not be undefined');
-        console.assert(newClass !== null, 'newClass should not be null');
-        console.assert(typeof newClass === 'function', 'newClass should be function');
+        // Postcondition:
+        console.assert(clazz !== undefined, 'clazz should not be undefined');
+        console.assert(clazz !== null, 'clazz should not be null');
+        console.assert(typeof clazz === 'function', 'clazz should be function');
         
-        return newClass;
+        return clazz;
     };
     
     // </OOP>

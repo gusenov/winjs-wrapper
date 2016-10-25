@@ -381,7 +381,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line827">line 827</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line845">line 845</a>
     </li></ul></dd>
     
 
@@ -522,7 +522,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line799">line 799</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line817">line 817</a>
     </li></ul></dd>
     
 
@@ -695,7 +695,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line736">line 736</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line754">line 754</a>
     </li></ul></dd>
     
 
@@ -839,7 +839,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line678">line 678</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line696">line 696</a>
     </li></ul></dd>
     
 
@@ -978,7 +978,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line690">line 690</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line708">line 708</a>
     </li></ul></dd>
     
 
@@ -1015,7 +1015,7 @@
 
     
 
-    <h4 class="name" id=".clsChildDef"><span class="type-signature">(static) </span>clsChildDef<span class="signature">(baseClass, constructor, instanceMembers<span class="signature-attributes">opt</span>, staticMembers<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id=".clsChildDef"><span class="type-signature">(static) </span>clsChildDef<span class="signature">(clsBase, clsConst, clsMembInst<span class="signature-attributes">opt</span>, clsMembStat<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -1060,7 +1060,7 @@
 
         <tr>
             
-                <td class="name"><code>baseClass</code></td>
+                <td class="name"><code>clsBase</code></td>
             
 
             <td class="type">
@@ -1091,7 +1091,7 @@
 
         <tr>
             
-                <td class="name"><code>constructor</code></td>
+                <td class="name"><code>clsConst</code></td>
             
 
             <td class="type">
@@ -1115,14 +1115,14 @@
 
             
 
-            <td class="description last">This parameter refers to the constructor function that can be used to initialize the class members.</td>
+            <td class="description last">The constructor function that can be used to initialize the class members.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>instanceMembers</code></td>
+                <td class="name"><code>clsMembInst</code></td>
             
 
             <td class="type">
@@ -1148,14 +1148,14 @@
 
             
 
-            <td class="description last">This parameter defines instance members, which includes properties and methods.</td>
+            <td class="description last">Instance members, which includes properties and methods.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>staticMembers</code></td>
+                <td class="name"><code>clsMembStat</code></td>
             
 
             <td class="type">
@@ -1181,7 +1181,7 @@
 
             
 
-            <td class="description last">This parameter defines static properties and static methods.</td>
+            <td class="description last">Static properties and static methods.</td>
         </tr>
 
     
@@ -1222,7 +1222,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line288">line 288</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line314">line 314</a>
     </li></ul></dd>
     
 
@@ -1269,15 +1269,11 @@
     
 
 
-    <h5>Examples</h5>
+    <h5>Example</h5>
     
-        <p class="code-caption">Example of classes MechanicalCar and ElectricCar:</p>
+        <p class="code-caption">Deriving a class:</p>
     
-    <pre class="prettyprint"><code>var MechanicalCar = W.clsChildDef(Car, function (model, fuelTank) {        this.model = model;        this.fuelTank = fuelTank;    }, {        _fuelTank: undefined,        fuelTank: {            set: function (value) { this._fuelTank = value; },            get: function () { return this._fuelTank; }        }    }),    ElectricCar = W.clsChildDef(Car, function (model, batteryType) {        this.model = model;        this.batteryType = batteryType;    }, {        _batteryType: undefined,        batteryType: {            set: function (value) { this._batteryType = value; },            get: function () { return this._batteryType; }        }    });</code></pre>
-
-        <p class="code-caption">Example of class Employee:</p>
-    
-    <pre class="prettyprint"><code>var Employee = W.clsChildDef(Person, function (firstName, lastName, position, hireDate) {        this.firstName = firstName;        this.lastName = lastName;        this.position = position;        this.hireDate = hireDate;    }, {        _hireDate: undefined,        _position: undefined,        hireDate: {            set: function (value) { this._hireDate = value; },            get: function () { return this._hireDate; }        },        position: {            set: function (value) { this._position = value; },            get: function () { return this._position; }        },        getDescription: function () {            var options = { day: 'numeric', month: 'long', year: 'numeric' };            return this.firstName + " " + this.lastName                + " was hired as a " + this.position                + " on the " + this.hireDate.toLocaleString("en-US", options) + ".";        }    }),    ag = new Employee("Abbas", "Gussenov", "software developer", new Date(2016, 8, 20));console.log(ag.getDescription());</code></pre>
+    <pre class="prettyprint"><code>(function () {    'use strict';    var TMechanicalCar = W.clsChildDef(TCar, function (model, color, fuelTank) {            this.model = model;            this.color = color;            this.fuelTank = fuelTank;            this.constructor._count += 1;        }, {            _fuelTank: undefined,            fuelTank: {                set: function (value) {                    this._fuelTank = value;                },                get: function () {                    return this._fuelTank;                }            },            display: function () {                console.log(this.model + ' has ' + this.color + ' color and ' + this.fuelTank + ' gal fuel tank.');            }        }, {            _count: 0,            count: {                set: function (value) {                    throw new Error('UnimplementedMethod');                },                get: function () {                    return this._count;                }            }        }),        TElectricCar = W.clsChildDef(TCar, function (model, color, batteryType) {            this.model = model;            this.color = color;            this.batteryType = batteryType;            this.constructor._count += 1;        }, {            _batteryType: undefined,            batteryType: {                set: function (value) {                    this._batteryType = value;                },                get: function () {                    return this._batteryType;                }            },            display: function () {                console.log(this.model + ' has ' + this.color + ' color and ' + this.batteryType + ' battery.');            }        }, {            _count: 0,            count: {                set: function (value) {                    throw new Error('UnimplementedMethod');                },                get: function () {                    return this._count;                }            }        }),        cars = [];    cars.push(new TMechanicalCar('Subaru BRZ', 'LightSkyBlue', 13.2));    cars.push(new TElectricCar('Tesla Model X', 'WhiteSmoke', 'Li-ion'));    cars[0].display();    // Subaru BRZ has LightSkyBlue color and 13.2 gal fuel tank.    cars[1].display();    // Tesla Model X has WhiteSmoke color and Li-ion battery.    console.log('Number of instances of the TCar class: ' + TCar.count);    // Number of instances of the TCar class: 0    console.log('Number of instances of the TMechanicalCar class: ' + TMechanicalCar.count);    // Number of instances of the TMechanicalCar class: 1    console.log('Number of instances of the TElectricCar class: ' + TElectricCar.count);    // Number of instances of the TElectricCar class: 1}());</code></pre>
 
 
 
@@ -1520,7 +1516,7 @@
 
     
 
-    <h4 class="name" id=".clsMix"><span class="type-signature">(static) </span>clsMix<span class="signature">(constructor, &hellip;mixin)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id=".clsMix"><span class="type-signature">(static) </span>clsMix<span class="signature">(constr, &hellip;mixin)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -1565,7 +1561,7 @@
 
         <tr>
             
-                <td class="name"><code>constructor</code></td>
+                <td class="name"><code>constr</code></td>
             
 
             <td class="type">
@@ -1622,7 +1618,7 @@
 
             
 
-            <td class="description last">The second parameter is the array that takes the mixin methods.</td>
+            <td class="description last">The array that takes the mixin methods.</td>
         </tr>
 
     
@@ -1663,7 +1659,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line336">line 336</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line353">line 353</a>
     </li></ul></dd>
     
 
@@ -1712,9 +1708,7 @@
 
     <h5>Example</h5>
     
-        <p class="code-caption">Example of class HybridCar:</p>
-    
-    <pre class="prettyprint"><code>var HybridCar = W.clsMix(function (model, fuelTank, batteryType) {        this.model = model;        this.fuelTank = fuelTank;        this.batteryType = batteryType;    }, MechanicalCar, ElectricCar),    c = new HybridCar("Toyota Prius 2016", 43, "NiMH");console.log("Specs for " + c.model    + "\nBattery type: " + c.batteryType    + "\nFuel tank: " + c.fuelTank + " l");</code></pre>
+    <pre class="prettyprint"><code>&lt;caption>Create mixins:&lt;/caption></code></pre>
 
 
 
@@ -1866,7 +1860,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line397">line 397</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line415">line 415</a>
     </li></ul></dd>
     
 
@@ -2139,7 +2133,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line431">line 431</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line449">line 449</a>
     </li></ul></dd>
     
 
@@ -2356,7 +2350,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line490">line 490</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line508">line 508</a>
     </li></ul></dd>
     
 
@@ -2504,7 +2498,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line537">line 537</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line555">line 555</a>
     </li></ul></dd>
     
 
@@ -2664,7 +2658,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line377">line 377</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line395">line 395</a>
     </li></ul></dd>
     
 
@@ -2858,7 +2852,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line470">line 470</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line488">line 488</a>
     </li></ul></dd>
     
 
@@ -2969,7 +2963,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1908">line 1908</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1926">line 1926</a>
     </li></ul></dd>
     
 
@@ -3599,7 +3593,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line894">line 894</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line912">line 912</a>
     </li></ul></dd>
     
 
@@ -3775,7 +3769,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line917">line 917</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line935">line 935</a>
     </li></ul></dd>
     
 
@@ -4009,7 +4003,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1802">line 1802</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1820">line 1820</a>
     </li></ul></dd>
     
 
@@ -4318,7 +4312,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1673">line 1673</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1691">line 1691</a>
     </li></ul></dd>
     
 
@@ -4469,7 +4463,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1748">line 1748</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1766">line 1766</a>
     </li></ul></dd>
     
 
@@ -4758,7 +4752,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1108">line 1108</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1126">line 1126</a>
     </li></ul></dd>
     
 
@@ -4937,7 +4931,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1319">line 1319</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1337">line 1337</a>
     </li></ul></dd>
     
 
@@ -5036,7 +5030,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line959">line 959</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line977">line 977</a>
     </li></ul></dd>
     
 
@@ -5216,7 +5210,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1490">line 1490</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1508">line 1508</a>
     </li></ul></dd>
     
 
@@ -5387,7 +5381,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1547">line 1547</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1565">line 1565</a>
     </li></ul></dd>
     
 
@@ -5670,7 +5664,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1401">line 1401</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1419">line 1419</a>
     </li></ul></dd>
     
 
@@ -5859,7 +5853,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1629">line 1629</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1647">line 1647</a>
     </li></ul></dd>
     
 
@@ -6120,7 +6114,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1003">line 1003</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1021">line 1021</a>
     </li></ul></dd>
     
 
@@ -6314,7 +6308,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line943">line 943</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line961">line 961</a>
     </li></ul></dd>
     
 
@@ -6450,7 +6444,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1268">line 1268</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1286">line 1286</a>
     </li></ul></dd>
     
 
@@ -6589,7 +6583,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1826">line 1826</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1844">line 1844</a>
     </li></ul></dd>
     
 
@@ -6939,7 +6933,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1155">line 1155</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1173">line 1173</a>
     </li></ul></dd>
     
 
@@ -7100,7 +7094,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1206">line 1206</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1224">line 1224</a>
     </li></ul></dd>
     
 
@@ -7423,7 +7417,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1059">line 1059</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1077">line 1077</a>
     </li></ul></dd>
     
 
@@ -7567,7 +7561,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1844">line 1844</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line1862">line 1862</a>
     </li></ul></dd>
     
 
@@ -7733,7 +7727,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="w.js.html">w.js</a>, <a href="w.js.html#line900">line 900</a>
+        <a href="w.js.html">w.js</a>, <a href="w.js.html#line918">line 918</a>
     </li></ul></dd>
     
 
@@ -7779,7 +7773,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Oct 21 2016 18:10:29 GMT+0600 (Центральная Азия (зима))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Wed Oct 26 2016 03:30:25 GMT+0600 (Центральная Азия (зима))
 </footer>
 
 <script> prettyPrint(); </script>

@@ -8,14 +8,8 @@
         * [Add a namespace to an existing namespace](#add-a-namespace-to-an-existing-namespace)
     * [Object-oriented programming](#object-oriented-programming)
         * [Creating a class](#creating-a-class)
-            * [Example of class Robot](#example-of-class-robot)
-            * [Example of class Car](#example-of-class-car)
-            * [Example of class Person](#example-of-class-person)
         * [Deriving a class](#deriving-a-class)
-            * [Example of classes MechanicalCar and ElectricCar](#example-of-classes-mechanicalcar-and-electriccar)
-            * [Example of class Employee](#example-of-class-employee)
         * [Create mixins](#create-mixins)
-            * [Example of class HybridCar](#example-of-class-hybridcar)
     * [Manage events](#manage-events)
         * [Example of adding event management functionality to the class Person](#example-of-adding-event-management-functionality-to-the-class-person)
         * [Example of defining event in the class Person](#example-of-defining-event-in-the-class-person)
@@ -172,80 +166,89 @@ Examples
 }());
 ```
 
-### Deriving a class ###
-
-#### Example of classes MechanicalCar and ElectricCar: ####
+#### Deriving a class ####
 
 ```js
-var MechanicalCar = W.clsChildDef(Car, function (model, fuelTank) {
-        this.model = model;
-        this.fuelTank = fuelTank;
-    }, {
-        _fuelTank: undefined,
-        fuelTank: {
-            set: function (value) { this._fuelTank = value; },
-            get: function () { return this._fuelTank; }
-        }
-    }),
-
-    ElectricCar = W.clsChildDef(Car, function (model, batteryType) {
-        this.model = model;
-        this.batteryType = batteryType;
-    }, {
-        _batteryType: undefined,
-        batteryType: {
-            set: function (value) { this._batteryType = value; },
-            get: function () { return this._batteryType; }
-        }
-    });
+(function () {
+    'use strict';
+    var TMechanicalCar = W.clsChildDef(TCar, function (model, color, fuelTank) {
+            this.model = model;            
+            this.color = color;
+            this.fuelTank = fuelTank;
+            this.constructor._count += 1;
+        }, {
+            _fuelTank: undefined,
+            fuelTank: {
+                set: function (value) {
+                    this._fuelTank = value;
+                },
+                get: function () {
+                    return this._fuelTank;
+                }
+            },
+            display: function () {
+                console.log(this.model + ' has ' + this.color + ' color and ' + this.fuelTank + ' gal fuel tank.');
+            }
+        }, {
+            _count: 0,
+            count: {
+                set: function (value) {
+                    throw new Error('UnimplementedMethod');
+                },
+                get: function () {
+                    return this._count;
+                }
+            }
+        }),
+        TElectricCar = W.clsChildDef(TCar, function (model, color, batteryType) {
+            this.model = model;            
+            this.color = color;
+            this.batteryType = batteryType;
+            this.constructor._count += 1;
+        }, {
+            _batteryType: undefined,
+            batteryType: {
+                set: function (value) {
+                    this._batteryType = value;
+                },
+                get: function () {
+                    return this._batteryType;
+                }
+            },
+            display: function () {
+                console.log(this.model + ' has ' + this.color + ' color and ' + this.batteryType + ' battery.');
+            }
+        }, {
+            _count: 0,
+            count: {
+                set: function (value) {
+                    throw new Error('UnimplementedMethod');
+                },
+                get: function () {
+                    return this._count;
+                }
+            }
+        }),
+        cars = [];
+    cars.push(new TMechanicalCar('Subaru BRZ', 'LightSkyBlue', 13.2));
+    cars.push(new TElectricCar('Tesla Model X', 'WhiteSmoke', 'Li-ion'));
+    cars[0].display();
+    // Subaru BRZ has LightSkyBlue color and 13.2 gal fuel tank.
+    cars[1].display();
+    // Tesla Model X has WhiteSmoke color and Li-ion battery.
+    console.log('Number of instances of the TCar class: ' + TCar.count);
+    // Number of instances of the TCar class: 0
+    console.log('Number of instances of the TMechanicalCar class: ' + TMechanicalCar.count);
+    // Number of instances of the TMechanicalCar class: 1
+    console.log('Number of instances of the TElectricCar class: ' + TElectricCar.count);
+    // Number of instances of the TElectricCar class: 1
+}());
 ```
 
-#### Example of class Employee: ####
+#### Create mixins ####
 
 ```js
-var Employee = W.clsChildDef(Person, function (firstName, lastName, position, hireDate) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.position = position;
-        this.hireDate = hireDate;
-    }, {
-        _hireDate: undefined,
-        _position: undefined,
-        hireDate: {
-            set: function (value) { this._hireDate = value; },
-            get: function () { return this._hireDate; }
-        },
-        position: {
-            set: function (value) { this._position = value; },
-            get: function () { return this._position; }
-        },
-        getDescription: function () {
-            var options = { day: 'numeric', month: 'long', year: 'numeric' };
-            return this.firstName + " " + this.lastName
-                + " was hired as a " + this.position
-                + " on the " + this.hireDate.toLocaleString("en-US", options) + ".";
-        }
-    }),
-    ag = new Employee("Abbas", "Gussenov", "software developer", new Date(2016, 8, 20));
-console.log(ag.getDescription());
-```
 
-### Create mixins ###
-
-#### Example of class HybridCar: ####
-
-```js
-var HybridCar = W.clsMix(function (model, fuelTank, batteryType) {
-        this.model = model;
-        this.fuelTank = fuelTank;
-        this.batteryType = batteryType;
-    }, MechanicalCar, ElectricCar),
-
-    c = new HybridCar("Toyota Prius 2016", 43, "NiMH");
-
-console.log("Specs for " + c.model
-    + "\nBattery type: " + c.batteryType
-    + "\nFuel tank: " + c.fuelTank + " l");
 ```
 
 ### Manage events
